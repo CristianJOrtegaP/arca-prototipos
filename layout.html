@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arca.OS | Dashboard - Prototipo</title>
+    <link rel="stylesheet" href="arca-continental-theme.css">
+    <style>
+        /* === BASE RESET === */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--color-neutral-1);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes dotGlow {
+            0%, 100% {
+                box-shadow: 0 0 5px var(--color-red);
+            }
+            50% {
+                box-shadow: 0 0 15px var(--color-red), 0 0 25px var(--color-red);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* === MAIN LAYOUT === */
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* === SIDEBAR === */
+        .sidebar {
+            width: 260px;
+            background: var(--color-neutral-0);
+            border-right: 1px solid var(--color-neutral-3);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--color-neutral-2);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--color-neutral-9);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-red);
+            border-radius: 50%;
+            animation: dotGlow 2s ease-in-out infinite;
+        }
+
+        /* Navigation */
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 12px;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--color-neutral-5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 12px;
+            margin-bottom: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            color: var(--color-neutral-6);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: var(--color-neutral-1);
+            color: var(--color-neutral-8);
+        }
+
+        .nav-item.active {
+            background: var(--color-red-light);
+            color: var(--color-red);
+            font-weight: 600;
+        }
+
+        .nav-item-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .nav-item-badge {
+            margin-left: auto;
+            background: var(--color-red);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 100px;
+        }
+
+        /* Sidebar Footer */
+        .sidebar-footer {
+            padding: 16px 12px;
+            border-top: 1px solid var(--color-neutral-2);
+        }
+
+        .user-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            background: var(--color-neutral-1);
+            margin-bottom: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .user-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-neutral-9);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: var(--color-neutral-5);
+        }
+
+        .btn-logout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: var(--color-red-light);
+            border: none;
+            border-radius: 10px;
+            color: var(--color-red);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            background: var(--color-red);
+            color: white;
+        }
+
+        /* === MAIN CONTENT === */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: var(--color-neutral-0);
+            border-bottom: 1px solid var(--color-neutral-3);
+            padding: 0 32px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: var(--color-neutral-5);
+        }
+
+        .breadcrumb a {
+            color: var(--color-neutral-5);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--color-red);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--color-neutral-1);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            font-size: 18px;
+        }
+
+        .header-btn:hover {
+            background: var(--color-neutral-2);
+        }
+
+        .header-btn .badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            background: var(--color-red);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--color-neutral-3);
+            margin: 0 8px;
+        }
+
+        .header-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 32px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .content-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-secondary {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--color-neutral-0);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 10px;
+            color: var(--color-neutral-6);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-neutral-4);
+            color: var(--color-neutral-8);
+        }
+
+        .btn-primary {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--color-red);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-red-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--color-neutral-0);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 16px;
+            padding: 24px;
+            animation: fadeInUp 0.5s ease-out both;
+        }
+
+        .metric-card:nth-child(1) { animation-delay: 0.1s; }
+        .metric-card:nth-child(2) { animation-delay: 0.2s; }
+        .metric-card:nth-child(3) { animation-delay: 0.3s; }
+        .metric-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-neutral-6);
+        }
+
+        .metric-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .metric-icon.red { background: var(--color-red-light); }
+        .metric-icon.green { background: rgba(16, 185, 129, 0.1); }
+        .metric-icon.yellow { background: rgba(245, 158, 11, 0.1); }
+        .metric-icon.blue { background: rgba(59, 130, 246, 0.1); }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--color-neutral-9);
+            margin-bottom: 8px;
+        }
+
+        .metric-change {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .metric-change.positive { color: #10B981; }
+        .metric-change.negative { color: #F59E0B; }
+        .metric-change.info { color: #3B82F6; }
+
+        /* Table Card */
+        .table-card {
+            background: var(--color-neutral-0);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 16px;
+            padding: 24px;
+            animation: fadeInUp 0.5s ease-out 0.5s both;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .table-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        .table-link {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-red);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .table-link:hover {
+            text-decoration: underline;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px 16px;
+            background: var(--color-neutral-1);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-neutral-6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table th:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .data-table th:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--color-neutral-2);
+            font-size: 14px;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover td {
+            background: var(--color-neutral-1);
+        }
+
+        .order-id {
+            font-weight: 600;
+            color: var(--color-neutral-9);
+        }
+
+        .client-name {
+            color: var(--color-neutral-8);
+        }
+
+        .amount {
+            font-weight: 600;
+            color: var(--color-neutral-9);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+
+        .status-badge.warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+        }
+
+        .status-badge.danger {
+            background: var(--color-red-light);
+            color: var(--color-red);
+        }
+
+        .date {
+            color: var(--color-neutral-5);
+        }
+
+        /* === MOBILE MENU TOGGLE === */
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--color-neutral-1);
+            border: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 1200px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay.open {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .top-header {
+                padding: 0 16px;
+            }
+
+            .content-area {
+                padding: 16px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .content-actions {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .btn-primary {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .data-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .header-right .header-btn:not(:last-child):not(.mobile-menu-btn) {
+                display: none;
+            }
+
+            .header-divider {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <span class="logo-text">ARCA</span>
+                    <span class="logo-dot"></span>
+                    <span class="logo-text">OS</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Principal</div>
+                    <a href="#" class="nav-item active">
+                        <span class="nav-item-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">📋</span>
+                        <span>Órdenes de Recuperación</span>
+                        <span class="nav-item-badge">24</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">📦</span>
+                        <span>Inventario</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">👥</span>
+                        <span>Clientes</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Análisis</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">📈</span>
+                        <span>Reportes</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">🎯</span>
+                        <span>Metas</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Sistema</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">⚙️</span>
+                        <span>Configuración</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">❓</span>
+                        <span>Ayuda</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="user-avatar">JO</div>
+                    <div class="user-info">
+                        <div class="user-name">Juan Operador</div>
+                        <div class="user-role">Supervisor de Zona</div>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="handleLogout()">
+                    <span>🚪</span>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                    <h1 class="page-title">Dashboard</h1>
+                    <div class="breadcrumb">
+                        <a href="#">Inicio</a> / Dashboard
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button class="header-btn" title="Buscar">🔍</button>
+                    <button class="header-btn" title="Notificaciones">
+                        🔔
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="header-btn" title="Ayuda">❓</button>
+                    <div class="header-divider"></div>
+                    <div class="header-avatar">JO</div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="content-header">
+                    <h2 class="content-title">Resumen General</h2>
+                    <div class="content-actions">
+                        <button class="btn-secondary">
+                            <span>🎛️</span>
+                            <span>Filtros</span>
+                        </button>
+                        <button class="btn-secondary">
+                            <span>📤</span>
+                            <span>Exportar</span>
+                        </button>
+                        <button class="btn-primary">
+                            <span>➕</span>
+                            <span>Nueva Orden</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Metrics -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-label">Órdenes Activas</span>
+                            <div class="metric-icon red">📋</div>
+                        </div>
+                        <div class="metric-value">247</div>
+                        <div class="metric-change positive">
+                            <span>↑</span>
+                            <span>+12% vs mes anterior</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-label">Recuperadas</span>
+                            <div class="metric-icon green">✅</div>
+                        </div>
+                        <div class="metric-value">189</div>
+                        <div class="metric-change positive">
+                            <span>↑</span>
+                            <span>+8% vs mes anterior</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-label">Pendientes</span>
+                            <div class="metric-icon yellow">⏳</div>
+                        </div>
+                        <div class="metric-value">58</div>
+                        <div class="metric-change negative">
+                            <span>↓</span>
+                            <span>-5% vs mes anterior</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-label">Tasa de Éxito</span>
+                            <div class="metric-icon blue">📊</div>
+                        </div>
+                        <div class="metric-value">76.5%</div>
+                        <div class="metric-change info">
+                            <span>↑</span>
+                            <span>+3.2% vs mes anterior</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3 class="table-title">Órdenes Recientes</h3>
+                        <a class="table-link">Ver todas →</a>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID Orden</th>
+                                <th>Cliente</th>
+                                <th>Monto</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="order-id">ORD-2847</td>
+                                <td class="client-name">Distribuidora Norte S.A.</td>
+                                <td class="amount">$12,450.00</td>
+                                <td><span class="status-badge success">Recuperada</span></td>
+                                <td class="date">28 Ene 2024</td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">ORD-2846</td>
+                                <td class="client-name">Comercial del Valle</td>
+                                <td class="amount">$8,320.00</td>
+                                <td><span class="status-badge warning">En Proceso</span></td>
+                                <td class="date">27 Ene 2024</td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">ORD-2845</td>
+                                <td class="client-name">Abarrotes Premium</td>
+                                <td class="amount">$5,890.00</td>
+                                <td><span class="status-badge danger">Pendiente</span></td>
+                                <td class="date">26 Ene 2024</td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">ORD-2844</td>
+                                <td class="client-name">Super Mayorista Central</td>
+                                <td class="amount">$23,100.00</td>
+                                <td><span class="status-badge success">Recuperada</span></td>
+                                <td class="date">25 Ene 2024</td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">ORD-2843</td>
+                                <td class="client-name">Tiendas Express MX</td>
+                                <td class="amount">$15,780.00</td>
+                                <td><span class="status-badge success">Recuperada</span></td>
+                                <td class="date">24 Ene 2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        });
+
+        // Nav Item Click Handler
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+
+                // Close mobile menu
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('open');
+            });
+        });
+
+        // Logout Handler
+        function handleLogout() {
+            if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Header buttons animation
+        document.querySelectorAll('.header-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Metric cards hover effect
+        document.querySelectorAll('.metric-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-4px)';
+                this.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.08)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Table row hover
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', function() {
+                const orderId = this.querySelector('.order-id').textContent;
+                console.log('Viewing order:', orderId);
+                // Here you could navigate to order details
+            });
+        });
+    </script>
+</body>
+</html>
