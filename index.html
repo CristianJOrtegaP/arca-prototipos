@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arca.OS | Prototipos</title>
+    <link rel="stylesheet" href="arca-continental-theme.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--color-neutral-1);
+            min-height: 100vh;
+            padding: 60px 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--color-neutral-9);
+            letter-spacing: 1px;
+        }
+
+        .logo-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--color-red);
+            border-radius: 50%;
+        }
+
+        .header-title {
+            font-size: 18px;
+            color: var(--color-neutral-6);
+            font-weight: 500;
+        }
+
+        .header-badge {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 8px 20px;
+            background: var(--color-red);
+            color: white;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Prototypes Grid */
+        .prototypes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .prototype-card {
+            background: var(--color-neutral-0);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--color-neutral-3);
+            transition: var(--transition-base);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .prototype-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-l);
+            border-color: var(--color-red);
+        }
+
+        .prototype-preview {
+            height: 200px;
+            background: var(--color-neutral-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prototype-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .prototype-preview-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: var(--color-neutral-5);
+        }
+
+        .prototype-preview-placeholder svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.5;
+        }
+
+        .preview-label {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 6px 12px;
+            background: var(--color-neutral-0);
+            border-radius: 100px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--color-neutral-7);
+            letter-spacing: 0.5px;
+        }
+
+        .preview-label.responsive {
+            background: var(--color-success-light);
+            color: var(--color-success);
+        }
+
+        .prototype-info {
+            padding: 24px;
+        }
+
+        .prototype-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+            margin-bottom: 8px;
+        }
+
+        .prototype-desc {
+            font-size: 14px;
+            color: var(--color-neutral-6);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .prototype-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            background: var(--color-neutral-2);
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--color-neutral-7);
+        }
+
+        .tag.primary {
+            background: var(--color-red-light);
+            color: var(--color-red);
+        }
+
+        /* Coming Soon */
+        .prototype-card.coming-soon {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .prototype-card.coming-soon .prototype-preview {
+            filter: grayscale(100%);
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 8px 16px;
+            background: var(--color-neutral-9);
+            color: var(--color-neutral-0);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--color-neutral-3);
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--color-neutral-5);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 40px 16px;
+            }
+
+            .header {
+                margin-bottom: 40px;
+            }
+
+            .logo-text {
+                font-size: 26px;
+            }
+
+            .prototypes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-text">ARCA</span>
+                <span class="logo-dot"></span>
+                <span class="logo-text">OS</span>
+            </div>
+            <p class="header-title">Prototipos Interactivos</p>
+            <span class="header-badge">DESIGN SYSTEM v1.0</span>
+        </header>
+
+        <!-- Prototypes Grid -->
+        <div class="prototypes-grid">
+            <!-- Login -->
+            <a href="login.html" class="prototype-card">
+                <div class="prototype-preview">
+                    <div class="prototype-preview-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                        </svg>
+                        <span>Login Screen</span>
+                    </div>
+                    <span class="preview-label responsive">RESPONSIVE</span>
+                </div>
+                <div class="prototype-info">
+                    <h3 class="prototype-title">Login</h3>
+                    <p class="prototype-desc">
+                        Pantalla de autenticación con validación de formularios, estados de error y animaciones.
+                    </p>
+                    <div class="prototype-tags">
+                        <span class="tag primary">Desktop</span>
+                        <span class="tag primary">Mobile</span>
+                        <span class="tag">Formularios</span>
+                        <span class="tag">Animaciones</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Dashboard (Coming Soon) -->
+            <div class="prototype-card coming-soon">
+                <div class="prototype-preview">
+                    <div class="prototype-preview-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                    </div>
+                    <span class="coming-soon-badge">PRÓXIMAMENTE</span>
+                </div>
+                <div class="prototype-info">
+                    <h3 class="prototype-title">Dashboard</h3>
+                    <p class="prototype-desc">
+                        Panel principal con métricas, gráficos y resumen de órdenes de recuperación.
+                    </p>
+                    <div class="prototype-tags">
+                        <span class="tag">Métricas</span>
+                        <span class="tag">Gráficos</span>
+                        <span class="tag">Cards</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de Órdenes (Coming Soon) -->
+            <div class="prototype-card coming-soon">
+                <div class="prototype-preview">
+                    <div class="prototype-preview-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                    </div>
+                    <span class="coming-soon-badge">PRÓXIMAMENTE</span>
+                </div>
+                <div class="prototype-info">
+                    <h3 class="prototype-title">Lista de Órdenes</h3>
+                    <p class="prototype-desc">
+                        Tabla de datos con filtros, búsqueda y acciones para gestionar órdenes.
+                    </p>
+                    <div class="prototype-tags">
+                        <span class="tag">Tabla</span>
+                        <span class="tag">Filtros</span>
+                        <span class="tag">Paginación</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalle de Orden (Coming Soon) -->
+            <div class="prototype-card coming-soon">
+                <div class="prototype-preview">
+                    <div class="prototype-preview-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <span class="coming-soon-badge">PRÓXIMAMENTE</span>
+                </div>
+                <div class="prototype-info">
+                    <h3 class="prototype-title">Detalle de Orden</h3>
+                    <p class="prototype-desc">
+                        Vista detallada de una orden con timeline, información y acciones.
+                    </p>
+                    <div class="prototype-tags">
+                        <span class="tag">Timeline</span>
+                        <span class="tag">Detalles</span>
+                        <span class="tag">Acciones</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">DIGITAL PROCESS AUTOMATION (DPA) &copy; 2024</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arca.OS | Login - Prototipo</title>
+    <link rel="stylesheet" href="arca-continental-theme.css">
+    <style>
+        /* === BASE RESET === */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: var(--font-primary);
+            background: var(--color-neutral-0);
+            color: var(--color-text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === ANIMACIONES === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(195, 43, 64, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(195, 43, 64, 0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        /* Pulse Wave Animation */
+        @keyframes pulseWave {
+            0% {
+                transform: translate(-50%, -50%) scale(0.3);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.35;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(3.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes dotGlow {
+            0%, 100% {
+                box-shadow: 0 0 5px var(--color-red);
+                opacity: 1;
+            }
+            50% {
+                box-shadow: 0 0 20px var(--color-red), 0 0 30px var(--color-red);
+                opacity: 0.8;
+            }
+        }
+
+        /* === LAYOUT PRINCIPAL === */
+        .login-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* === PANEL IZQUIERDO (BRANDING) === */
+        .login-brand {
+            flex: 1;
+            background: linear-gradient(135deg, var(--color-neutral-1) 0%, var(--color-neutral-2) 100%);
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Pulse Rings Container */
+        .pulse-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            border: 2px solid var(--color-red);
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulseWave 5s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+        }
+
+        .pulse-ring:nth-child(2) {
+            animation-delay: 1.6s;
+        }
+
+        .pulse-ring:nth-child(3) {
+            animation-delay: 3.2s;
+        }
+
+        /* Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--color-neutral-9);
+            letter-spacing: 1px;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--color-red);
+            border-radius: 50%;
+            animation: dotGlow 2s ease-in-out infinite;
+        }
+
+        /* Badge DPA */
+        .dpa-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--color-neutral-0);
+            border: 1.5px solid var(--color-red);
+            border-radius: 100px;
+            color: var(--color-red);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Hero Title */
+        .hero-title {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -2px;
+            color: var(--color-neutral-9);
+            margin-bottom: 24px;
+        }
+
+        .hero-title span {
+            color: var(--color-red);
+            display: block;
+        }
+
+        /* Hero Description */
+        .hero-desc {
+            font-size: 15px;
+            color: var(--color-neutral-6);
+            line-height: 1.7;
+            max-width: 400px;
+            margin: 0 auto 40px auto;
+        }
+
+        .hero-desc strong {
+            color: var(--color-neutral-8);
+        }
+
+        /* OS Tag */
+        .os-tag {
+            display: inline-block;
+            padding: 18px 30px;
+            background: var(--color-neutral-0);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 16px;
+            box-shadow: var(--shadow-m);
+        }
+
+        .os-tag-label {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--color-red);
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .os-tag-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        /* === PANEL DERECHO (FORMULARIO) === */
+        .login-form-panel {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--color-neutral-0);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--color-neutral-9);
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            font-size: 14px;
+            color: var(--color-neutral-6);
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-neutral-5);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            background: var(--color-neutral-1);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 14px;
+            font-size: 14px;
+            font-family: var(--font-primary);
+            color: var(--color-text-primary);
+            transition: var(--transition-base);
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: var(--color-neutral-5);
+        }
+
+        .form-input:focus {
+            background: var(--color-neutral-0);
+            border-color: var(--color-red);
+            box-shadow: 0 0 0 4px var(--color-red-light);
+        }
+
+        .form-input.error {
+            background: var(--color-error-light);
+            border-color: var(--color-error);
+        }
+
+        .form-input.error:focus {
+            box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.15);
+        }
+
+        .error-message {
+            display: none;
+            font-size: 12px;
+            color: var(--color-error);
+            margin-top: 6px;
+        }
+
+        .form-group.has-error .error-message {
+            display: block;
+        }
+
+        .form-group.has-error .form-label {
+            color: var(--color-error);
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--color-red);
+            border: none;
+            border-radius: 14px;
+            color: var(--color-neutral-0);
+            font-size: 14px;
+            font-weight: 700;
+            font-family: var(--font-primary);
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: var(--transition-base);
+            box-shadow: 0 6px 20px rgba(195, 43, 64, 0.3);
+            margin-top: 12px;
+        }
+
+        .btn-submit:hover {
+            background: var(--color-red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(195, 43, 64, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Footer */
+        .login-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-neutral-5);
+            letter-spacing: 1.5px;
+        }
+
+        /* === RESPONSIVE - TABLET === */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 44px;
+            }
+
+            .login-brand,
+            .login-form-panel {
+                padding: 40px;
+            }
+        }
+
+        /* === RESPONSIVE - MOBILE === */
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                background: var(--color-neutral-1);
+                min-height: 100vh;
+            }
+
+            .login-brand {
+                flex: none;
+                padding: 50px 24px 30px 24px;
+                background: transparent;
+            }
+
+            .hero-title {
+                font-size: 36px;
+                letter-spacing: -1px;
+                margin-bottom: 0;
+            }
+
+            .hero-desc,
+            .os-tag,
+            .pulse-container {
+                display: none;
+            }
+
+            .dpa-badge {
+                margin-bottom: 24px;
+            }
+
+            .form-container {
+                background: var(--color-neutral-0);
+                padding: 36px 24px;
+                border-radius: 28px;
+                border: 1px solid var(--color-neutral-3);
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+            }
+
+            .form-header {
+                margin-bottom: 28px;
+            }
+
+            .form-title {
+                font-size: 22px;
+            }
+
+            .form-subtitle {
+                font-size: 13px;
+            }
+
+            .login-form-panel {
+                flex: 1;
+                padding: 0 20px 20px 20px;
+                background: transparent;
+                min-height: auto;
+                position: static;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+            }
+
+            .login-footer {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                right: auto;
+                padding: 40px 0 30px 0;
+                margin-top: auto;
+            }
+
+            .footer-text {
+                opacity: 0.6;
+            }
+        }
+
+        /* === SUCCESS STATE === */
+        .login-container.success .form-container {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--color-success-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+        }
+
+        .success-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--color-success);
+        }
+
+        .success-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+            margin-bottom: 8px;
+        }
+
+        .success-text {
+            font-size: 14px;
+            color: var(--color-neutral-6);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="loginContainer">
+        <!-- Panel Izquierdo - Branding -->
+        <div class="login-brand">
+            <!-- Pulse Wave Effects -->
+            <div class="pulse-container">
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring"></div>
+            </div>
+
+            <div class="brand-content">
+                <div class="logo">
+                    <span class="logo-text">ARCA</span>
+                    <span class="logo-dot"></span>
+                    <span class="logo-text">OS</span>
+                </div>
+
+                <div class="dpa-badge">POWERED BY DPA</div>
+
+                <h1 class="hero-title">
+                    Ordenes de
+                    <span>Recuperación</span>
+                </h1>
+
+                <p class="hero-desc">
+                    Ecosistema inteligente diseñado por <strong>Digital Process Automation (DPA)</strong>.
+                    Optimizamos la recuperación mediante tecnología avanzada.
+                </p>
+
+                <div class="os-tag">
+                    <div class="os-tag-label">CORE OS</div>
+                    <div class="os-tag-value">DPA v3.1 stable</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Derecho - Formulario -->
+        <div class="login-form-panel">
+            <div class="form-container" id="formContainer">
+                <div class="form-header">
+                    <h2 class="form-title">Acceso al Panel</h2>
+                    <p class="form-subtitle">Identificación de operador requerida.</p>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group" id="emailGroup">
+                        <label class="form-label">ID de Operador</label>
+                        <input
+                            type="email"
+                            class="form-input"
+                            id="emailInput"
+                            placeholder="usuario@arcacontal.com"
+                            required
+                        >
+                        <span class="error-message">Ingresa un email válido</span>
+                    </div>
+
+                    <div class="form-group" id="passwordGroup">
+                        <label class="form-label">Token de Seguridad</label>
+                        <input
+                            type="password"
+                            class="form-input"
+                            id="passwordInput"
+                            placeholder="••••••••"
+                            required
+                        >
+                        <span class="error-message">La contraseña es requerida</span>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        INICIAR SESIÓN
+                    </button>
+                </form>
+
+                <!-- Success Message (Hidden by default) -->
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h3 class="success-title">¡Bienvenido!</h3>
+                    <p class="success-text">Redirigiendo al panel...</p>
+                </div>
+            </div>
+
+            <div class="login-footer">
+                <span class="footer-text">DIGITAL PROCESS AUTOMATION (DPA)</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === INTERACTIVE PROTOTYPE SCRIPT ===
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('emailInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const emailGroup = document.getElementById('emailGroup');
+        const passwordGroup = document.getElementById('passwordGroup');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        const formContainer = document.getElementById('formContainer');
+
+        // Validate email format
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Show/hide error states
+        function setError(group, input, hasError) {
+            if (hasError) {
+                group.classList.add('has-error');
+                input.classList.add('error');
+            } else {
+                group.classList.remove('has-error');
+                input.classList.remove('error');
+            }
+        }
+
+        // Clear errors on input
+        emailInput.addEventListener('input', () => {
+            setError(emailGroup, emailInput, false);
+        });
+
+        passwordInput.addEventListener('input', () => {
+            setError(passwordGroup, passwordInput, false);
+        });
+
+        // Form submission
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            let hasErrors = false;
+
+            // Validate email
+            if (!emailInput.value || !isValidEmail(emailInput.value)) {
+                setError(emailGroup, emailInput, true);
+                hasErrors = true;
+            }
+
+            // Validate password
+            if (!passwordInput.value) {
+                setError(passwordGroup, passwordInput, true);
+                hasErrors = true;
+            }
+
+            if (hasErrors) return;
+
+            // Show loading state
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'CONECTANDO...';
+
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            // Show success
+            loginForm.style.display = 'none';
+            successMessage.classList.add('show');
+
+            // Simulate redirect (in real app, would redirect to dashboard)
+            setTimeout(() => {
+                // Reset for demo purposes
+                loginForm.style.display = 'block';
+                successMessage.classList.remove('show');
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'INICIAR SESIÓN';
+                emailInput.value = '';
+                passwordInput.value = '';
+            }, 2500);
+        });
+
+        // Add focus effects
+        const inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('.form-label').style.color = 'var(--color-red)';
+            });
+
+            input.addEventListener('blur', () => {
+                if (!input.classList.contains('error')) {
+                    input.parentElement.querySelector('.form-label').style.color = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
