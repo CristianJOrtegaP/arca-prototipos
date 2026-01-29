@@ -72,19 +72,148 @@
             left: 0;
             height: 100vh;
             z-index: 100;
+            transition: width 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Collapsed Sidebar */
+        .sidebar.collapsed {
+            width: 72px;
+        }
+
+        .sidebar.collapsed .sidebar-company-logo {
+            width: 36px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar.collapsed .sidebar-logo,
+        .sidebar.collapsed .nav-section-title,
+        .sidebar.collapsed .nav-item span:not(.nav-item-icon):not(.material-symbols-rounded),
+        .sidebar.collapsed .nav-item-badge,
+        .sidebar.collapsed .user-info,
+        .sidebar.collapsed .btn-logout span:not(.material-symbols-rounded) {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-header {
+            padding: 16px 12px;
+        }
+
+        .sidebar.collapsed .nav-item {
+            justify-content: center;
+            padding: 12px;
+        }
+
+        .sidebar.collapsed .nav-item-icon {
+            margin: 0;
+        }
+
+        .sidebar.collapsed .user-card {
+            justify-content: center;
+            padding: 8px;
+        }
+
+        .sidebar.collapsed .user-avatar {
+            width: 36px;
+            height: 36px;
+            font-size: 12px;
+        }
+
+        .sidebar.collapsed .btn-logout {
+            padding: 12px;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 72px;
+        }
+
+        /* Collapse Toggle Button */
+        .sidebar-toggle {
+            position: absolute;
+            top: 50%;
+            right: -12px;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: var(--color-neutral-0);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 101;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-toggle:hover {
+            background: var(--color-neutral-1);
+            border-color: var(--color-red);
+        }
+
+        .sidebar-toggle .material-symbols-rounded {
+            font-size: 16px;
+            color: var(--color-neutral-6);
             transition: transform 0.3s ease;
+        }
+
+        .sidebar.collapsed .sidebar-toggle .material-symbols-rounded {
+            transform: rotate(180deg);
+        }
+
+        /* Tooltips for collapsed state */
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-tooltip {
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: 12px;
+            padding: 8px 12px;
+            background: var(--color-neutral-9);
+            color: var(--color-neutral-0);
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .nav-tooltip::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 6px solid transparent;
+            border-right-color: var(--color-neutral-9);
+            border-left: none;
+        }
+
+        .sidebar.collapsed .nav-item:hover .nav-tooltip {
+            opacity: 1;
+            visibility: visible;
         }
 
         .sidebar-header {
             padding: 24px 20px;
             border-bottom: 1px solid var(--color-neutral-2);
             text-align: center;
+            position: relative;
         }
 
         .sidebar-company-logo {
             width: 48px;
             height: auto;
             margin-bottom: 12px;
+            transition: width 0.3s ease;
         }
 
         .sidebar-logo {
@@ -260,6 +389,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            transition: margin-left 0.3s ease;
         }
 
         /* Top Header */
@@ -646,6 +776,10 @@
                 transform: translateX(-100%);
             }
 
+            .sidebar-toggle {
+                display: none;
+            }
+
             .sidebar.open {
                 transform: translateX(0);
             }
@@ -712,6 +846,11 @@
 
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
+            <!-- Toggle Button -->
+            <button class="sidebar-toggle" id="sidebarToggle" title="Colapsar menú">
+                <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+
             <div class="sidebar-header">
                 <img src="assets/Arca_continental_logo_simple.png" alt="Arca Continental" class="sidebar-company-logo" />
                 <div class="sidebar-logo">
@@ -727,19 +866,23 @@
                     <a href="#" class="nav-item active">
                         <span class="nav-item-icon"><span class="material-symbols-rounded">dashboard</span></span>
                         <span>Dashboard</span>
+                        <span class="nav-tooltip">Dashboard</span>
                     </a>
                     <a href="#" class="nav-item">
                         <span class="nav-item-icon"><span class="material-symbols-rounded">assignment</span></span>
                         <span>Órdenes de Recuperación</span>
                         <span class="nav-item-badge">24</span>
+                        <span class="nav-tooltip">Órdenes de Recuperación</span>
                     </a>
                     <a href="#" class="nav-item">
                         <span class="nav-item-icon"><span class="material-symbols-rounded">inventory_2</span></span>
                         <span>Inventario</span>
+                        <span class="nav-tooltip">Inventario</span>
                     </a>
                     <a href="#" class="nav-item">
                         <span class="nav-item-icon"><span class="material-symbols-rounded">group</span></span>
                         <span>Clientes</span>
+                        <span class="nav-tooltip">Clientes</span>
                     </a>
                 </div>
 
@@ -748,10 +891,12 @@
                     <a href="#" class="nav-item">
                         <span class="nav-item-icon"><span class="material-symbols-rounded">bar_chart</span></span>
                         <span>Reportes</span>
+                        <span class="nav-tooltip">Reportes</span>
                     </a>
                     <a href="#" class="nav-item">
                         <span class="nav-item-icon"><span class="material-symbols-rounded">target</span></span>
                         <span>Metas</span>
+                        <span class="nav-tooltip">Metas</span>
                     </a>
                 </div>
 
@@ -760,10 +905,12 @@
                     <a href="#" class="nav-item">
                         <span class="nav-item-icon"><span class="material-symbols-rounded">settings</span></span>
                         <span>Configuración</span>
+                        <span class="nav-tooltip">Configuración</span>
                     </a>
                     <a href="#" class="nav-item">
                         <span class="nav-item-icon"><span class="material-symbols-rounded">help</span></span>
                         <span>Ayuda</span>
+                        <span class="nav-tooltip">Ayuda</span>
                     </a>
                 </div>
             </nav>
@@ -952,6 +1099,19 @@
             sidebar.classList.remove('open');
             sidebarOverlay.classList.remove('open');
         });
+
+        // Sidebar Collapse Toggle (Desktop)
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            // Save preference to localStorage
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+        });
+
+        // Restore sidebar state from localStorage
+        if (localStorage.getItem('sidebarCollapsed') === 'true') {
+            sidebar.classList.add('collapsed');
+        }
 
         // Nav Item Click Handler
         document.querySelectorAll('.nav-item').forEach(item => {
