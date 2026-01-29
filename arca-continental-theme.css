@@ -1360,14 +1360,15 @@ aside.sidebar,
 }
 
 .sidebar.collapsed .sidebar-nav .nav-item.active:hover {
-    background: var(--arca-red);
-    color: var(--color-neutral-0);
+    background: var(--arca-red) !important;
+    color: var(--color-neutral-0) !important;
 }
 
 .sidebar.collapsed .sidebar-nav .nav-item.active:hover span,
 .sidebar.collapsed .sidebar-nav .nav-item.active:hover > span,
-.sidebar.collapsed .sidebar-nav .nav-item.active:hover .nav-item-icon .material-symbols-rounded {
-    color: var(--color-neutral-0);
+.sidebar.collapsed .sidebar-nav .nav-item.active:hover .nav-item-icon .material-symbols-rounded,
+.sidebar.collapsed .sidebar-nav .nav-item.active:hover .material-symbols-rounded {
+    color: var(--color-neutral-0) !important;
 }
 
 /* --- Sidebar: Header --- */
@@ -1442,14 +1443,17 @@ aside.sidebar,
     margin-bottom: var(--space-s);
 }
 
-.nav-item {
+.nav-item,
+a.nav-item,
+a.nav-item:link,
+a.nav-item:visited {
     display: flex;
     align-items: center;
     gap: var(--space-s);
     padding: var(--space-s) var(--space-base);
     border-radius: var(--border-radius-m);
     color: var(--color-neutral-6);
-    text-decoration: none;
+    text-decoration: none !important;
     font-size: var(--font-size-s);
     font-weight: var(--font-medium);
     transition: all 0.2s ease;
@@ -1458,9 +1462,14 @@ aside.sidebar,
     position: relative;
 }
 
+.nav-item span,
+a.nav-item span {
+    text-decoration: none !important;
+}
+
 .nav-item:hover {
-    background: var(--color-neutral-1);
-    color: var(--color-neutral-8);
+    background: rgba(195, 43, 64, 0.06);
+    color: var(--arca-red);
     text-decoration: none;
 }
 
@@ -1468,6 +1477,24 @@ aside.sidebar,
     background: var(--arca-red-light);
     color: var(--arca-red);
     font-weight: var(--font-semi-bold);
+    border-left: 3px solid var(--arca-red);
+}
+
+.nav-item.active span:not(.nav-item-badge),
+.nav-item.active .nav-item-icon,
+.nav-item.active .material-symbols-rounded {
+    color: var(--arca-red) !important;
+}
+
+.nav-item:hover span:not(.nav-item-badge),
+.nav-item:hover .nav-item-icon,
+.nav-item:hover .material-symbols-rounded {
+    color: var(--arca-red) !important;
+}
+
+.nav-item.active .nav-item-badge,
+.nav-item:hover .nav-item-badge {
+    color: var(--color-neutral-0) !important;
 }
 
 .nav-item-icon {
