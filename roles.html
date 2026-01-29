@@ -42,8 +42,6 @@
             display: flex;
             gap: 8px;
             align-items: flex-end;
-            justify-content: flex-end;
-            grid-column: 1 / -1;
         }
 
         /* Empty State */
@@ -491,9 +489,8 @@
                                     <span class="material-symbols-rounded">filter_alt</span>
                                     Filtrar
                                 </button>
-                                <button class="btn btn-cancel" onclick="clearFilters()">
+                                <button class="btn btn-cancel" onclick="clearFilters()" title="Limpiar filtros">
                                     <span class="material-symbols-rounded">refresh</span>
-                                    Limpiar
                                 </button>
                             </div>
                         </div>
