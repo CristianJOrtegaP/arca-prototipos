@@ -1,46 +1,28 @@
 /* ============================================
    ARCA CONTINENTAL - THEME CSS
-   Compatible con OutSystems UI
-   Basado en Playbook UX/UI Oficial
+   Extiende OutSystems UI Framework
+   Basado en Playbook UX/UI Oficial Arca
    ============================================ */
+
+/* --- Importar OutSystems UI Base --- */
+@import url('OutSystemsUI.css');
 
 /* ============================================
-   1. VARIABLES (DESIGN TOKENS)
+   1. OVERRIDE: DESIGN TOKENS ARCA CONTINENTAL
+   Sobrescribimos las variables de OutSystems UI
+   con la identidad visual de Arca Continental
    ============================================ */
 :root {
-    /* --- Colores Institucionales --- */
-    --color-red: #C32B40;
-    --color-red-dark: #9A2233;
-    --color-red-light: #FDE7EA;
-    --color-brown: #723926;
-    --color-gray-dark: #616161;
-    --color-gray-light: #B3B3B3;
+    /* --- Override: Primary Color (Rojo Carmesí Arca) --- */
+    --color-primary: #C32B40;
+    --color-primary-hover: #9A2233;
+    --color-primary-active: #7A1A29;
+    --color-primary-light: #FDE7EA;
 
-    /* --- Colores de Texto --- */
-    --color-text-primary: #1D1D1B;
-    --color-text-secondary: #616161;
-    --color-text-muted: #B3B3B3;
-    --color-text-inverse: #FFFFFF;
+    /* --- Override: Font Family --- */
+    --font-family-base: "Segoe UI", Roboto, "San Francisco", Arial, sans-serif;
 
-    /* --- Colores Semánticos (Indicadores) --- */
-    --color-success: #28A745;
-    --color-success-light: #D4EDDA;
-    --color-error: #DC3545;
-    --color-error-light: #F8D7DA;
-    --color-warning: #FFC107;
-    --color-warning-light: #FFF3CD;
-    --color-info: #B3B3B3;
-    --color-info-light: #E9ECEF;
-
-    /* --- Colores de Cultura --- */
-    --color-turquoise: #0AA4B4;
-    --color-lime: #7FBC03;
-    --color-orange: #FF9016;
-    --color-purple: #843276;
-    --color-red-intense: #FF1826;
-
-    /* --- Neutrales --- */
-    --color-neutral-0: #FFFFFF;
+    /* --- Override: Neutrals (Palette Arca - más refinada) --- */
     --color-neutral-1: #F8FAFC;
     --color-neutral-2: #F1F5F9;
     --color-neutral-3: #E2E8F0;
@@ -52,710 +34,2182 @@
     --color-neutral-9: #1E293B;
     --color-neutral-10: #0F172A;
 
-    /* --- Tipografía --- */
-    --font-primary: "Segoe UI", Roboto, "San Francisco", Arial, sans-serif;
-    --font-size-xs: 11px;
-    --font-size-s: 12px;
-    --font-size-base: 14px;
-    --font-size-m: 16px;
-    --font-size-l: 18px;
-    --font-size-xl: 20px;
-    --font-size-2xl: 24px;
-    --font-size-3xl: 32px;
-    --font-size-4xl: 40px;
-    --font-size-5xl: 48px;
+    /* --- Override: Border Radius (Más redondeado para Arca) --- */
+    --border-radius-soft: 6px;
+    --border-radius-base: 8px;
+    --border-radius-rounded: 12px;
 
-    /* --- Spacing --- */
-    --space-none: 0;
-    --space-xs: 4px;
-    --space-s: 8px;
-    --space-base: 12px;
-    --space-m: 16px;
-    --space-l: 24px;
-    --space-xl: 32px;
-    --space-2xl: 48px;
-    --space-3xl: 64px;
-
-    /* --- Border Radius --- */
-    --radius-none: 0;
-    --radius-s: 4px;
-    --radius-base: 8px;
-    --radius-m: 12px;
-    --radius-l: 16px;
-    --radius-xl: 20px;
-    --radius-2xl: 28px;
-    --radius-full: 9999px;
-
-    /* --- Shadows --- */
-    --shadow-none: none;
+    /* --- Override: Shadows (Más suaves para Arca) --- */
     --shadow-s: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-base: 0 4px 6px rgba(0, 0, 0, 0.07);
-    --shadow-m: 0 8px 16px rgba(0, 0, 0, 0.08);
-    --shadow-l: 0 12px 24px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.12);
+    --shadow-m: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-l: 0 8px 16px rgba(0, 0, 0, 0.08);
+    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.1);
 
-    /* --- Transiciones --- */
+    /* --- LEGACY ALIASES (Compatibilidad con prototipos existentes) --- */
+    --font-primary: var(--font-family-base);
+    --color-red: var(--arca-red);
+    --color-red-dark: var(--arca-red-dark);
+    --color-red-light: var(--arca-red-light);
+    --radius-none: var(--border-radius-none);
+    --radius-s: var(--border-radius-soft);
+    --radius-base: var(--border-radius-base);
+    --radius-m: var(--border-radius-rounded);
+    --radius-l: var(--border-radius-l);
+    --radius-xl: var(--border-radius-xl);
+    --radius-2xl: var(--border-radius-2xl);
+    --radius-full: var(--border-radius-pill);
     --transition-fast: all 0.15s ease;
     --transition-base: all 0.3s ease;
     --transition-slow: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ============================================
-   2. RESET & BASE
+   2. ARCA EXTENDED: Colores Institucionales
+   Colores adicionales de la marca Arca Continental
+   ============================================ */
+:root {
+    /* --- Colores Institucionales Arca --- */
+    --arca-red: #C32B40;
+    --arca-red-dark: #9A2233;
+    --arca-red-light: #FDE7EA;
+    --arca-brown: #723926;
+    --arca-gray-dark: #616161;
+    --arca-gray-light: #B3B3B3;
+
+    /* --- Colores de Cultura Arca --- */
+    --arca-turquoise: #0AA4B4;
+    --arca-lime: #7FBC03;
+    --arca-orange: #FF9016;
+    --arca-purple: #843276;
+    --arca-red-intense: #FF1826;
+
+    /* --- Legacy Culture Color Aliases --- */
+    --color-turquoise: var(--arca-turquoise);
+    --color-lime: var(--arca-lime);
+    --color-orange: var(--arca-orange);
+    --color-purple: var(--arca-purple);
+    --color-red-intense: var(--arca-red-intense);
+    --color-brown: var(--arca-brown);
+    --color-gray-dark: var(--arca-gray-dark);
+    --color-gray-light: var(--arca-gray-light);
+
+    /* --- Alias Semánticos Extendidos --- */
+    --color-text-primary: #1D1D1B;
+    --color-text-secondary: #616161;
+    --color-text-muted: #B3B3B3;
+    --color-text-inverse: #FFFFFF;
+
+    /* --- Extended Semantic Light Variants --- */
+    --color-success-light: #D4EDDA;
+    --color-error-light: #F8D7DA;
+    --color-warning-light: #FFF3CD;
+    --color-info-light: #E9ECEF;
+
+    /* --- Extended Spacing (adicionales a OSUI) --- */
+    --space-2xl: 3rem;    /* 48px */
+    --space-3xl: 4rem;    /* 64px */
+
+    /* --- Extended Font Sizes (adicionales a OSUI) --- */
+    --font-size-2xs: 10px;
+    --font-size-xxs: 11px;
+    --font-size-2xl: 1.375rem;   /* 22px - para iconos */
+    --font-size-3xl: 2rem;       /* 32px */
+    --font-size-4xl: 2.5rem;     /* 40px */
+    --font-size-5xl: 3rem;       /* 48px */
+    --font-size-display: 3.5rem; /* 56px */
+
+    /* --- Extended Font Weights (adicionales a OSUI) --- */
+    --font-light: 300;
+    --font-extra-bold: 800;
+
+    /* --- Extended Border Radius --- */
+    --border-radius-m: 10px;
+    --border-radius-input: 14px;
+    --border-radius-l: 16px;
+    --border-radius-xl: 20px;
+    --border-radius-2xl: 28px;
+    --border-radius-circle: 50%;
+    --border-radius-pill: 9999px;
+
+    /* --- Component Spacing: Buttons --- */
+    --btn-padding-y: 0.75rem;     /* 12px */
+    --btn-padding-x: 1.25rem;     /* 20px */
+    --btn-padding-y-sm: 0.5rem;   /* 8px */
+    --btn-padding-x-sm: 1rem;     /* 16px */
+    --btn-padding-y-lg: 1rem;     /* 16px */
+    --btn-padding-x-lg: 1.5rem;   /* 24px */
+
+    /* --- Component Spacing: Inputs --- */
+    --input-padding-y: 0.875rem;  /* 14px */
+    --input-padding-x: 1rem;      /* 16px */
+
+    /* --- Component Spacing: Badges --- */
+    --badge-padding-y: 0.375rem;  /* 6px */
+    --badge-padding-x: 0.75rem;   /* 12px */
+
+    /* --- Letter Spacing --- */
+    --letter-spacing-tight: -0.5px;
+    --letter-spacing-tighter: -1px;
+    --letter-spacing-tightest: -1.5px;
+    --letter-spacing-display: -2px;
+    --letter-spacing-wide: 0.5px;
+
+    /* --- Focus Ring --- */
+    --focus-ring-size: 4px;
+    --focus-ring-color-primary: var(--arca-red-light);
+    --focus-ring-color-error: rgba(220, 53, 69, 0.15);
+
+    /* --- Button Shadows --- */
+    --btn-shadow-primary: 0 4px 12px rgba(195, 43, 64, 0.25);
+    --btn-shadow-primary-hover: 0 6px 16px rgba(195, 43, 64, 0.35);
+
+    /* --- Transform Values --- */
+    --transform-lift: translateY(-2px);
+    --transform-none: translateY(0);
+}
+
+/* ============================================
+   3. ARCA UTILITIES: Background Colors
+   (Mantienen !important - son utilidades)
+   ============================================ */
+/* Institucionales */
+.background-arca-red { background-color: var(--arca-red) !important; }
+.background-arca-red-dark { background-color: var(--arca-red-dark) !important; }
+.background-arca-red-light { background-color: var(--arca-red-light) !important; }
+.background-arca-brown { background-color: var(--arca-brown) !important; }
+
+/* Semánticos Light */
+.background-success-light { background-color: var(--color-success-light) !important; }
+.background-error-light { background-color: var(--color-error-light) !important; }
+.background-warning-light { background-color: var(--color-warning-light) !important; }
+.background-info-light { background-color: var(--color-info-light) !important; }
+
+/* Cultura */
+.background-turquoise { background-color: var(--arca-turquoise) !important; }
+.background-lime { background-color: var(--arca-lime) !important; }
+.background-orange { background-color: var(--arca-orange) !important; }
+.background-purple { background-color: var(--arca-purple) !important; }
+.background-red-intense { background-color: var(--arca-red-intense) !important; }
+
+/* ============================================
+   4. ARCA UTILITIES: Text Colors
+   (Mantienen !important - son utilidades)
+   ============================================ */
+/* Institucionales */
+.text-arca-red { color: var(--arca-red) !important; }
+.text-arca-red-dark { color: var(--arca-red-dark) !important; }
+.text-arca-brown { color: var(--arca-brown) !important; }
+
+/* Cultura */
+.text-turquoise { color: var(--arca-turquoise) !important; }
+.text-lime { color: var(--arca-lime) !important; }
+.text-orange { color: var(--arca-orange) !important; }
+.text-purple { color: var(--arca-purple) !important; }
+.text-red-intense { color: var(--arca-red-intense) !important; }
+
+/* Alias */
+.text-muted { color: var(--color-text-muted) !important; }
+.text-inverse { color: var(--color-text-inverse) !important; }
+
+/* ============================================
+   5. ARCA UTILITIES: Border Colors
+   (Mantienen !important - son utilidades)
+   ============================================ */
+.border-arca-red { border-color: var(--arca-red) !important; }
+.border-arca-red-dark { border-color: var(--arca-red-dark) !important; }
+.border-arca-brown { border-color: var(--arca-brown) !important; }
+
+/* ============================================
+   6. ARCA UTILITIES: Typography Headings
+   (Mantienen !important - son utilidades)
+   ============================================ */
+.heading-display {
+    font-size: var(--font-size-display) !important;
+    font-weight: var(--font-extra-bold) !important;
+    line-height: var(--line-height-xs) !important;
+    letter-spacing: var(--letter-spacing-display) !important;
+}
+
+.heading-5xl {
+    font-size: var(--font-size-5xl) !important;
+    font-weight: var(--font-extra-bold) !important;
+    line-height: 1.1 !important;
+    letter-spacing: var(--letter-spacing-display) !important;
+}
+
+.heading-4xl {
+    font-size: var(--font-size-4xl) !important;
+    font-weight: var(--font-extra-bold) !important;
+    line-height: 1.15 !important;
+    letter-spacing: var(--letter-spacing-tightest) !important;
+}
+
+.heading-3xl {
+    font-size: var(--font-size-3xl) !important;
+    font-weight: var(--font-bold) !important;
+    line-height: 1.2 !important;
+    letter-spacing: var(--letter-spacing-tighter) !important;
+}
+
+.heading-2xl {
+    font-size: var(--font-size-2xl) !important;
+    font-weight: var(--font-bold) !important;
+    line-height: 1.25 !important;
+    letter-spacing: var(--letter-spacing-tight) !important;
+}
+
+.heading-xl {
+    font-size: var(--font-size-xl) !important;
+    font-weight: var(--font-bold) !important;
+    line-height: 1.3 !important;
+}
+
+.heading-l {
+    font-size: var(--font-size-l) !important;
+    font-weight: var(--font-semi-bold) !important;
+    line-height: 1.35 !important;
+}
+
+/* ============================================
+   7. OVERRIDE: OSUI Buttons
+   Sobrescribimos los estilos de botones de OSUI
+   para aplicar la identidad Arca Continental
+   ============================================ */
+
+/* --- Base Button Override --- */
+.btn {
+    border-radius: var(--border-radius-rounded);
+    font-weight: var(--font-semi-bold);
+    transition: all var(--transition-base);
+}
+
+/* --- Primary Button Override (Rojo Carmesí Arca) --- */
+.btn-primary {
+    background-color: var(--arca-red);
+    border-color: var(--arca-red);
+    color: var(--color-neutral-0);
+    font-weight: var(--font-bold);
+    box-shadow: var(--btn-shadow-primary);
+}
+
+.btn-primary:hover,
+.desktop .btn-primary:hover {
+    background-color: var(--arca-red-dark);
+    border-color: var(--arca-red-dark);
+    transform: var(--transform-lift);
+    box-shadow: var(--btn-shadow-primary-hover);
+    filter: none;
+}
+
+.btn-primary:active,
+.btn-primary:hover:active {
+    transform: var(--transform-none);
+    filter: none;
+}
+
+/* --- Cancel/Secondary Button Override --- */
+.btn-cancel {
+    background-color: var(--color-neutral-0);
+    border-color: var(--color-neutral-3);
+    color: var(--color-neutral-7);
+    font-weight: var(--font-semi-bold);
+}
+
+.btn-cancel:hover,
+.desktop .btn-cancel:hover {
+    background-color: var(--color-neutral-1);
+    border-color: var(--color-neutral-4);
+    color: var(--color-neutral-8);
+    filter: none;
+}
+
+/* --- Success Button Override --- */
+.btn-success {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+    font-weight: var(--font-bold);
+}
+
+.btn-success:hover,
+.desktop .btn-success:hover {
+    filter: brightness(0.95);
+}
+
+/* --- Error/Danger Button Override --- */
+.btn-error {
+    background-color: var(--color-error);
+    border-color: var(--color-error);
+    font-weight: var(--font-bold);
+}
+
+.btn-error:hover,
+.desktop .btn-error:hover {
+    filter: brightness(0.95);
+}
+
+/* --- Disabled Button Override --- */
+.btn[disabled] {
+    background-color: var(--color-neutral-2);
+    border-color: var(--color-neutral-3);
+    color: var(--color-neutral-5);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* --- Button Sizes Override --- */
+.btn-small {
+    padding: var(--btn-padding-y-sm) var(--btn-padding-x-sm);
+}
+
+.btn-large {
+    padding: var(--btn-padding-y-lg) var(--btn-padding-x-lg);
+}
+
+/* ============================================
+   8. OVERRIDE: OSUI Form Controls
+   Sobrescribimos los estilos de inputs de OSUI
+   para aplicar la identidad Arca Continental
+   ============================================ */
+
+/* --- Base Form Control Override --- */
+.form-control {
+    font-family: var(--font-family-base);
+    transition: all var(--transition-base);
+}
+
+.form-control[data-input],
+.form-control[data-textarea] {
+    background-color: var(--color-neutral-1);
+    border: var(--border-size-s) solid var(--color-neutral-3);
+    border-radius: var(--border-radius-rounded);
+    padding: var(--input-padding-y) var(--input-padding-x);
+    font-size: var(--font-size-s);
+    color: var(--color-text-primary);
+}
+
+.form-control[data-input]:hover,
+.form-control[data-textarea]:hover {
+    border-color: var(--color-neutral-4);
+}
+
+.form-control[data-input]:focus,
+.form-control[data-textarea]:focus {
+    outline: none;
+    border-color: var(--arca-red);
+    background-color: var(--color-neutral-0);
+    box-shadow: 0 0 0 var(--focus-ring-size) var(--focus-ring-color-primary);
+}
+
+/* --- Input Validation States --- */
+.form-control.not-valid[data-input],
+.form-control.not-valid[data-textarea] {
+    border-color: var(--color-error);
+    background-color: var(--color-error-light);
+}
+
+.form-control.not-valid[data-input]:focus,
+.form-control.not-valid[data-textarea]:focus {
+    box-shadow: 0 0 0 var(--focus-ring-size) var(--focus-ring-color-error);
+}
+
+/* --- Input Sizes Override --- */
+.form-control.input-small[data-input] {
+    padding: var(--space-xs) var(--space-s);
+    font-size: var(--font-size-xs);
+}
+
+.form-control.input-large[data-input] {
+    padding: var(--space-base) var(--space-m);
+    font-size: var(--font-size-base);
+}
+
+/* --- Disabled Input Override --- */
+.form-control[data-input][disabled],
+.form-control[data-textarea][disabled] {
+    background-color: var(--color-neutral-2);
+    color: var(--color-neutral-5);
+    cursor: not-allowed;
+}
+
+/* ============================================
+   9. OVERRIDE: OSUI Cards
+   Sobrescribimos los estilos de cards de OSUI
+   para aplicar la identidad Arca Continental
+   ============================================ */
+
+/* --- Base Card Override --- */
+.card {
+    background-color: var(--color-neutral-0);
+    border: var(--border-size-s) solid var(--color-neutral-3);
+    border-radius: var(--border-radius-l);
+    padding: var(--space-m);
+}
+
+/* --- Card Background Override --- */
+.card-background {
+    border-radius: var(--border-radius-l);
+}
+
+/* --- Card Sectioned Override --- */
+.card-sectioned {
+    border-radius: var(--border-radius-l);
+}
+
+/* --- Card Elevated Variant (Arca adicional) --- */
+.card.card-elevated {
+    border: none;
+    box-shadow: var(--shadow-l);
+}
+
+/* --- Card Interactive Hover (Arca adicional) --- */
+.card.card-interactive {
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.card.card-interactive:hover {
+    transform: var(--transform-lift);
+    box-shadow: var(--shadow-xl);
+}
+
+/* ============================================
+   10. OVERRIDE: OSUI Badges
+   Sobrescribimos los estilos de badges de OSUI
+   para aplicar la identidad Arca Continental
+   ============================================ */
+
+/* --- Base Badge Override --- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--badge-padding-y) var(--badge-padding-x);
+    border-radius: var(--border-radius-pill);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-semi-bold);
+}
+
+/* --- Badge with Primary Background --- */
+.badge.background-primary {
+    background-color: var(--arca-red);
+    color: var(--color-neutral-0);
+}
+
+/* --- Badge with Success Background --- */
+.badge.background-success {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+/* --- Badge with Warning Background --- */
+.badge.background-warning {
+    background-color: var(--color-warning-light);
+    color: #856404;
+}
+
+/* --- Badge with Error Background --- */
+.badge.background-error {
+    background-color: var(--color-error-light);
+    color: var(--color-error);
+}
+
+/* --- Badge Sizes Override --- */
+.badge-small {
+    padding: var(--space-xs) var(--space-s);
+    font-size: var(--font-size-2xs);
+}
+
+.badge-medium {
+    padding: var(--badge-padding-y) var(--badge-padding-x);
+    font-size: var(--font-size-xs);
+}
+
+/* ============================================
+   11. ARCA COMPONENTS: Labels
+   (Sin !important - usan especificidad)
+   ============================================ */
+label.label-arca,
+.label-arca {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-neutral-6);
+    margin-bottom: var(--space-s);
+    display: block;
+}
+
+/* ============================================
+   12. ARCA COMPONENTS: Dividers
+   (Sin !important - usan especificidad)
+   ============================================ */
+hr.divider-arca,
+.divider-arca {
+    height: var(--border-size-s);
+    background-color: var(--color-neutral-3);
+    border: none;
+    margin: var(--space-m) 0;
+}
+
+/* ============================================
+   13. ARCA COMPONENTS: Links
+   (Sin !important - usan especificidad)
+   ============================================ */
+a.link-arca,
+.link-arca {
+    color: var(--arca-red);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+    transition: color var(--transition-fast);
+}
+
+a.link-arca:hover,
+.link-arca:hover {
+    color: var(--arca-red-dark);
+    text-decoration: underline;
+}
+
+/* ============================================
+   14. ARCA UTILITIES: Additional Font Weights
+   (Mantienen !important - son utilidades)
+   ============================================ */
+.font-light { font-weight: var(--font-light) !important; }
+.font-extra-bold { font-weight: var(--font-extra-bold) !important; }
+
+/* ============================================
+   15. ARCA UTILITIES: Additional Font Sizes
+   (Mantienen !important - son utilidades)
+   ============================================ */
+.font-size-4xl { font-size: var(--font-size-4xl) !important; }
+.font-size-5xl { font-size: var(--font-size-5xl) !important; }
+
+/* ============================================
+   16. ARCA UTILITIES: Extended Spacing
+   (Mantienen !important - son utilidades)
+   ============================================ */
+.margin-2xl { margin: var(--space-2xl) !important; }
+.margin-top-2xl { margin-top: var(--space-2xl) !important; }
+.margin-bottom-2xl { margin-bottom: var(--space-2xl) !important; }
+.padding-2xl { padding: var(--space-2xl) !important; }
+.padding-top-2xl { padding-top: var(--space-2xl) !important; }
+.padding-bottom-2xl { padding-bottom: var(--space-2xl) !important; }
+
+/* ============================================
+   17. ARCA UTILITIES: Border Radius Aliases
+   (Mantienen !important - son utilidades)
+   ============================================ */
+.border-radius-l { border-radius: var(--border-radius-l) !important; }
+.border-radius-xl { border-radius: var(--border-radius-xl) !important; }
+.border-radius-2xl { border-radius: var(--border-radius-2xl) !important; }
+
+/* ============================================
+   18. ARCA UTILITIES: Misc Utilities
+   (Mantienen !important - son utilidades)
+   ============================================ */
+/* Pointer Events */
+.pointer-events-none { pointer-events: none !important; }
+.pointer-events-auto { pointer-events: auto !important; }
+
+/* User Select */
+.select-none { user-select: none !important; }
+.select-text { user-select: text !important; }
+.select-all { user-select: all !important; }
+
+/* Transition Slow (cubic-bezier especial para Arca) */
+.transition-slow {
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* ============================================
+   19. ARCA APP: Base Wrapper Class
+   (Sin !important - es un componente base)
    ============================================ */
 .arca-app {
-    font-family: var(--font-primary);
+    font-family: var(--font-family-base);
     color: var(--color-text-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 /* ============================================
-   3. BACKGROUND COLORS
+   20. ARCA ANIMATIONS
+   Animaciones reutilizables para toda la app
    ============================================ */
-/* Institucionales */
-.background-red { background-color: var(--color-red) !important; }
-.background-red-dark { background-color: var(--color-red-dark) !important; }
-.background-red-light { background-color: var(--color-red-light) !important; }
-.background-brown { background-color: var(--color-brown) !important; }
-.background-gray-dark { background-color: var(--color-gray-dark) !important; }
-.background-gray-light { background-color: var(--color-gray-light) !important; }
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-/* Semánticos */
-.background-success { background-color: var(--color-success) !important; }
-.background-success-light { background-color: var(--color-success-light) !important; }
-.background-error { background-color: var(--color-error) !important; }
-.background-error-light { background-color: var(--color-error-light) !important; }
-.background-warning { background-color: var(--color-warning) !important; }
-.background-warning-light { background-color: var(--color-warning-light) !important; }
-.background-info { background-color: var(--color-info) !important; }
-.background-info-light { background-color: var(--color-info-light) !important; }
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(195, 43, 64, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(195, 43, 64, 0);
+    }
+}
 
-/* Cultura */
-.background-turquoise { background-color: var(--color-turquoise) !important; }
-.background-lime { background-color: var(--color-lime) !important; }
-.background-orange { background-color: var(--color-orange) !important; }
-.background-purple { background-color: var(--color-purple) !important; }
-.background-red-intense { background-color: var(--color-red-intense) !important; }
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
 
-/* Neutrales */
-.background-neutral-0 { background-color: var(--color-neutral-0) !important; }
-.background-neutral-1 { background-color: var(--color-neutral-1) !important; }
-.background-neutral-2 { background-color: var(--color-neutral-2) !important; }
-.background-neutral-3 { background-color: var(--color-neutral-3) !important; }
-.background-neutral-4 { background-color: var(--color-neutral-4) !important; }
-.background-neutral-5 { background-color: var(--color-neutral-5) !important; }
-.background-neutral-6 { background-color: var(--color-neutral-6) !important; }
-.background-neutral-7 { background-color: var(--color-neutral-7) !important; }
-.background-neutral-8 { background-color: var(--color-neutral-8) !important; }
-.background-neutral-9 { background-color: var(--color-neutral-9) !important; }
-.background-neutral-10 { background-color: var(--color-neutral-10) !important; }
+@keyframes pulseWave {
+    0% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.35;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(3.5);
+        opacity: 0;
+    }
+}
+
+@keyframes dotGlow {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--arca-red);
+    }
+    50% {
+        box-shadow: 0 0 15px var(--arca-red), 0 0 25px var(--arca-red);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 
 /* ============================================
-   4. TEXT COLORS
+   21. PAGE: Login
+   Componentes específicos de la página de login
    ============================================ */
-/* Institucionales */
-.text-red { color: var(--color-red) !important; }
-.text-red-dark { color: var(--color-red-dark) !important; }
-.text-brown { color: var(--color-brown) !important; }
-.text-gray-dark { color: var(--color-gray-dark) !important; }
-.text-gray-light { color: var(--color-gray-light) !important; }
+.login-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
 
-/* Semánticos */
+.login-container.success .form-container {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* --- Login: Brand Panel --- */
+.login-brand {
+    flex: 1;
+    background: linear-gradient(135deg, var(--color-neutral-1) 0%, var(--color-neutral-2) 100%);
+    padding: var(--space-3xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* --- Login: Pulse Rings --- */
+.pulse-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    border: var(--border-size-m) solid var(--arca-red);
+    border-radius: var(--border-radius-circle);
+    opacity: 0;
+    animation: pulseWave 5s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+}
+
+.pulse-ring:nth-child(2) {
+    animation-delay: 1.6s;
+}
+
+.pulse-ring:nth-child(3) {
+    animation-delay: 3.2s;
+}
+
+/* --- Login: Arca Logo --- */
+.arca-logo {
+    margin-bottom: var(--space-l);
+}
+
+.arca-logo img {
+    width: 200px;
+    height: auto;
+}
+
+.arca-logo-mobile {
+    display: none;
+    text-align: center;
+}
+
+.arca-logo-mobile img {
+    width: 160px;
+    height: auto;
+}
+
+/* --- Login: Logo ARCA.OS --- */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-base);
+}
+
+.logo-text {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-extra-bold);
+    color: var(--color-neutral-9);
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+.logo-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--arca-red);
+    border-radius: var(--border-radius-circle);
+    animation: dotGlow 2s ease-in-out infinite;
+}
+
+/* --- Login: DPA Badge --- */
+.dpa-badge {
+    display: inline-block;
+    padding: var(--badge-padding-y) var(--space-base);
+    background: var(--color-neutral-0);
+    border: 1.5px solid var(--arca-red);
+    border-radius: var(--border-radius-pill);
+    color: var(--arca-red);
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-extra-bold);
+    letter-spacing: 1px;
+    margin-bottom: var(--space-xl);
+    animation: float 3s ease-in-out infinite;
+}
+
+/* --- Login: Hero Title --- */
+.hero-title {
+    font-size: var(--font-size-display);
+    font-weight: var(--font-extra-bold);
+    line-height: 1;
+    letter-spacing: var(--letter-spacing-display);
+    color: var(--color-neutral-9);
+    margin-bottom: var(--space-m);
+}
+
+.hero-title span {
+    color: var(--arca-red);
+    display: block;
+}
+
+/* --- Login: Hero Description --- */
+.hero-desc {
+    font-size: var(--font-size-base);
+    color: var(--color-neutral-6);
+    line-height: var(--line-height-l);
+    max-width: 400px;
+    margin: 0 auto var(--space-xl) auto;
+}
+
+.hero-desc strong {
+    color: var(--color-neutral-8);
+}
+
+/* --- Login: OS Tag --- */
+.os-tag {
+    display: inline-block;
+    padding: 18px 30px;
+    background: var(--color-neutral-0);
+    border: var(--border-size-s) solid var(--color-neutral-3);
+    border-radius: var(--border-radius-l);
+    box-shadow: var(--shadow-m);
+}
+
+.os-tag-label {
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-extra-bold);
+    color: var(--arca-red);
+    letter-spacing: 2px;
+    margin-bottom: var(--space-xs);
+}
+
+.os-tag-value {
+    font-size: var(--font-size-s);
+    font-weight: var(--font-bold);
+    color: var(--color-neutral-9);
+}
+
+/* --- Login: Form Panel --- */
+.login-form-panel {
+    flex: 1;
+    padding: var(--space-3xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-neutral-0);
+    min-height: 100vh;
+    position: relative;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* --- Login: Form Fields --- */
+.form-group {
+    margin-bottom: var(--space-m);
+}
+
+.form-label {
+    display: block;
+    font-size: var(--font-size-xxs);
+    font-weight: var(--font-bold);
+    color: var(--color-neutral-5);
+    letter-spacing: 1px;
+    margin-bottom: var(--space-s);
+    text-transform: uppercase;
+}
+
+/* Login inputs - Mayor especificidad para sobrescribir OSUI */
+.form-control.form-input,
+.form-input {
+    width: 100%;
+    padding: var(--space-base);
+    background: var(--color-neutral-1);
+    border: var(--border-size-s) solid var(--color-neutral-3);
+    border-radius: var(--border-radius-input);
+    font-size: var(--font-size-s);
+    font-family: var(--font-family-base);
+    color: var(--color-text-primary);
+    transition: all var(--transition-base);
+    outline: none;
+}
+
+.form-control.form-input::placeholder,
+.form-input::placeholder {
+    color: var(--color-neutral-5);
+}
+
+.form-control.form-input:focus,
+.form-input:focus {
+    background: var(--color-neutral-0);
+    border-color: var(--arca-red);
+    box-shadow: 0 0 0 var(--focus-ring-size) var(--focus-ring-color-primary);
+}
+
+.form-control.form-input.error,
+.form-input.error {
+    background: var(--color-error-light);
+    border-color: var(--color-error);
+}
+
+.form-control.form-input.error:focus,
+.form-input.error:focus {
+    box-shadow: 0 0 0 var(--focus-ring-size) var(--focus-ring-color-error);
+}
+
+.error-message {
+    display: none;
+    font-size: var(--font-size-xs);
+    color: var(--color-error);
+    margin-top: var(--space-xs);
+}
+
+.form-group.has-error .error-message {
+    display: block;
+}
+
+.form-group.has-error .form-label {
+    color: var(--color-error);
+}
+
+/* --- Login: Submit Button - Mayor especificidad para sobrescribir OSUI --- */
+.btn.btn-primary.btn-submit,
+.btn-submit {
+    width: 100%;
+    height: auto;
+    padding: 18px;
+    background: var(--arca-red);
+    border: none;
+    border-radius: var(--border-radius-input);
+    color: var(--color-neutral-0);
+    font-size: var(--font-size-s);
+    font-weight: var(--font-bold);
+    font-family: var(--font-family-base);
+    letter-spacing: var(--letter-spacing-wide);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: 0 6px 20px rgba(195, 43, 64, 0.3);
+    margin-top: var(--space-s);
+}
+
+.btn.btn-primary.btn-submit:hover,
+.btn-submit:hover {
+    background: var(--arca-red-dark);
+    transform: var(--transform-lift);
+    box-shadow: 0 8px 25px rgba(195, 43, 64, 0.4);
+    filter: none;
+}
+
+.btn.btn-primary.btn-submit:active,
+.btn-submit:active {
+    transform: var(--transform-none);
+}
+
+.btn.btn-primary.btn-submit.loading,
+.btn-submit.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* --- Login: Success Message --- */
+.success-message {
+    display: none;
+    text-align: center;
+    padding: var(--space-xl) var(--space-m);
+}
+
+.success-message.show {
+    display: block;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* --- Login: Footer --- */
+.login-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 30px;
+}
+
+/* --- Login: Responsive Tablet --- */
+@media (max-width: 1024px) {
+    .hero-title {
+        font-size: var(--font-size-4xl);
+    }
+
+    .login-brand,
+    .login-form-panel {
+        padding: var(--space-xl);
+    }
+}
+
+/* --- Login: Responsive Mobile --- */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        background: var(--color-neutral-1);
+        min-height: 100vh;
+    }
+
+    .login-brand {
+        flex: none;
+        padding: 50px var(--space-m) 30px var(--space-m);
+        background: transparent;
+    }
+
+    .hero-title {
+        font-size: var(--font-size-3xl);
+        letter-spacing: var(--letter-spacing-tighter);
+        margin-bottom: 0;
+    }
+
+    .hero-desc,
+    .os-tag,
+    .pulse-container,
+    .arca-logo {
+        display: none;
+    }
+
+    .login-container .arca-logo-mobile {
+        display: block;
+        margin-bottom: var(--space-m);
+    }
+
+    .arca-logo-mobile img {
+        width: 160px;
+        height: auto;
+    }
+
+    .dpa-badge {
+        margin-bottom: var(--space-m);
+    }
+
+    .form-container {
+        background: var(--color-neutral-0);
+        padding: 36px var(--space-m);
+        border-radius: var(--border-radius-2xl);
+        border: var(--border-size-s) solid var(--color-neutral-3);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+    }
+
+    .form-header {
+        margin-bottom: var(--space-m);
+    }
+
+    .form-title {
+        font-size: var(--font-size-2xl);
+    }
+
+    .form-subtitle {
+        font-size: var(--font-size-s);
+    }
+
+    .login-form-panel {
+        flex: 1;
+        padding: 0 var(--space-m) var(--space-m) var(--space-m);
+        background: transparent;
+        min-height: auto;
+        position: static;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .login-footer {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        padding: var(--space-xl) 0 30px 0;
+        margin-top: auto;
+    }
+
+    .footer-text {
+        opacity: 0.6;
+    }
+}
+
+/* ============================================
+   22. PAGE: Layout / Dashboard
+   Componentes del layout principal y dashboard
+   ============================================ */
+/* --- Layout: Main Structure --- */
+.app-layout {
+    display: block;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* --- Layout: Sidebar --- */
+.app-layout > .sidebar,
+aside.sidebar,
+.sidebar {
+    width: 260px;
+    background: var(--color-neutral-0);
+    border-right: var(--border-size-s) solid var(--color-neutral-3);
+    display: flex;
+    flex-direction: column;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0;
+    height: 100vh;
+    z-index: 100;
+    transform: none;
+    transition: width 0.3s ease, transform 0.3s ease;
+}
+
+/* --- Sidebar: Collapsed State --- */
+.sidebar.collapsed {
+    width: 72px;
+    overflow: visible;
+}
+
+.sidebar.collapsed .sidebar-nav {
+    overflow: visible;
+}
+
+.sidebar.collapsed .nav-section {
+    overflow: visible;
+    position: relative;
+    padding-bottom: var(--space-s);
+    margin-bottom: var(--space-s);
+    border-bottom: var(--border-size-s) solid var(--color-neutral-2);
+}
+
+.sidebar.collapsed .nav-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.sidebar.collapsed .nav-item {
+    overflow: visible;
+}
+
+.sidebar.collapsed .sidebar-company-logo {
+    width: 36px;
+    margin-bottom: var(--space-s);
+}
+
+.sidebar.collapsed .sidebar-logo,
+.sidebar.collapsed .nav-section-title,
+.sidebar.collapsed .nav-item span:not(.nav-item-icon):not(.material-symbols-rounded),
+.sidebar.collapsed .nav-item-badge,
+.sidebar.collapsed .user-info,
+.sidebar.collapsed .btn-logout span:not(.material-symbols-rounded) {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-header {
+    padding: var(--space-base) var(--space-s);
+}
+
+.sidebar.collapsed .nav-item {
+    justify-content: center;
+    padding: var(--space-s);
+    margin-bottom: var(--space-s);
+}
+
+.sidebar.collapsed .nav-item-icon {
+    margin: 0;
+}
+
+.sidebar.collapsed .user-card {
+    justify-content: center;
+    padding: var(--space-s);
+    background: transparent;
+    border-radius: var(--border-radius-rounded);
+}
+
+.sidebar.collapsed .user-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-s);
+    border: var(--border-size-m) solid var(--color-neutral-2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar.collapsed .btn-logout {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: var(--border-radius-rounded);
+    margin: 0 auto;
+}
+
+.sidebar.collapsed .btn-logout .material-symbols-rounded {
+    font-size: var(--font-size-xl);
+}
+
+.sidebar.collapsed .sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-s);
+    padding: var(--space-s) var(--space-xs);
+    overflow: visible;
+}
+
+/* --- Sidebar: User Card Expand on Hover (Collapsed) --- */
+.sidebar.collapsed .user-card {
+    position: relative;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.sidebar.collapsed .sidebar-footer .user-card:hover {
+    position: absolute;
+    left: var(--space-s);
+    bottom: 70px;
+    width: 200px;
+    padding: var(--space-s) var(--space-base);
+    background: var(--color-neutral-0);
+    border: var(--border-size-s) solid var(--color-neutral-3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: var(--border-radius-rounded);
+    z-index: 1000;
+}
+
+.sidebar.collapsed .sidebar-footer .user-card:hover .user-info {
+    display: block;
+    margin-left: var(--space-s);
+}
+
+.sidebar.collapsed .sidebar-footer .user-card:hover .user-avatar {
+    border-color: var(--arca-red);
+    flex-shrink: 0;
+}
+
+.sidebar.collapsed + main.main-content,
+.sidebar.collapsed + .main-content,
+.sidebar.collapsed ~ main.main-content,
+.sidebar.collapsed ~ .main-content {
+    margin-left: 72px;
+}
+
+/* --- Sidebar: Toggle Button --- */
+.sidebar-toggle {
+    position: absolute;
+    top: var(--space-m);
+    right: -14px;
+    width: 28px;
+    height: 28px;
+    background: var(--arca-red);
+    border: var(--border-size-m) solid var(--color-neutral-0);
+    border-radius: var(--border-radius-circle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 101;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(228, 31, 38, 0.3);
+}
+
+.sidebar .sidebar-toggle:hover {
+    background: var(--arca-red-dark);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(228, 31, 38, 0.4);
+}
+
+.sidebar-toggle .material-symbols-rounded {
+    font-size: var(--font-size-l);
+    color: var(--color-neutral-0);
+    transition: transform 0.3s ease;
+}
+
+.sidebar.collapsed .sidebar-toggle .material-symbols-rounded {
+    transform: rotate(180deg);
+}
+
+/* --- Sidebar: Nav Item Expand on Hover (Collapsed) --- */
+.sidebar.collapsed .sidebar-nav .nav-item {
+    position: relative;
+    width: 48px;
+    padding: var(--space-s);
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.sidebar.collapsed .sidebar-nav .nav-item:hover {
+    width: auto;
+    min-width: 200px;
+    padding: var(--space-s) var(--space-base);
+    justify-content: flex-start;
+    background: var(--color-neutral-0);
+    color: var(--color-neutral-8);
+    border: var(--border-size-s) solid var(--color-neutral-3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: var(--border-radius-m);
+    z-index: 1000;
+}
+
+.sidebar.collapsed .sidebar-nav .nav-item:hover .nav-item-icon,
+.sidebar.collapsed .sidebar-nav .nav-item:hover .nav-item-icon .material-symbols-rounded,
+.sidebar.collapsed .sidebar-nav .nav-item:hover .material-symbols-rounded {
+    color: var(--color-neutral-7);
+}
+
+.sidebar.collapsed .sidebar-nav .nav-item:hover span,
+.sidebar.collapsed .sidebar-nav .nav-item:hover > span {
+    color: var(--color-neutral-8);
+}
+
+.sidebar.collapsed .sidebar-nav .nav-item:hover span:not(.nav-item-icon):not(.material-symbols-rounded):not(.nav-item-badge) {
+    display: inline;
+    opacity: 1;
+}
+
+.sidebar.collapsed .sidebar-nav .nav-item:hover .nav-item-badge {
+    display: inline-block;
+    margin-left: auto;
+    color: var(--color-neutral-0);
+}
+
+.sidebar.collapsed .sidebar-nav .nav-item.active:hover {
+    background: var(--arca-red);
+    color: var(--color-neutral-0);
+}
+
+.sidebar.collapsed .sidebar-nav .nav-item.active:hover span,
+.sidebar.collapsed .sidebar-nav .nav-item.active:hover > span,
+.sidebar.collapsed .sidebar-nav .nav-item.active:hover .nav-item-icon .material-symbols-rounded {
+    color: var(--color-neutral-0);
+}
+
+/* --- Sidebar: Header --- */
+.sidebar-header {
+    padding: var(--space-m) var(--space-m);
+    border-bottom: var(--border-size-s) solid var(--color-neutral-2);
+    text-align: center;
+    position: relative;
+}
+
+.sidebar-company-logo {
+    width: 48px;
+    height: auto;
+    margin-bottom: var(--space-s);
+    transition: width 0.3s ease;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+}
+
+/* --- Sidebar: Navigation --- */
+.sidebar-nav {
+    flex: 1;
+    padding: var(--space-base) var(--space-s);
+    overflow-y: auto;
+}
+
+.nav-section {
+    margin-bottom: var(--space-m);
+}
+
+.nav-section-title {
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-bold);
+    color: var(--color-neutral-5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 var(--space-s);
+    margin-bottom: var(--space-s);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    padding: var(--space-s) var(--space-base);
+    border-radius: var(--border-radius-m);
+    color: var(--color-neutral-6);
+    text-decoration: none;
+    font-size: var(--font-size-s);
+    font-weight: var(--font-medium);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    margin-bottom: var(--space-s);
+    position: relative;
+}
+
+.nav-item:hover {
+    background: var(--color-neutral-1);
+    color: var(--color-neutral-8);
+    text-decoration: none;
+}
+
+.nav-item.active {
+    background: var(--arca-red-light);
+    color: var(--arca-red);
+    font-weight: var(--font-semi-bold);
+}
+
+.nav-item-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Material Symbols Configuration --- */
+.material-symbols-rounded {
+    font-size: var(--font-size-2xl);
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+.nav-item.active .material-symbols-rounded {
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+.nav-item-badge {
+    margin-left: auto;
+    background: var(--arca-red);
+    color: var(--color-neutral-0);
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-bold);
+    padding: 2px var(--space-s);
+    border-radius: var(--border-radius-pill);
+}
+
+/* --- Sidebar: Footer --- */
+.sidebar-footer {
+    padding: var(--space-base) var(--space-s);
+    border-top: var(--border-size-s) solid var(--color-neutral-2);
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    padding: var(--space-s);
+    border-radius: var(--border-radius-rounded);
+    background: var(--color-neutral-1);
+    margin-bottom: var(--space-s);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-circle);
+    background: var(--arca-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral-0);
+    font-size: var(--font-size-s);
+    font-weight: var(--font-bold);
+}
+
+.user-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.user-name {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    font-size: var(--font-size-s);
+    font-weight: var(--font-semi-bold);
+    color: var(--color-neutral-9);
+}
+
+.user-role {
+    display: block;
+    width: 100%;
+    font-size: var(--font-size-xs);
+    color: var(--color-neutral-5);
+}
+
+.user-email {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    font-size: var(--font-size-xxs);
+    color: var(--color-neutral-5);
+    margin-top: 2px;
+}
+
+.btn-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-s);
+    width: 100%;
+    padding: var(--space-s);
+    background: var(--arca-red-light);
+    border: none;
+    border-radius: var(--border-radius-m);
+    color: var(--arca-red);
+    font-size: var(--font-size-s);
+    font-weight: var(--font-semi-bold);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sidebar .btn-logout:hover {
+    background: var(--arca-red);
+    color: var(--color-neutral-0);
+}
+
+/* --- Layout: Main Content --- */
+.app-layout > main.main-content,
+.app-layout > .main-content,
+main.main-content {
+    margin-left: 260px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    background: var(--color-neutral-1);
+}
+
+/* --- Layout: Top Header --- */
+.top-header {
+    background: var(--color-neutral-0);
+    border-bottom: var(--border-size-s) solid var(--color-neutral-3);
+    padding: 0 var(--space-l);
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* .page-title usa utilidades atómicas: font-size-xl font-bold text-neutral-9 */
+/* .breadcrumb usa utilidades atómicas: font-size-xs text-neutral-5 */
+
+.breadcrumb a {
+    color: var(--color-neutral-5);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: var(--arca-red);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+}
+
+.header-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-m);
+    background: var(--color-neutral-1);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    font-size: var(--font-size-l);
+}
+
+.header-btn:hover {
+    background: var(--color-neutral-2);
+    transform: var(--transform-lift);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header-btn:hover .material-symbols-rounded {
+    color: var(--arca-red);
+}
+
+.header-btn:active {
+    transform: var(--transform-none);
+    box-shadow: none;
+}
+
+.header-btn .badge,
+.header-btn > .badge,
+button.header-btn .badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 0 !important;
+    max-width: 18px !important;
+    min-height: 0 !important;
+    max-height: 18px !important;
+    aspect-ratio: 1 / 1;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: var(--arca-red) !important;
+    color: var(--color-neutral-0) !important;
+    font-size: var(--font-size-2xs) !important;
+    font-weight: var(--font-bold);
+    border-radius: var(--border-radius-circle) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+    text-indent: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
+}
+
+.header-divider {
+    width: var(--border-size-s);
+    height: 24px;
+    background: var(--color-neutral-3);
+    margin: 0 var(--space-s);
+}
+
+/* --- Layout: User Dropdown --- */
+.header-user {
+    position: relative;
+}
+
+.header-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-circle);
+    background: var(--arca-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral-0);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: var(--border-size-m) solid transparent;
+}
+
+.header-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(228, 31, 38, 0.3);
+}
+
+.header-user.active .header-avatar {
+    border-color: var(--arca-red);
+    box-shadow: 0 0 0 var(--focus-ring-size) var(--arca-red-light);
+}
+
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + var(--space-s));
+    right: 0;
+    width: 280px;
+    background: var(--color-neutral-0);
+    border: var(--border-size-s) solid var(--color-neutral-3);
+    border-radius: var(--border-radius-l);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.header-user.active .user-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    padding: var(--space-m);
+    background: var(--color-neutral-1);
+    border-bottom: var(--border-size-s) solid var(--color-neutral-2);
+}
+
+.dropdown-user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+}
+
+.dropdown-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--border-radius-circle);
+    background: var(--arca-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral-0);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-bold);
+    flex-shrink: 0;
+}
+
+.dropdown-user-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.dropdown-user-name {
+    font-size: var(--font-size-s);
+    font-weight: var(--font-bold);
+    color: var(--color-neutral-9);
+    margin-bottom: 2px;
+}
+
+.dropdown-user-role {
+    font-size: var(--font-size-xs);
+    color: var(--color-neutral-6);
+    margin-bottom: 2px;
+}
+
+.dropdown-user-email {
+    font-size: var(--font-size-xxs);
+    color: var(--color-neutral-5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-menu {
+    padding: var(--space-s);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    padding: var(--space-s) var(--space-base);
+    border-radius: var(--border-radius-m);
+    color: var(--color-neutral-7);
+    font-size: var(--font-size-s);
+    font-weight: var(--font-medium);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-item:hover {
+    background: var(--color-neutral-1);
+    color: var(--color-neutral-9);
+}
+
+.dropdown-item .material-symbols-rounded {
+    font-size: var(--font-size-xl);
+    color: var(--color-neutral-5);
+    transition: color 0.15s ease;
+}
+
+.dropdown-item:hover .material-symbols-rounded {
+    color: var(--arca-red);
+}
+
+.dropdown-divider {
+    height: var(--border-size-s);
+    background: var(--color-neutral-2);
+    margin: var(--space-xs) var(--space-s);
+}
+
+.dropdown-item.logout {
+    color: var(--arca-red);
+}
+
+.dropdown-item.logout .material-symbols-rounded {
+    color: var(--arca-red);
+}
+
+.dropdown-item.logout:hover {
+    background: var(--arca-red-light);
+}
+
+.header-avatar-base {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-circle);
+    background: var(--arca-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral-0);
+    font-size: var(--font-size-s);
+    font-weight: var(--font-bold);
+    cursor: pointer;
+}
+
+/* --- Layout: Content Area --- */
+.content-area {
+    flex: 1;
+    padding: var(--space-l);
+}
+
+/* .content-header, .content-title, .content-actions usan utilidades atómicas */
+
+/* Nota: Los botones usan clases OSUI estándar (.btn, .btn-primary, .btn-cancel)
+   definidas en la sección 7. OVERRIDE: OSUI Buttons */
+
+/* --- Dashboard: Metrics Grid --- */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-m);
+    margin-bottom: var(--space-m);
+}
+
+.metric-card {
+    background: var(--color-neutral-0);
+    border: var(--border-size-s) solid var(--color-neutral-3);
+    border-radius: var(--border-radius-l);
+    padding: var(--space-m);
+    animation: fadeInUp 0.5s ease-out both;
+}
+
+.metric-card:nth-child(1) { animation-delay: 0.1s; }
+.metric-card:nth-child(2) { animation-delay: 0.2s; }
+.metric-card:nth-child(3) { animation-delay: 0.3s; }
+.metric-card:nth-child(4) { animation-delay: 0.4s; }
+
+
+/* .metric-change usa utilidades atómicas: display-flex align-items-center gap-xs font-size-xs font-medium + text-success/warning/info */
+
+/* --- Dashboard: Table Card --- */
+.table-card {
+    background: var(--color-neutral-0);
+    border: var(--border-size-s) solid var(--color-neutral-3);
+    border-radius: var(--border-radius-l);
+    padding: var(--space-m);
+    animation: fadeInUp 0.5s ease-out 0.5s both;
+}
+
+/* .table-header usa utilidades atómicas: display-flex justify-content-space-between align-items-center margin-bottom-base */
+
+.table-link {
+    text-decoration: none;
+    cursor: pointer;
+}
+/* .table-link usa utilidades atómicas: font-size-s font-semi-bold text-arca-red */
+
+.table-link:hover {
+    text-decoration: underline;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    text-align: left;
+    padding: var(--space-s) var(--space-base);
+    background: var(--color-neutral-1);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-bold);
+    color: var(--color-neutral-6);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+.data-table th:first-child {
+    border-radius: var(--border-radius-base) 0 0 var(--border-radius-base);
+}
+
+.data-table th:last-child {
+    border-radius: 0 var(--border-radius-base) var(--border-radius-base) 0;
+}
+
+.data-table td {
+    padding: var(--space-base);
+    border-bottom: var(--border-size-s) solid var(--color-neutral-2);
+    font-size: var(--font-size-s);
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tr:hover td {
+    background: var(--color-neutral-1);
+}
+
+/* Nota: Los badges de estado usan clases OSUI estándar (.badge.background-success, etc.)
+   definidas en la sección 10. OVERRIDE: OSUI Badges */
+/* Las celdas de la tabla usan clases atómicas: font-semi-bold, text-neutral-X, etc. */
+
+/* --- Layout: Mobile Menu Toggle --- */
+.mobile-menu-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-m);
+    background: var(--color-neutral-1);
+    border: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: var(--font-size-xl);
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+/* --- Layout: Responsive Tablet --- */
+@media (max-width: 1200px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* --- Layout: Responsive Mobile --- */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%) !important;
+    }
+
+    .sidebar-toggle {
+        display: none;
+    }
+
+    .sidebar.open {
+        transform: translateX(0) !important;
+    }
+
+    .sidebar-overlay.open {
+        display: block;
+    }
+
+    .app-layout > main.main-content,
+    .app-layout > .main-content,
+    main.main-content {
+        margin-left: 0;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .top-header {
+        padding: 0 var(--space-base);
+    }
+
+    .content-area {
+        padding: var(--space-base);
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-base);
+    }
+
+    .content-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .btn-primary {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .data-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .header-right .header-btn:not(:last-child):not(.mobile-menu-btn) {
+        display: none;
+    }
+
+    .header-divider {
+        display: none;
+    }
+}
+
+/* ============================================
+   UTILITY CLASSES (Atomic)
+   Estas clases usan !important porque son
+   utilidades que deben sobrescribir estilos
+   ============================================ */
+
+/* --- Sizing: Width --- */
+.width-16 { width: 16px !important; }
+.width-20 { width: 20px !important; }
+.width-24 { width: 24px !important; }
+.width-32 { width: 32px !important; }
+.width-40 { width: 40px !important; }
+.width-48 { width: 48px !important; }
+.width-56 { width: 56px !important; }
+.width-64 { width: 64px !important; }
+.width-100 { width: 100% !important; }
+
+/* --- Sizing: Height --- */
+.height-16 { height: 16px !important; }
+.height-20 { height: 20px !important; }
+.height-24 { height: 24px !important; }
+.height-32 { height: 32px !important; }
+.height-40 { height: 40px !important; }
+.height-48 { height: 48px !important; }
+.height-56 { height: 56px !important; }
+.height-64 { height: 64px !important; }
+.height-100 { height: 100% !important; }
+
+/* --- Border Radius --- */
+.border-radius-none { border-radius: 0 !important; }
+.border-radius-s { border-radius: var(--border-radius-s) !important; }
+.border-radius-m { border-radius: var(--border-radius-m) !important; }
+.border-radius-l { border-radius: var(--border-radius-l) !important; }
+.border-radius-xl { border-radius: var(--border-radius-xl) !important; }
+.border-radius-circle { border-radius: var(--border-radius-circle) !important; }
+.border-radius-pill { border-radius: var(--border-radius-pill) !important; }
+
+/* --- Icon Sizes (font-size for icon fonts) --- */
+.icon-size-16 { font-size: 16px !important; }
+.icon-size-18 { font-size: 18px !important; }
+.icon-size-20 { font-size: 20px !important; }
+.icon-size-22 { font-size: var(--font-size-2xl) !important; }
+.icon-size-24 { font-size: 24px !important; }
+.icon-size-28 { font-size: 28px !important; }
+.icon-size-32 { font-size: var(--font-size-3xl) !important; }
+.icon-size-40 { font-size: var(--font-size-4xl) !important; }
+.icon-size-48 { font-size: var(--font-size-5xl) !important; }
+.icon-size-56 { font-size: var(--font-size-display) !important; }
+.icon-size-64 { font-size: 64px !important; }
+
+/* --- Text Colors (Arca Brand + Neutrals) --- */
+.text-arca-red { color: var(--arca-red) !important; }
+.text-arca-red-dark { color: var(--arca-red-dark) !important; }
 .text-success { color: var(--color-success) !important; }
-.text-error { color: var(--color-error) !important; }
 .text-warning { color: var(--color-warning) !important; }
+.text-error { color: var(--color-error) !important; }
 .text-info { color: var(--color-info) !important; }
-
-/* Cultura */
-.text-turquoise { color: var(--color-turquoise) !important; }
-.text-lime { color: var(--color-lime) !important; }
-.text-orange { color: var(--color-orange) !important; }
-.text-purple { color: var(--color-purple) !important; }
-.text-red-intense { color: var(--color-red-intense) !important; }
-
-/* Neutrales */
 .text-neutral-0 { color: var(--color-neutral-0) !important; }
-.text-neutral-1 { color: var(--color-neutral-1) !important; }
-.text-neutral-2 { color: var(--color-neutral-2) !important; }
-.text-neutral-3 { color: var(--color-neutral-3) !important; }
-.text-neutral-4 { color: var(--color-neutral-4) !important; }
 .text-neutral-5 { color: var(--color-neutral-5) !important; }
 .text-neutral-6 { color: var(--color-neutral-6) !important; }
 .text-neutral-7 { color: var(--color-neutral-7) !important; }
 .text-neutral-8 { color: var(--color-neutral-8) !important; }
 .text-neutral-9 { color: var(--color-neutral-9) !important; }
-.text-neutral-10 { color: var(--color-neutral-10) !important; }
 
-/* Alias comunes */
-.text-primary { color: var(--color-text-primary) !important; }
-.text-secondary { color: var(--color-text-secondary) !important; }
-.text-muted { color: var(--color-text-muted) !important; }
-.text-inverse { color: var(--color-text-inverse) !important; }
+/* --- Background Colors (Arca Brand + Semantic) --- */
+.background-arca-red { background-color: var(--arca-red) !important; }
+.background-arca-red-dark { background-color: var(--arca-red-dark) !important; }
+.background-arca-red-light { background-color: var(--arca-red-light) !important; }
+.background-green-light { background-color: rgba(16, 185, 129, 0.1) !important; }
+.background-yellow-light { background-color: rgba(245, 158, 11, 0.1) !important; }
+.background-blue-light { background-color: rgba(59, 130, 246, 0.1) !important; }
+.background-success-light { background-color: var(--color-success-light) !important; }
+.background-warning-light { background-color: var(--color-warning-light) !important; }
+.background-error-light { background-color: var(--color-error-light) !important; }
+.background-success-solid { background-color: var(--color-success) !important; }
+.background-warning-solid { background-color: var(--color-warning) !important; }
+.background-error-solid { background-color: var(--color-error) !important; }
+.background-neutral-0 { background-color: var(--color-neutral-0) !important; }
+.background-neutral-1 { background-color: var(--color-neutral-1) !important; }
+.background-neutral-2 { background-color: var(--color-neutral-2) !important; }
+.background-neutral-3 { background-color: var(--color-neutral-3) !important; }
+.background-neutral-9 { background-color: var(--color-neutral-9) !important; }
 
-/* ============================================
-   5. BORDER COLORS
-   ============================================ */
-.border-red { border-color: var(--color-red) !important; }
-.border-red-dark { border-color: var(--color-red-dark) !important; }
-.border-brown { border-color: var(--color-brown) !important; }
-.border-success { border-color: var(--color-success) !important; }
-.border-error { border-color: var(--color-error) !important; }
-.border-warning { border-color: var(--color-warning) !important; }
-.border-neutral-3 { border-color: var(--color-neutral-3) !important; }
-.border-neutral-4 { border-color: var(--color-neutral-4) !important; }
-.border-neutral-5 { border-color: var(--color-neutral-5) !important; }
+/* --- Icon Fill (for Material Symbols) --- */
+.icon-filled { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24 !important; }
+.icon-outlined { font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24 !important; }
+.icon-bold { font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 24 !important; }
+.icon-light { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important; }
 
-/* ============================================
-   6. TYPOGRAPHY - FONT SIZES
-   ============================================ */
+/* --- Font Sizes --- */
+.font-size-2xs { font-size: var(--font-size-2xs) !important; }
+.font-size-xxs { font-size: var(--font-size-xxs) !important; }
 .font-size-xs { font-size: var(--font-size-xs) !important; }
 .font-size-s { font-size: var(--font-size-s) !important; }
 .font-size-base { font-size: var(--font-size-base) !important; }
-.font-size-m { font-size: var(--font-size-m) !important; }
 .font-size-l { font-size: var(--font-size-l) !important; }
 .font-size-xl { font-size: var(--font-size-xl) !important; }
 .font-size-2xl { font-size: var(--font-size-2xl) !important; }
 .font-size-3xl { font-size: var(--font-size-3xl) !important; }
 .font-size-4xl { font-size: var(--font-size-4xl) !important; }
-.font-size-5xl { font-size: var(--font-size-5xl) !important; }
+.font-size-display { font-size: var(--font-size-display) !important; }
 
-/* ============================================
-   7. TYPOGRAPHY - FONT WEIGHTS
-   ============================================ */
-.font-light { font-weight: 300 !important; }
-.font-normal { font-weight: 400 !important; }
-.font-medium { font-weight: 500 !important; }
-.font-semi-bold { font-weight: 600 !important; }
-.font-bold { font-weight: 700 !important; }
-.font-extra-bold { font-weight: 800 !important; }
+/* --- Font Weights --- */
+.font-light { font-weight: var(--font-light) !important; }
+.font-regular { font-weight: var(--font-regular) !important; }
+.font-medium { font-weight: var(--font-medium) !important; }
+.font-semi-bold { font-weight: var(--font-semi-bold) !important; }
+.font-bold { font-weight: var(--font-bold) !important; }
+.font-extra-bold { font-weight: var(--font-extra-bold) !important; }
 
-/* ============================================
-   8. TYPOGRAPHY - HEADINGS (Combos)
-   ============================================ */
-.heading-5xl {
-    font-size: var(--font-size-5xl) !important;
-    font-weight: 800 !important;
-    line-height: 1.1 !important;
-    letter-spacing: -2px !important;
+/* --- Text Alignment --- */
+.text-left { text-align: left !important; }
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+
+/* --- Line Height --- */
+.line-height-1 { line-height: 1 !important; }
+.line-height-s { line-height: var(--line-height-s) !important; }
+.line-height-m { line-height: var(--line-height-m) !important; }
+.line-height-l { line-height: var(--line-height-l) !important; }
+
+/* --- Letter Spacing --- */
+.letter-spacing-tight { letter-spacing: var(--letter-spacing-tight) !important; }
+.letter-spacing-normal { letter-spacing: var(--letter-spacing-normal) !important; }
+.letter-spacing-wide { letter-spacing: var(--letter-spacing-wide) !important; }
+
+/* --- Text Overflow --- */
+.text-ellipsis {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
+.text-nowrap { white-space: nowrap !important; }
+.text-wrap { white-space: normal !important; }
 
-.heading-4xl {
-    font-size: var(--font-size-4xl) !important;
-    font-weight: 800 !important;
-    line-height: 1.15 !important;
-    letter-spacing: -1.5px !important;
-}
-
-.heading-3xl {
-    font-size: var(--font-size-3xl) !important;
-    font-weight: 700 !important;
-    line-height: 1.2 !important;
-    letter-spacing: -1px !important;
-}
-
-.heading-2xl {
-    font-size: var(--font-size-2xl) !important;
-    font-weight: 700 !important;
-    line-height: 1.25 !important;
-    letter-spacing: -0.5px !important;
-}
-
-.heading-xl {
-    font-size: var(--font-size-xl) !important;
-    font-weight: 700 !important;
-    line-height: 1.3 !important;
-}
-
-.heading-l {
-    font-size: var(--font-size-l) !important;
-    font-weight: 600 !important;
-    line-height: 1.35 !important;
-}
-
-/* ============================================
-   9. SPACING - MARGINS
-   ============================================ */
-/* All sides */
-.margin-none { margin: var(--space-none) !important; }
-.margin-xs { margin: var(--space-xs) !important; }
-.margin-s { margin: var(--space-s) !important; }
-.margin-base { margin: var(--space-base) !important; }
-.margin-m { margin: var(--space-m) !important; }
-.margin-l { margin: var(--space-l) !important; }
-.margin-xl { margin: var(--space-xl) !important; }
-.margin-2xl { margin: var(--space-2xl) !important; }
-
-/* Top */
-.margin-top-none { margin-top: var(--space-none) !important; }
-.margin-top-xs { margin-top: var(--space-xs) !important; }
-.margin-top-s { margin-top: var(--space-s) !important; }
-.margin-top-base { margin-top: var(--space-base) !important; }
-.margin-top-m { margin-top: var(--space-m) !important; }
-.margin-top-l { margin-top: var(--space-l) !important; }
-.margin-top-xl { margin-top: var(--space-xl) !important; }
-.margin-top-2xl { margin-top: var(--space-2xl) !important; }
-
-/* Bottom */
-.margin-bottom-none { margin-bottom: var(--space-none) !important; }
+/* --- Margin Bottom --- */
+.margin-bottom-none { margin-bottom: 0 !important; }
 .margin-bottom-xs { margin-bottom: var(--space-xs) !important; }
 .margin-bottom-s { margin-bottom: var(--space-s) !important; }
 .margin-bottom-base { margin-bottom: var(--space-base) !important; }
 .margin-bottom-m { margin-bottom: var(--space-m) !important; }
 .margin-bottom-l { margin-bottom: var(--space-l) !important; }
 .margin-bottom-xl { margin-bottom: var(--space-xl) !important; }
-.margin-bottom-2xl { margin-bottom: var(--space-2xl) !important; }
 
-/* Left */
-.margin-left-none { margin-left: var(--space-none) !important; }
-.margin-left-xs { margin-left: var(--space-xs) !important; }
-.margin-left-s { margin-left: var(--space-s) !important; }
-.margin-left-base { margin-left: var(--space-base) !important; }
-.margin-left-m { margin-left: var(--space-m) !important; }
-.margin-left-l { margin-left: var(--space-l) !important; }
-.margin-left-xl { margin-left: var(--space-xl) !important; }
+/* --- Margin Top --- */
+.margin-top-none { margin-top: 0 !important; }
+.margin-top-xs { margin-top: var(--space-xs) !important; }
+.margin-top-s { margin-top: var(--space-s) !important; }
+.margin-top-m { margin-top: var(--space-m) !important; }
+.margin-top-l { margin-top: var(--space-l) !important; }
 
-/* Right */
-.margin-right-none { margin-right: var(--space-none) !important; }
-.margin-right-xs { margin-right: var(--space-xs) !important; }
-.margin-right-s { margin-right: var(--space-s) !important; }
-.margin-right-base { margin-right: var(--space-base) !important; }
-.margin-right-m { margin-right: var(--space-m) !important; }
-.margin-right-l { margin-right: var(--space-l) !important; }
-.margin-right-xl { margin-right: var(--space-xl) !important; }
+/* --- Margin Horizontal Auto (centering) --- */
+.margin-horizontal-auto { margin-left: auto !important; margin-right: auto !important; }
 
-/* ============================================
-   10. SPACING - PADDINGS
-   ============================================ */
-/* All sides */
-.padding-none { padding: var(--space-none) !important; }
-.padding-xs { padding: var(--space-xs) !important; }
-.padding-s { padding: var(--space-s) !important; }
-.padding-base { padding: var(--space-base) !important; }
-.padding-m { padding: var(--space-m) !important; }
-.padding-l { padding: var(--space-l) !important; }
-.padding-xl { padding: var(--space-xl) !important; }
-.padding-2xl { padding: var(--space-2xl) !important; }
-
-/* Top */
-.padding-top-none { padding-top: var(--space-none) !important; }
-.padding-top-xs { padding-top: var(--space-xs) !important; }
-.padding-top-s { padding-top: var(--space-s) !important; }
-.padding-top-base { padding-top: var(--space-base) !important; }
-.padding-top-m { padding-top: var(--space-m) !important; }
-.padding-top-l { padding-top: var(--space-l) !important; }
-.padding-top-xl { padding-top: var(--space-xl) !important; }
-
-/* Bottom */
-.padding-bottom-none { padding-bottom: var(--space-none) !important; }
-.padding-bottom-xs { padding-bottom: var(--space-xs) !important; }
-.padding-bottom-s { padding-bottom: var(--space-s) !important; }
-.padding-bottom-base { padding-bottom: var(--space-base) !important; }
-.padding-bottom-m { padding-bottom: var(--space-m) !important; }
-.padding-bottom-l { padding-bottom: var(--space-l) !important; }
-.padding-bottom-xl { padding-bottom: var(--space-xl) !important; }
-
-/* Left */
-.padding-left-none { padding-left: var(--space-none) !important; }
-.padding-left-xs { padding-left: var(--space-xs) !important; }
-.padding-left-s { padding-left: var(--space-s) !important; }
-.padding-left-base { padding-left: var(--space-base) !important; }
-.padding-left-m { padding-left: var(--space-m) !important; }
-.padding-left-l { padding-left: var(--space-l) !important; }
-.padding-left-xl { padding-left: var(--space-xl) !important; }
-
-/* Right */
-.padding-right-none { padding-right: var(--space-none) !important; }
-.padding-right-xs { padding-right: var(--space-xs) !important; }
-.padding-right-s { padding-right: var(--space-s) !important; }
-.padding-right-base { padding-right: var(--space-base) !important; }
-.padding-right-m { padding-right: var(--space-m) !important; }
-.padding-right-l { padding-right: var(--space-l) !important; }
-.padding-right-xl { padding-right: var(--space-xl) !important; }
-
-/* ============================================
-   11. BORDER RADIUS
-   ============================================ */
-.radius-none { border-radius: var(--radius-none) !important; }
-.radius-s { border-radius: var(--radius-s) !important; }
-.radius-base { border-radius: var(--radius-base) !important; }
-.radius-m { border-radius: var(--radius-m) !important; }
-.radius-l { border-radius: var(--radius-l) !important; }
-.radius-xl { border-radius: var(--radius-xl) !important; }
-.radius-2xl { border-radius: var(--radius-2xl) !important; }
-.radius-full { border-radius: var(--radius-full) !important; }
-
-/* ============================================
-   12. SHADOWS
-   ============================================ */
-.shadow-none { box-shadow: var(--shadow-none) !important; }
-.shadow-s { box-shadow: var(--shadow-s) !important; }
-.shadow-base { box-shadow: var(--shadow-base) !important; }
-.shadow-m { box-shadow: var(--shadow-m) !important; }
-.shadow-l { box-shadow: var(--shadow-l) !important; }
-.shadow-xl { box-shadow: var(--shadow-xl) !important; }
-
-/* ============================================
-   13. DISPLAY & FLEXBOX
-   ============================================ */
-.display-none { display: none !important; }
-.display-block { display: block !important; }
-.display-inline { display: inline !important; }
-.display-inline-block { display: inline-block !important; }
-.display-flex { display: flex !important; }
-.display-inline-flex { display: inline-flex !important; }
-
-/* Flex Direction */
-.flex-row { flex-direction: row !important; }
-.flex-column { flex-direction: column !important; }
-.flex-row-reverse { flex-direction: row-reverse !important; }
-.flex-column-reverse { flex-direction: column-reverse !important; }
-
-/* Justify Content */
-.justify-start { justify-content: flex-start !important; }
-.justify-end { justify-content: flex-end !important; }
-.justify-center { justify-content: center !important; }
-.justify-between { justify-content: space-between !important; }
-.justify-around { justify-content: space-around !important; }
-
-/* Align Items */
-.align-start { align-items: flex-start !important; }
-.align-end { align-items: flex-end !important; }
-.align-center { align-items: center !important; }
-.align-stretch { align-items: stretch !important; }
-.align-baseline { align-items: baseline !important; }
-
-/* Flex Wrap */
-.flex-wrap { flex-wrap: wrap !important; }
-.flex-nowrap { flex-wrap: nowrap !important; }
-
-/* Gap */
-.gap-none { gap: var(--space-none) !important; }
+/* --- Flexbox Utilities (extensiones a OSUI) --- */
+.justify-content-space-between { justify-content: space-between !important; }
 .gap-xs { gap: var(--space-xs) !important; }
 .gap-s { gap: var(--space-s) !important; }
-.gap-base { gap: var(--space-base) !important; }
 .gap-m { gap: var(--space-m) !important; }
-.gap-l { gap: var(--space-l) !important; }
-.gap-xl { gap: var(--space-xl) !important; }
 
-/* ============================================
-   14. WIDTH & HEIGHT
-   ============================================ */
-.width-full { width: 100% !important; }
-.width-auto { width: auto !important; }
-.width-fit { width: fit-content !important; }
-.height-full { height: 100% !important; }
-.height-auto { height: auto !important; }
-.height-fit { height: fit-content !important; }
-.min-height-screen { min-height: 100vh !important; }
+/* --- Max Width --- */
+.max-width-400 { max-width: 400px !important; }
+.max-width-500 { max-width: 500px !important; }
+.max-width-600 { max-width: 600px !important; }
 
-/* ============================================
-   15. TEXT ALIGNMENT
-   ============================================ */
-.text-left { text-align: left !important; }
-.text-center { text-align: center !important; }
-.text-right { text-align: right !important; }
-
-/* ============================================
-   16. TEXT TRANSFORM
-   ============================================ */
-.text-uppercase { text-transform: uppercase !important; }
-.text-lowercase { text-transform: lowercase !important; }
-.text-capitalize { text-transform: capitalize !important; }
-.text-normal-case { text-transform: none !important; }
-
-/* ============================================
-   17. BORDERS
-   ============================================ */
-.border-none { border: none !important; }
-.border { border: 1px solid var(--color-neutral-3) !important; }
-.border-2 { border: 2px solid var(--color-neutral-3) !important; }
-.border-top { border-top: 1px solid var(--color-neutral-3) !important; }
-.border-bottom { border-bottom: 1px solid var(--color-neutral-3) !important; }
-.border-left { border-left: 1px solid var(--color-neutral-3) !important; }
-.border-right { border-right: 1px solid var(--color-neutral-3) !important; }
-
-/* ============================================
-   18. OVERFLOW
-   ============================================ */
-.overflow-hidden { overflow: hidden !important; }
-.overflow-auto { overflow: auto !important; }
-.overflow-scroll { overflow: scroll !important; }
-.overflow-visible { overflow: visible !important; }
-
-/* ============================================
-   19. POSITION
-   ============================================ */
-.position-relative { position: relative !important; }
-.position-absolute { position: absolute !important; }
-.position-fixed { position: fixed !important; }
-.position-sticky { position: sticky !important; }
-
-/* ============================================
-   20. CURSOR
-   ============================================ */
-.cursor-pointer { cursor: pointer !important; }
-.cursor-default { cursor: default !important; }
-.cursor-not-allowed { cursor: not-allowed !important; }
-
-/* ============================================
-   21. OPACITY
-   ============================================ */
-.opacity-0 { opacity: 0 !important; }
-.opacity-25 { opacity: 0.25 !important; }
-.opacity-50 { opacity: 0.5 !important; }
-.opacity-75 { opacity: 0.75 !important; }
-.opacity-100 { opacity: 1 !important; }
-
-/* ============================================
-   22. TRANSITIONS
-   ============================================ */
-.transition-fast { transition: var(--transition-fast) !important; }
-.transition-base { transition: var(--transition-base) !important; }
-.transition-slow { transition: var(--transition-slow) !important; }
-.transition-none { transition: none !important; }
-
-/* ============================================
-   23. ARCA BUTTONS (Extendiendo OutSystems UI)
-   ============================================ */
-/* Primary Button - Rojo Carmesí */
-.btn.btn-arca-primary,
-.btn-arca-primary {
-    background-color: var(--color-red) !important;
-    border-color: var(--color-red) !important;
-    color: var(--color-neutral-0) !important;
-    font-weight: 700 !important;
-    border-radius: var(--radius-m) !important;
-    padding: 12px 20px !important;
-    transition: var(--transition-base) !important;
-    box-shadow: 0 4px 12px rgba(195, 43, 64, 0.25) !important;
-}
-
-.btn-arca-primary:hover {
-    background-color: var(--color-red-dark) !important;
-    border-color: var(--color-red-dark) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 16px rgba(195, 43, 64, 0.35) !important;
-}
-
-.btn-arca-primary:active {
-    transform: translateY(0) !important;
-}
-
-/* Secondary Button */
-.btn.btn-arca-secondary,
-.btn-arca-secondary {
-    background-color: var(--color-neutral-10) !important;
-    border-color: var(--color-neutral-10) !important;
-    color: var(--color-neutral-0) !important;
-    font-weight: 700 !important;
-    border-radius: var(--radius-m) !important;
-    padding: 12px 20px !important;
-    transition: var(--transition-base) !important;
-}
-
-.btn-arca-secondary:hover {
-    background-color: var(--color-neutral-9) !important;
-    border-color: var(--color-neutral-9) !important;
-}
-
-/* Outline Button */
-.btn.btn-arca-outline,
-.btn-arca-outline {
-    background-color: transparent !important;
-    border: 1px solid var(--color-neutral-3) !important;
-    color: var(--color-neutral-8) !important;
-    font-weight: 600 !important;
-    border-radius: var(--radius-m) !important;
-    padding: 12px 20px !important;
-    transition: var(--transition-base) !important;
-}
-
-.btn-arca-outline:hover {
-    background-color: var(--color-neutral-1) !important;
-    border-color: var(--color-neutral-4) !important;
-}
-
-/* Ghost Button */
-.btn.btn-arca-ghost,
-.btn-arca-ghost {
-    background-color: transparent !important;
-    border: none !important;
-    color: var(--color-neutral-7) !important;
-    font-weight: 600 !important;
-    border-radius: var(--radius-m) !important;
-    padding: 12px 20px !important;
-    transition: var(--transition-base) !important;
-}
-
-.btn-arca-ghost:hover {
-    background-color: var(--color-neutral-2) !important;
-}
-
-/* Danger Button */
-.btn.btn-arca-danger,
-.btn-arca-danger {
-    background-color: var(--color-error) !important;
-    border-color: var(--color-error) !important;
-    color: var(--color-neutral-0) !important;
-    font-weight: 700 !important;
-    border-radius: var(--radius-m) !important;
-    padding: 12px 20px !important;
-}
-
-.btn-arca-danger:hover {
-    background-color: #c82333 !important;
-    border-color: #bd2130 !important;
-}
-
-/* ============================================
-   24. ARCA INPUTS (Extendiendo OutSystems UI)
-   ============================================ */
-.input-arca,
-.form-control.input-arca {
-    background-color: var(--color-neutral-1) !important;
-    border: 1px solid var(--color-neutral-3) !important;
-    border-radius: var(--radius-m) !important;
-    padding: 14px 16px !important;
-    font-size: var(--font-size-base) !important;
-    color: var(--color-text-primary) !important;
-    transition: var(--transition-base) !important;
-}
-
-.input-arca:focus,
-.form-control.input-arca:focus {
-    outline: none !important;
-    border-color: var(--color-red) !important;
-    background-color: var(--color-neutral-0) !important;
-    box-shadow: 0 0 0 4px var(--color-red-light) !important;
-}
-
-.input-arca.is-error,
-.form-control.input-arca.is-error {
-    border-color: var(--color-error) !important;
-    background-color: var(--color-error-light) !important;
-}
-
-.input-arca.is-error:focus {
-    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.15) !important;
-}
-
-/* ============================================
-   25. ARCA CARDS
-   ============================================ */
-.card-arca {
-    background-color: var(--color-neutral-0) !important;
-    border: 1px solid var(--color-neutral-3) !important;
-    border-radius: var(--radius-xl) !important;
-    padding: var(--space-l) !important;
-}
-
-.card-arca-elevated {
-    background-color: var(--color-neutral-0) !important;
-    border: none !important;
-    border-radius: var(--radius-xl) !important;
-    padding: var(--space-l) !important;
-    box-shadow: var(--shadow-m) !important;
-}
-
-/* ============================================
-   26. ARCA BADGES
-   ============================================ */
-.badge-arca {
-    display: inline-flex !important;
-    align-items: center !important;
-    padding: 6px 12px !important;
-    border-radius: var(--radius-full) !important;
-    font-size: var(--font-size-xs) !important;
-    font-weight: 600 !important;
-}
-
-.badge-arca-primary {
-    background-color: var(--color-red) !important;
-    color: var(--color-neutral-0) !important;
-}
-
-.badge-arca-success {
-    background-color: var(--color-success-light) !important;
-    color: var(--color-success) !important;
-}
-
-.badge-arca-warning {
-    background-color: var(--color-warning-light) !important;
-    color: var(--color-warning) !important;
-}
-
-.badge-arca-error {
-    background-color: var(--color-error-light) !important;
-    color: var(--color-error) !important;
-}
-
-.badge-arca-info {
-    background-color: var(--color-info-light) !important;
-    color: var(--color-gray-dark) !important;
-}
-
-.badge-arca-neutral {
-    background-color: var(--color-neutral-2) !important;
-    color: var(--color-neutral-7) !important;
-}
-
-/* ============================================
-   27. ARCA LABELS
-   ============================================ */
-.label-arca {
-    font-size: var(--font-size-s) !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    color: var(--color-neutral-6) !important;
-    margin-bottom: var(--space-s) !important;
-    display: block !important;
-}
-
-/* ============================================
-   28. ARCA DIVIDERS
-   ============================================ */
-.divider-arca {
-    height: 1px !important;
-    background-color: var(--color-neutral-3) !important;
-    border: none !important;
-    margin: var(--space-l) 0 !important;
-}
-
-/* ============================================
-   29. ARCA LINKS
-   ============================================ */
-.link-arca {
-    color: var(--color-red) !important;
-    text-decoration: none !important;
-    font-weight: 500 !important;
-    transition: var(--transition-fast) !important;
-}
-
-.link-arca:hover {
-    color: var(--color-red-dark) !important;
-    text-decoration: underline !important;
-}
-
-/* ============================================
-   30. UTILITY - VISIBILITY
-   ============================================ */
-.visible { visibility: visible !important; }
-.invisible { visibility: hidden !important; }
-
-/* ============================================
-   31. UTILITY - POINTER EVENTS
-   ============================================ */
-.pointer-events-none { pointer-events: none !important; }
-.pointer-events-auto { pointer-events: auto !important; }
-
-/* ============================================
-   32. UTILITY - USER SELECT
-   ============================================ */
-.select-none { user-select: none !important; }
-.select-text { user-select: text !important; }
-.select-all { user-select: all !important; }
+/* --- Sizing: Width 10px --- */
+.width-10 { width: 10px !important; }
+.height-10 { height: 10px !important; }
 
 /* ============================================
    END OF ARCA CONTINENTAL THEME
