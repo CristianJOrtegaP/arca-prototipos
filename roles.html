@@ -825,7 +825,6 @@
                         </td>
                         <td>
                             <div class="user-actions">
-                                <button class="action-btn" title="Editar" onclick="editPermission(${p.id})"><span class="material-symbols-rounded">edit</span></button>
                                 <button class="action-btn" title="Eliminar" onclick="deletePermission(${p.id}, '${p.user}')"><span class="material-symbols-rounded">delete</span></button>
                             </div>
                         </td>
@@ -887,7 +886,6 @@
         function closeAddModal() {
             addModal.classList.remove('active');
             document.body.style.overflow = '';
-            document.querySelector('#addModal .modal-title').textContent = 'Asignar Nuevo Permiso';
         }
 
         function savePermission() {
@@ -932,22 +930,6 @@
                 closeAddModal();
                 showToast('Permiso asignado exitosamente', 'success');
             }, 1000);
-        }
-
-        function editPermission(id) {
-            const permission = permissions.find(p => p.id === id);
-            if (!permission) return;
-
-            document.querySelector('#addModal .modal-title').textContent = 'Editar Permiso';
-            document.getElementById('modalUser').value = permission.odoo_id;
-            document.getElementById('modalRole').value = permission.role;
-            document.getElementById('modalCentro').value = permission.centro;
-            document.getElementById('modalRuta').value = permission.ruta;
-            document.getElementById('modalTerritorio').value = permission.territorio.toLowerCase();
-            document.getElementById('modalRegion').value = permission.region.toLowerCase();
-
-            addModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
         function deletePermission(id, userName) {

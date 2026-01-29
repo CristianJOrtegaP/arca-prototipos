@@ -482,13 +482,21 @@
                             <span class="font-size-s text-neutral-6">Mostrando <strong>1-10</strong> de <strong id="totalCount">14</strong> registros</span>
                         </div>
                         <div class="pagination-controls">
+                            <button class="pagination-btn" disabled title="Primera página">
+                                <span class="material-symbols-rounded">first_page</span>
+                            </button>
                             <button class="pagination-btn" disabled title="Anterior">
                                 <span class="material-symbols-rounded">chevron_left</span>
                             </button>
-                            <button class="pagination-btn active">1</button>
-                            <button class="pagination-btn">2</button>
+                            <div class="pagination-pages">
+                                <button class="pagination-page active">1</button>
+                                <button class="pagination-page">2</button>
+                            </div>
                             <button class="pagination-btn" title="Siguiente">
                                 <span class="material-symbols-rounded">chevron_right</span>
+                            </button>
+                            <button class="pagination-btn" title="Última página">
+                                <span class="material-symbols-rounded">last_page</span>
                             </button>
                         </div>
                     </div>
