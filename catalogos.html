@@ -3,231 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogos | Arca.OS</title>
-    <link rel="stylesheet" href="arca-continental-theme.css">
+    <title>Arca.OS | Catálogos - Prototipo</title>
+    <!-- Google Material Symbols -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="arca-continental-theme.css">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: var(--font-primary);
-            background: var(--color-neutral-1);
-            min-height: 100vh;
-        }
-
-        /* Layout */
-        .app-layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 260px;
-            background: var(--color-neutral-0);
-            border-right: 1px solid var(--color-neutral-3);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-            z-index: 100;
-            transition: transform 0.3s ease;
-        }
-
-        .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--color-neutral-3);
-        }
-
-        .sidebar-logo {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .logo-text {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--color-neutral-9);
-            letter-spacing: 0.5px;
-        }
-
-        .logo-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--color-red);
-            border-radius: 50%;
-        }
-
-        .sidebar-nav {
-            flex: 1;
-            padding: 16px 12px;
-            overflow-y: auto;
-        }
-
-        .nav-section {
-            margin-bottom: 24px;
-        }
-
-        .nav-section-title {
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--color-neutral-5);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 0 12px;
-            margin-bottom: 8px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border-radius: 10px;
-            color: var(--color-neutral-7);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: var(--transition-base);
-            cursor: pointer;
-        }
-
-        .nav-item:hover {
-            background: var(--color-neutral-2);
-            color: var(--color-neutral-9);
-        }
-
-        .nav-item.active {
-            background: var(--color-red-light);
-            color: var(--color-red);
-        }
-
-        .nav-item .material-symbols-rounded {
-            font-size: 20px;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 260px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header */
-        .header {
-            background: var(--color-neutral-0);
-            border-bottom: 1px solid var(--color-neutral-3);
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            padding: 8px;
-            cursor: pointer;
-            color: var(--color-neutral-7);
-        }
-
-        .page-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--color-neutral-9);
-        }
-
-        .header-user {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 10px;
-            transition: var(--transition-base);
-        }
-
-        .header-user:hover {
-            background: var(--color-neutral-2);
-        }
-
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            background: var(--color-red);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--color-neutral-9);
-        }
-
-        .user-role {
-            font-size: 11px;
-            color: var(--color-neutral-6);
-        }
-
-        /* Content Area */
-        .content {
-            padding: 24px;
-            flex: 1;
-        }
-
-        /* Catalog Selector */
-        .catalog-selector {
-            background: var(--color-neutral-0);
-            border-radius: 16px;
-            border: 1px solid var(--color-neutral-3);
-            padding: 20px;
-            margin-bottom: 24px;
-        }
-
-        .catalog-selector-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .catalog-selector-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--color-neutral-7);
-        }
-
+        /* Catalog Tabs */
         .catalog-tabs {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--color-neutral-3);
+            background: var(--color-neutral-1);
         }
 
         .catalog-tab {
@@ -243,6 +31,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            font-family: var(--font-primary);
         }
 
         .catalog-tab:hover {
@@ -273,172 +62,7 @@
             color: var(--color-neutral-6);
         }
 
-        /* Content Card */
-        .content-card {
-            background: var(--color-neutral-0);
-            border-radius: 16px;
-            border: 1px solid var(--color-neutral-3);
-            overflow: hidden;
-        }
-
-        .content-card-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--color-neutral-3);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .content-card-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .content-card-title h2 {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--color-neutral-9);
-        }
-
-        .content-card-title .badge {
-            background: var(--color-neutral-2);
-            color: var(--color-neutral-7);
-            padding: 4px 10px;
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .content-card-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .search-input {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 14px;
-            border: 1px solid var(--color-neutral-3);
-            border-radius: 10px;
-            background: var(--color-neutral-1);
-            min-width: 280px;
-        }
-
-        .search-input .material-symbols-rounded {
-            color: var(--color-neutral-5);
-            font-size: 20px;
-        }
-
-        .search-input input {
-            border: none;
-            background: none;
-            outline: none;
-            font-size: 14px;
-            width: 100%;
-            color: var(--color-neutral-9);
-        }
-
-        .search-input input::placeholder {
-            color: var(--color-neutral-5);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-base);
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--color-red);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--color-red-hover);
-        }
-
-        .btn-secondary {
-            background: var(--color-neutral-2);
-            color: var(--color-neutral-7);
-        }
-
-        .btn-secondary:hover {
-            background: var(--color-neutral-3);
-        }
-
-        .btn-cancel {
-            background: var(--color-neutral-2);
-            color: var(--color-neutral-7);
-        }
-
-        .btn-cancel:hover {
-            background: var(--color-neutral-3);
-        }
-
-        .btn-danger {
-            background: var(--color-error-light);
-            color: var(--color-error);
-        }
-
-        .btn-danger:hover {
-            background: var(--color-error);
-            color: white;
-        }
-
-        .btn .material-symbols-rounded {
-            font-size: 18px;
-        }
-
-        /* Table */
-        .table-wrapper {
-            overflow-x: auto;
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table th {
-            text-align: left;
-            padding: 14px 16px;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--color-neutral-6);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            background: var(--color-neutral-1);
-            border-bottom: 1px solid var(--color-neutral-3);
-        }
-
-        .data-table td {
-            padding: 16px;
-            font-size: 14px;
-            color: var(--color-neutral-8);
-            border-bottom: 1px solid var(--color-neutral-2);
-            vertical-align: middle;
-        }
-
-        .data-table tbody tr:hover {
-            background: var(--color-neutral-1);
-        }
-
-        .data-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
+        /* Catalog name cell */
         .catalog-name {
             font-weight: 600;
             color: var(--color-neutral-9);
@@ -450,6 +74,7 @@
             margin-top: 4px;
         }
 
+        /* Meta info */
         .meta-info {
             display: flex;
             flex-direction: column;
@@ -467,6 +92,24 @@
             color: var(--color-neutral-5);
         }
 
+        /* Row actions */
+        .row-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .action-btn.edit:hover {
+            background: var(--color-info-light);
+            color: var(--color-info);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--color-error-light);
+            color: var(--color-error);
+        }
+
+        /* Status badge */
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -487,264 +130,8 @@
             color: var(--color-neutral-6);
         }
 
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: currentColor;
-        }
-
-        .row-actions {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .action-btn {
-            width: 36px;
-            height: 36px;
-            border: none;
-            background: none;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-neutral-6);
-            transition: var(--transition-base);
-        }
-
-        .action-btn:hover {
-            background: var(--color-neutral-2);
-            color: var(--color-neutral-8);
-        }
-
-        .action-btn.edit:hover {
-            background: var(--color-info-light);
-            color: var(--color-info);
-        }
-
-        .action-btn.delete:hover {
-            background: var(--color-error-light);
-            color: var(--color-error);
-        }
-
-        .action-btn .material-symbols-rounded {
-            font-size: 20px;
-        }
-
-        /* Pagination */
-        .pagination {
-            padding: 16px 20px;
-            border-top: 1px solid var(--color-neutral-3);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .pagination-info {
-            font-size: 13px;
-            color: var(--color-neutral-6);
-        }
-
-        .pagination-controls {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .pagination-btn {
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--color-neutral-3);
-            background: var(--color-neutral-0);
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-neutral-7);
-            font-size: 14px;
-            font-weight: 500;
-            transition: var(--transition-base);
-        }
-
-        .pagination-btn:hover:not(:disabled) {
-            background: var(--color-neutral-2);
-            border-color: var(--color-neutral-4);
-        }
-
-        .pagination-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .pagination-btn.active {
-            background: var(--color-red);
-            border-color: var(--color-red);
-            color: white;
-        }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-base);
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-container {
-            background: var(--color-neutral-0);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transform: translateY(20px);
-            transition: var(--transition-base);
-        }
-
-        .modal-overlay.active .modal-container {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--color-neutral-3);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--color-neutral-9);
-        }
-
-        .modal-close {
-            width: 36px;
-            height: 36px;
-            border: none;
-            background: var(--color-neutral-2);
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-neutral-7);
-            transition: var(--transition-base);
-        }
-
-        .modal-close:hover {
-            background: var(--color-neutral-3);
-            color: var(--color-neutral-9);
-        }
-
-        .modal-body {
-            padding: 24px;
-            overflow-y: auto;
-        }
-
-        .modal-footer {
-            padding: 16px 24px;
-            border-top: 1px solid var(--color-neutral-3);
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 12px;
-        }
-
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--color-neutral-7);
-            margin-bottom: 8px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid var(--color-neutral-3);
-            border-radius: 10px;
-            font-size: 14px;
-            color: var(--color-neutral-9);
-            background: var(--color-neutral-0);
-            transition: var(--transition-base);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--color-red);
-            box-shadow: 0 0 0 3px var(--color-red-light);
-        }
-
-        .form-input::placeholder {
-            color: var(--color-neutral-5);
-        }
-
-        textarea.form-input {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .form-select {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid var(--color-neutral-3);
-            border-radius: 10px;
-            font-size: 14px;
-            color: var(--color-neutral-9);
-            background: var(--color-neutral-0);
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px;
-            padding-right: 40px;
-        }
-
-        .form-select:focus {
-            outline: none;
-            border-color: var(--color-red);
-            box-shadow: 0 0 0 3px var(--color-red-light);
-        }
-
-        .form-hint {
-            font-size: 12px;
-            color: var(--color-neutral-5);
-            margin-top: 6px;
-        }
-
-        .form-switch {
+        /* Form Switch */
+        .form-switch-group {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -800,260 +187,229 @@
             color: var(--color-neutral-7);
         }
 
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: var(--color-neutral-9);
-            color: white;
-            padding: 14px 20px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: var(--shadow-l);
-            z-index: 2000;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: var(--transition-base);
+        /* Danger button */
+        .btn-danger {
+            background: var(--color-error-light);
+            color: var(--color-error);
         }
 
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .toast.success {
-            background: var(--color-success);
-        }
-
-        .toast.error {
+        .btn-danger:hover {
             background: var(--color-error);
-        }
-
-        .toast .material-symbols-rounded {
-            font-size: 20px;
-        }
-
-        /* Empty State */
-        .empty-state {
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .empty-state-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--color-neutral-2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-
-        .empty-state-icon .material-symbols-rounded {
-            font-size: 36px;
-            color: var(--color-neutral-5);
-        }
-
-        .empty-state-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--color-neutral-8);
-            margin-bottom: 8px;
-        }
-
-        .empty-state-description {
-            font-size: 14px;
-            color: var(--color-neutral-6);
-            margin-bottom: 20px;
-        }
-
-        /* Sidebar Overlay (Mobile) */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 99;
+            color: white;
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .sidebar-overlay.active {
-                display: block;
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-            }
-
-            .search-input {
-                min-width: 200px;
-            }
-        }
-
         @media (max-width: 768px) {
-            .content {
-                padding: 16px;
-            }
-
-            .content-card-header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .content-card-actions {
-                flex-direction: column;
-            }
-
-            .search-input {
-                min-width: 100%;
-            }
-
             .catalog-tabs {
                 overflow-x: auto;
                 flex-wrap: nowrap;
-                padding-bottom: 8px;
+                padding-bottom: 12px;
             }
 
             .catalog-tab {
                 flex-shrink: 0;
             }
 
-            .data-table th,
-            .data-table td {
-                padding: 12px;
-            }
-
-            .pagination {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .user-info {
-                display: none;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .data-table {
-                font-size: 13px;
-            }
-
             .hide-mobile {
                 display: none;
             }
-        }
-
-        /* Animations */
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .spinning {
-            animation: spin 1s linear infinite;
         }
     </style>
 </head>
 <body>
     <div class="app-layout">
-        <!-- Sidebar Overlay -->
+        <!-- Sidebar Overlay (Mobile) -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
+            <!-- Toggle Button -->
+            <button class="sidebar-toggle" id="sidebarToggle" title="Colapsar menú">
+                <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+
             <div class="sidebar-header">
-                <div class="sidebar-logo">
-                    <span class="logo-text">ARCA</span>
-                    <span class="logo-dot"></span>
-                    <span class="logo-text">OS</span>
+                <img src="assets/Arca_continental_logo_simple.png" alt="Arca Continental" class="sidebar-company-logo" />
+                <div class="sidebar-brand">
+                    <div class="sidebar-logo">
+                        <span class="logo-text">ARCA</span>
+                        <span class="logo-dot"></span>
+                        <span class="logo-text">OS</span>
+                    </div>
+                    <span class="sidebar-subtitle">OR Equipo frío</span>
                 </div>
             </div>
+
             <nav class="sidebar-nav">
                 <div class="nav-section">
-                    <div class="nav-section-title">Principal</div>
                     <a href="layout.html" class="nav-item">
-                        <span class="material-symbols-rounded">dashboard</span>
-                        Dashboard
-                    </a>
-                    <a href="#" class="nav-item">
-                        <span class="material-symbols-rounded">assignment</span>
-                        Órdenes
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">dashboard</span></span>
+                        <span>Dashboard</span>
                     </a>
                 </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Operación</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">assignment</span></span>
+                        <span>Órdenes de Recuperación</span>
+                        <span class="nav-item-badge">24</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">account_balance</span></span>
+                        <span>Contraloría</span>
+                        <span class="nav-item-badge">8</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">person_check</span></span>
+                        <span>Aprobación Jefe de Ventas</span>
+                        <span class="nav-item-badge">5</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">manage_accounts</span></span>
+                        <span>Aprobación Gerente de Ventas</span>
+                        <span class="nav-item-badge">3</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">location_city</span></span>
+                        <span>Aprobación Gerente Regional</span>
+                        <span class="nav-item-badge">2</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">corporate_fare</span></span>
+                        <span>Aprobación Gerente CH</span>
+                        <span class="nav-item-badge">1</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">handshake</span></span>
+                        <span>Comodato</span>
+                        <span class="nav-item-badge">12</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Auditoría</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">bar_chart</span></span>
+                        <span>Reportes</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">history</span></span>
+                        <span>Bitácora de Acciones</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Datos</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">sync</span></span>
+                        <span>Sincronizar</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">send</span></span>
+                        <span>Enviar Información</span>
+                    </a>
+                </div>
+
                 <div class="nav-section">
                     <div class="nav-section-title">Administración</div>
-                    <a href="usuarios.html" class="nav-item">
-                        <span class="material-symbols-rounded">group</span>
-                        Usuarios
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">admin_panel_settings</span></span>
+                        <span>Configuración Roles</span>
                     </a>
                     <a href="catalogos.html" class="nav-item active">
-                        <span class="material-symbols-rounded">category</span>
-                        Catálogos
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">category</span></span>
+                        <span>Catálogos</span>
                     </a>
                     <a href="recordatorios.html" class="nav-item">
-                        <span class="material-symbols-rounded">notifications</span>
-                        Recordatorios
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">notifications_active</span></span>
+                        <span>Recordatorios</span>
                     </a>
-                </div>
-                <div class="nav-section">
-                    <div class="nav-section-title">Reportes</div>
-                    <a href="#" class="nav-item">
-                        <span class="material-symbols-rounded">bar_chart</span>
-                        Métricas
-                    </a>
-                    <a href="#" class="nav-item">
-                        <span class="material-symbols-rounded">download</span>
-                        Exportar
+                    <a href="usuarios.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">group</span></span>
+                        <span>Usuarios</span>
                     </a>
                 </div>
             </nav>
+
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Header -->
-            <header class="header">
+            <!-- Top Header -->
+            <header class="top-header">
                 <div class="header-left">
-                    <button class="mobile-menu-btn" id="mobileMenuBtn">
-                        <span class="material-symbols-rounded">menu</span>
-                    </button>
-                    <h1 class="page-title">Catálogos</h1>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><span class="material-symbols-rounded">menu</span></button>
+                    <h1 class="font-size-2xl font-bold text-neutral-9">Catálogos</h1>
+                    <div class="breadcrumb font-size-xs text-neutral-5">
+                        <a href="layout.html">Inicio</a> / <a href="#">Administración</a> / Catálogos
+                    </div>
                 </div>
-                <div class="header-user">
-                    <div class="user-avatar">CO</div>
-                    <div class="user-info">
-                        <span class="user-name">Carlos Operador</span>
-                        <span class="user-role">Admin TI</span>
+
+                <div class="header-right">
+                    <button class="header-btn" title="Buscar"><span class="material-symbols-rounded">search</span></button>
+                    <button class="header-btn" title="Notificaciones">
+                        <span class="material-symbols-rounded">notifications</span>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="header-btn" title="Ayuda"><span class="material-symbols-rounded">help</span></button>
+                    <div class="header-divider"></div>
+                    <div class="header-user" id="headerUser">
+                        <div class="user-chip" onclick="toggleUserDropdown()">
+                            <div class="header-avatar">CO</div>
+                            <div class="user-chip-info">
+                                <span class="font-size-s font-semi-bold text-neutral-9">Carlos Operador</span>
+                                <span class="font-size-xxs text-neutral-5">Admin TI</span>
+                            </div>
+                            <span class="material-symbols-rounded text-neutral-5 icon-size-20">expand_more</span>
+                        </div>
+                        <div class="user-dropdown">
+                            <div class="dropdown-header">
+                                <div class="dropdown-user-info">
+                                    <div class="dropdown-avatar">CO</div>
+                                    <div class="dropdown-user-details">
+                                        <div class="dropdown-user-name">Carlos Operador</div>
+                                        <div class="dropdown-user-role">Admin TI</div>
+                                        <div class="dropdown-user-email">carlos.operador@arcacontal.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-menu">
+                                <button class="dropdown-item">
+                                    <span class="material-symbols-rounded">person</span>
+                                    Mi Perfil
+                                </button>
+                                <button class="dropdown-item">
+                                    <span class="material-symbols-rounded">settings</span>
+                                    Configuración
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item logout" onclick="handleLogout()">
+                                    <span class="material-symbols-rounded">logout</span>
+                                    Cerrar Sesión
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
 
-            <!-- Content -->
-            <div class="content">
-                <!-- Catalog Selector -->
-                <div class="catalog-selector">
-                    <div class="catalog-selector-header">
-                        <span class="catalog-selector-title">Selecciona un catálogo</span>
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Fixed Header -->
+                <div class="content-header-fixed">
+                    <h2 class="font-size-2xl font-bold text-neutral-9">Administración de Catálogos</h2>
+                    <div class="display-flex gap-s">
+                        <button class="btn btn-primary" onclick="openAddModal()">
+                            <span class="material-symbols-rounded">add</span>
+                            <span>Agregar Registro</span>
+                        </button>
                     </div>
+                </div>
+
+                <!-- Scrollable Content Card -->
+                <div class="content-scroll-card">
+                    <!-- Catalog Tabs -->
                     <div class="catalog-tabs">
                         <button class="catalog-tab active" data-catalog="hallazgo">
                             <span class="material-symbols-rounded">search</span>
@@ -1086,28 +442,24 @@
                             <span class="count">6</span>
                         </button>
                     </div>
-                </div>
 
-                <!-- Content Card -->
-                <div class="content-card">
-                    <div class="content-card-header">
-                        <div class="content-card-title">
-                            <h2 id="catalogTitle">Hallazgo</h2>
-                            <span class="badge" id="catalogCount">14 registros</span>
+                    <!-- Filters Section -->
+                    <div class="users-filters">
+                        <div class="filter-group search-group">
+                            <span class="material-symbols-rounded search-icon">search</span>
+                            <input type="text" class="form-input search-input" placeholder="Buscar en catálogo..." id="searchInput">
                         </div>
-                        <div class="content-card-actions">
-                            <div class="search-input">
-                                <span class="material-symbols-rounded">search</span>
-                                <input type="text" placeholder="Buscar en catálogo..." id="searchInput">
-                            </div>
-                            <button class="btn btn-primary" onclick="openAddModal()">
-                                <span class="material-symbols-rounded">add</span>
-                                Agregar
-                            </button>
+                        <div class="filter-group toggle-group">
+                            <span class="toggle-label">Mostrar inactivos:</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="showInactiveToggle">
+                                <span class="toggle-slider"></span>
+                            </label>
                         </div>
                     </div>
 
-                    <div class="table-wrapper">
+                    <!-- Catalog Table -->
+                    <div class="table-container">
                         <table class="data-table" id="catalogTable">
                             <thead>
                                 <tr>
@@ -1115,7 +467,7 @@
                                     <th class="hide-mobile">Creado por</th>
                                     <th class="hide-mobile">Actualizado por</th>
                                     <th>Estado</th>
-                                    <th style="width: 100px;">Acciones</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="catalogTableBody">
@@ -1127,15 +479,15 @@
                     <!-- Pagination -->
                     <div class="pagination">
                         <div class="pagination-info">
-                            <span>Mostrando <strong>1-10</strong> de <strong>14</strong> registros</span>
+                            <span class="font-size-s text-neutral-6">Mostrando <strong>1-10</strong> de <strong id="totalCount">14</strong> registros</span>
                         </div>
                         <div class="pagination-controls">
-                            <button class="pagination-btn" disabled>
+                            <button class="pagination-btn" disabled title="Anterior">
                                 <span class="material-symbols-rounded">chevron_left</span>
                             </button>
                             <button class="pagination-btn active">1</button>
                             <button class="pagination-btn">2</button>
-                            <button class="pagination-btn">
+                            <button class="pagination-btn" title="Siguiente">
                                 <span class="material-symbols-rounded">chevron_right</span>
                             </button>
                         </div>
@@ -1161,12 +513,12 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Descripción</label>
-                    <textarea class="form-input" id="itemDescription" placeholder="Descripción opcional del registro"></textarea>
-                    <p class="form-hint">Opcional. Ayuda a identificar el propósito del registro.</p>
+                    <textarea class="form-input" id="itemDescription" placeholder="Descripción opcional del registro" rows="3"></textarea>
+                    <p class="font-size-xs text-neutral-5 margin-top-xs">Opcional. Ayuda a identificar el propósito del registro.</p>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Estado</label>
-                    <div class="form-switch">
+                    <div class="form-switch-group">
                         <label class="switch">
                             <input type="checkbox" id="itemStatus" checked>
                             <span class="switch-slider"></span>
@@ -1187,7 +539,7 @@
 
     <!-- Delete Confirmation Modal -->
     <div class="modal-overlay" id="deleteModal">
-        <div class="modal-container" style="max-width: 400px;">
+        <div class="modal-container modal-sm">
             <div class="modal-header">
                 <h2 class="modal-title">Confirmar Eliminación</h2>
                 <button class="modal-close" onclick="closeDeleteModal()">
@@ -1195,7 +547,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p style="color: var(--color-neutral-7); line-height: 1.6;">
+                <p class="text-neutral-7" style="line-height: 1.6;">
                     ¿Estás seguro de que deseas eliminar <strong id="deleteItemName">este registro</strong>? Esta acción no se puede deshacer.
                 </p>
             </div>
@@ -1211,7 +563,7 @@
 
     <!-- Toast -->
     <div class="toast" id="toast">
-        <span class="material-symbols-rounded">check_circle</span>
+        <span class="material-symbols-rounded" id="toastIcon">check_circle</span>
         <span id="toastMessage">Cambios guardados exitosamente</span>
     </div>
 
@@ -1296,6 +648,29 @@
             sidebarOverlay.classList.remove('active');
         });
 
+        // Sidebar Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+        });
+
+        // User Dropdown
+        function toggleUserDropdown() {
+            const headerUser = document.getElementById('headerUser');
+            headerUser.classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            const headerUser = document.getElementById('headerUser');
+            if (!headerUser.contains(e.target)) {
+                headerUser.classList.remove('active');
+            }
+        });
+
+        function handleLogout() {
+            alert('Cerrando sesión...');
+        }
+
         // Catalog Tabs
         const catalogTabs = document.querySelectorAll('.catalog-tab');
         catalogTabs.forEach(tab => {
@@ -1311,11 +686,9 @@
         function renderCatalog() {
             const data = catalogs[currentCatalog];
             const tbody = document.getElementById('catalogTableBody');
-            const title = document.getElementById('catalogTitle');
-            const count = document.getElementById('catalogCount');
+            const totalCount = document.getElementById('totalCount');
 
-            title.textContent = catalogNames[currentCatalog];
-            count.textContent = `${data.length} registros`;
+            totalCount.textContent = data.length;
 
             tbody.innerHTML = data.map(item => `
                 <tr>
@@ -1335,7 +708,7 @@
                                 <span class="meta-user">${item.updatedBy}</span>
                                 <span class="meta-date">${item.updatedAt}</span>
                             </div>
-                        ` : '<span style="color: var(--color-neutral-5);">—</span>'}
+                        ` : '<span class="text-neutral-5">—</span>'}
                     </td>
                     <td>
                         <span class="status-badge ${item.active ? 'active' : 'inactive'}">
@@ -1431,7 +804,7 @@
                     currentEditItem.active = active;
                     currentEditItem.updatedBy = 'Carlos Operador';
                     currentEditItem.updatedAt = new Date().toLocaleDateString('es-MX');
-                    showToast('Registro actualizado exitosamente');
+                    showToast('Registro actualizado exitosamente', 'success');
                 } else {
                     // Add new
                     const newId = Math.max(...catalogs[currentCatalog].map(i => i.id)) + 1;
@@ -1445,7 +818,7 @@
                         updatedAt: null,
                         active
                     });
-                    showToast('Registro agregado exitosamente');
+                    showToast('Registro agregado exitosamente', 'success');
                 }
 
                 renderCatalog();
@@ -1509,9 +882,11 @@
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
 
             toast.className = 'toast ' + type;
             toastMessage.textContent = message;
+            toastIcon.textContent = type === 'success' ? 'check_circle' : 'error';
             toast.classList.add('show');
 
             setTimeout(() => {
