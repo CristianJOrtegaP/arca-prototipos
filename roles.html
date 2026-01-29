@@ -142,24 +142,11 @@
             color: var(--color-neutral-7);
         }
 
-        /* Delete button */
-        .btn-delete-row {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: none;
-            background: transparent;
-            color: var(--color-neutral-5);
-            cursor: pointer;
+        /* User actions */
+        .user-actions {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: var(--transition-base);
-        }
-
-        .btn-delete-row:hover {
-            background: var(--color-error-light);
-            color: var(--color-error);
+            gap: 4px;
         }
 
         /* Hierarchy badges */
@@ -530,7 +517,6 @@
                         <table class="data-table" id="permissionsTable">
                             <thead>
                                 <tr>
-                                    <th style="width: 50px;"></th>
                                     <th>ID</th>
                                     <th>Usuario</th>
                                     <th>Centro</th>
@@ -538,6 +524,7 @@
                                     <th class="hide-mobile">Región</th>
                                     <th>Ruta</th>
                                     <th>Rol</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="permissionsTableBody">
@@ -558,16 +545,23 @@
                     <!-- Pagination -->
                     <div class="pagination" id="pagination">
                         <div class="pagination-info">
-                            <span class="font-size-s text-neutral-6">Mostrando <strong>1-10</strong> de <strong id="totalCount">15</strong> asignaciones</span>
+                            <span class="font-size-s text-neutral-6">Mostrando <strong>1-8</strong> de <strong id="totalCount">8</strong> asignaciones</span>
                         </div>
                         <div class="pagination-controls">
+                            <button class="pagination-btn" disabled title="Primera página">
+                                <span class="material-symbols-rounded">first_page</span>
+                            </button>
                             <button class="pagination-btn" disabled title="Anterior">
                                 <span class="material-symbols-rounded">chevron_left</span>
                             </button>
-                            <button class="pagination-btn active">1</button>
-                            <button class="pagination-btn">2</button>
-                            <button class="pagination-btn" title="Siguiente">
+                            <div class="pagination-pages">
+                                <button class="pagination-page active">1</button>
+                            </div>
+                            <button class="pagination-btn" disabled title="Siguiente">
                                 <span class="material-symbols-rounded">chevron_right</span>
+                            </button>
+                            <button class="pagination-btn" disabled title="Última página">
+                                <span class="material-symbols-rounded">last_page</span>
                             </button>
                         </div>
                     </div>
@@ -816,11 +810,6 @@
 
                 tbody.innerHTML = filteredPermissions.map(p => `
                     <tr>
-                        <td>
-                            <button class="btn-delete-row" title="Eliminar" onclick="deletePermission(${p.id}, '${p.user}')">
-                                <span class="material-symbols-rounded">close</span>
-                            </button>
-                        </td>
                         <td class="font-semi-bold text-neutral-7">${p.odoo_id}</td>
                         <td>
                             <div class="permission-user">
@@ -833,6 +822,12 @@
                         <td class="font-semi-bold text-neutral-8">${p.ruta}</td>
                         <td>
                             <span class="role-badge ${roleClasses[p.role] || 'default'}">${p.role}</span>
+                        </td>
+                        <td>
+                            <div class="user-actions">
+                                <button class="action-btn" title="Editar" onclick="editPermission(${p.id})"><span class="material-symbols-rounded">edit</span></button>
+                                <button class="action-btn" title="Eliminar" onclick="deletePermission(${p.id}, '${p.user}')"><span class="material-symbols-rounded">delete</span></button>
+                            </div>
                         </td>
                     </tr>
                 `).join('');
@@ -892,6 +887,7 @@
         function closeAddModal() {
             addModal.classList.remove('active');
             document.body.style.overflow = '';
+            document.querySelector('#addModal .modal-title').textContent = 'Asignar Nuevo Permiso';
         }
 
         function savePermission() {
@@ -936,6 +932,22 @@
                 closeAddModal();
                 showToast('Permiso asignado exitosamente', 'success');
             }, 1000);
+        }
+
+        function editPermission(id) {
+            const permission = permissions.find(p => p.id === id);
+            if (!permission) return;
+
+            document.querySelector('#addModal .modal-title').textContent = 'Editar Permiso';
+            document.getElementById('modalUser').value = permission.odoo_id;
+            document.getElementById('modalRole').value = permission.role;
+            document.getElementById('modalCentro').value = permission.centro;
+            document.getElementById('modalRuta').value = permission.ruta;
+            document.getElementById('modalTerritorio').value = permission.territorio.toLowerCase();
+            document.getElementById('modalRegion').value = permission.region.toLowerCase();
+
+            addModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function deletePermission(id, userName) {
