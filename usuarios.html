@@ -884,17 +884,66 @@
                 return;
             }
 
-            // Simulate sync
+            // Validate email format
+            if (!email.includes('@')) {
+                alert('Por favor ingresa un email válido');
+                return;
+            }
+
+            // Simulate sync with Azure AD
             const btn = event.target;
-            btn.innerHTML = '<span class="material-symbols-rounded spinning">sync</span> Syncing...';
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-rounded spinning">sync</span> Buscando...';
             btn.disabled = true;
 
             setTimeout(() => {
-                alert(`Usuario ${email} sincronizado exitosamente desde Active Directory`);
+                // Simulate Azure AD response - user found
+                const userName = email.split('@')[0].split('.').map(n => n.charAt(0).toUpperCase() + n.slice(1)).join(' ');
+                const initials = userName.split(' ').map(n => n[0]).slice(0, 2).join('');
+
+                // Set user data from Azure AD
+                currentUserData = {
+                    name: userName,
+                    email: email,
+                    initials: initials,
+                    hasImage: false,
+                    imageSrc: null,
+                    isActive: true,
+                    isNewUser: true
+                };
+
+                // Close sync modal
                 closeSyncModal();
-                btn.innerHTML = 'Sync';
+                btn.innerHTML = originalHTML;
                 btn.disabled = false;
+
+                // Open edit modal for role assignment
+                openEditModalForNewUser();
             }, 1500);
+        }
+
+        function openEditModalForNewUser() {
+            document.getElementById('editUserName').textContent = currentUserData.name;
+            document.getElementById('editUserEmail').textContent = currentUserData.email;
+
+            // Avatar with initials
+            const avatarEl = document.getElementById('editUserAvatar');
+            avatarEl.innerHTML = '';
+            avatarEl.textContent = currentUserData.initials;
+
+            // Set status to active by default
+            document.querySelector('input[name="userStatus"][value="active"]').checked = true;
+
+            // Reset all role checkboxes
+            const roleCheckboxes = document.querySelectorAll('input[name="roles"]');
+            roleCheckboxes.forEach(cb => cb.checked = false);
+
+            // Update modal title for new user context
+            document.querySelector('#editUserModal .modal-title').textContent = 'Configurar Nuevo Usuario';
+
+            // Open edit modal
+            editUserModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         // Close modal on overlay click
@@ -1112,6 +1161,8 @@
         function closeEditUserModal() {
             editUserModal.classList.remove('active');
             document.body.style.overflow = '';
+            // Reset modal title
+            document.querySelector('#editUserModal .modal-title').textContent = 'Editar Usuario';
         }
 
         function saveUserChanges() {
@@ -1121,6 +1172,12 @@
 
             // Get status
             const isActive = document.querySelector('input[name="userStatus"]:checked').value === 'active';
+
+            // Validate at least one role is selected for new users
+            if (currentUserData.isNewUser && selectedRoles.length === 0) {
+                alert('Por favor asigna al menos un rol al usuario');
+                return;
+            }
 
             // Simulate saving
             const btn = event.target;
@@ -1134,7 +1191,12 @@
                 closeEditUserModal();
 
                 // Show success feedback
-                alert(`Cambios guardados para ${currentUserData.name}`);
+                if (currentUserData.isNewUser) {
+                    alert(`Usuario ${currentUserData.name} creado exitosamente con ${selectedRoles.length} rol(es) asignado(s)`);
+                    currentUserData.isNewUser = false;
+                } else {
+                    alert(`Cambios guardados para ${currentUserData.name}`);
+                }
             }, 1500);
         }
 
