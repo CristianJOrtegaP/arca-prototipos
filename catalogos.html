@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogos | Arca.OS</title>
+    <link rel="stylesheet" href="arca-continental-theme.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--color-neutral-1);
+            min-height: 100vh;
+        }
+
+        /* Layout */
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: var(--color-neutral-0);
+            border-right: 1px solid var(--color-neutral-3);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--color-neutral-3);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--color-neutral-9);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-red);
+            border-radius: 50%;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 12px;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--color-neutral-5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 12px;
+            margin-bottom: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            color: var(--color-neutral-7);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition-base);
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: var(--color-neutral-2);
+            color: var(--color-neutral-9);
+        }
+
+        .nav-item.active {
+            background: var(--color-red-light);
+            color: var(--color-red);
+        }
+
+        .nav-item .material-symbols-rounded {
+            font-size: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: var(--color-neutral-0);
+            border-bottom: 1px solid var(--color-neutral-3);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--color-neutral-7);
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: var(--transition-base);
+        }
+
+        .header-user:hover {
+            background: var(--color-neutral-2);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--color-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-neutral-9);
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: var(--color-neutral-6);
+        }
+
+        /* Content Area */
+        .content {
+            padding: 24px;
+            flex: 1;
+        }
+
+        /* Catalog Selector */
+        .catalog-selector {
+            background: var(--color-neutral-0);
+            border-radius: 16px;
+            border: 1px solid var(--color-neutral-3);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .catalog-selector-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .catalog-selector-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-neutral-7);
+        }
+
+        .catalog-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .catalog-tab {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--color-neutral-3);
+            background: var(--color-neutral-0);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-neutral-7);
+            cursor: pointer;
+            transition: var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .catalog-tab:hover {
+            border-color: var(--color-neutral-5);
+            background: var(--color-neutral-2);
+        }
+
+        .catalog-tab.active {
+            background: var(--color-red);
+            border-color: var(--color-red);
+            color: white;
+        }
+
+        .catalog-tab .material-symbols-rounded {
+            font-size: 18px;
+        }
+
+        .catalog-tab .count {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .catalog-tab:not(.active) .count {
+            background: var(--color-neutral-2);
+            color: var(--color-neutral-6);
+        }
+
+        /* Content Card */
+        .content-card {
+            background: var(--color-neutral-0);
+            border-radius: 16px;
+            border: 1px solid var(--color-neutral-3);
+            overflow: hidden;
+        }
+
+        .content-card-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--color-neutral-3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .content-card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .content-card-title h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        .content-card-title .badge {
+            background: var(--color-neutral-2);
+            color: var(--color-neutral-7);
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .content-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 10px;
+            background: var(--color-neutral-1);
+            min-width: 280px;
+        }
+
+        .search-input .material-symbols-rounded {
+            color: var(--color-neutral-5);
+            font-size: 20px;
+        }
+
+        .search-input input {
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            color: var(--color-neutral-9);
+        }
+
+        .search-input input::placeholder {
+            color: var(--color-neutral-5);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--color-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-red-hover);
+        }
+
+        .btn-secondary {
+            background: var(--color-neutral-2);
+            color: var(--color-neutral-7);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-neutral-3);
+        }
+
+        .btn-cancel {
+            background: var(--color-neutral-2);
+            color: var(--color-neutral-7);
+        }
+
+        .btn-cancel:hover {
+            background: var(--color-neutral-3);
+        }
+
+        .btn-danger {
+            background: var(--color-error-light);
+            color: var(--color-error);
+        }
+
+        .btn-danger:hover {
+            background: var(--color-error);
+            color: white;
+        }
+
+        .btn .material-symbols-rounded {
+            font-size: 18px;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 14px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-neutral-6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: var(--color-neutral-1);
+            border-bottom: 1px solid var(--color-neutral-3);
+        }
+
+        .data-table td {
+            padding: 16px;
+            font-size: 14px;
+            color: var(--color-neutral-8);
+            border-bottom: 1px solid var(--color-neutral-2);
+            vertical-align: middle;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--color-neutral-1);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .catalog-name {
+            font-weight: 600;
+            color: var(--color-neutral-9);
+        }
+
+        .catalog-description {
+            font-size: 12px;
+            color: var(--color-neutral-6);
+            margin-top: 4px;
+        }
+
+        .meta-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .meta-user {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-neutral-8);
+        }
+
+        .meta-date {
+            font-size: 11px;
+            color: var(--color-neutral-5);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.active {
+            background: var(--color-success-light);
+            color: var(--color-success);
+        }
+
+        .status-badge.inactive {
+            background: var(--color-neutral-2);
+            color: var(--color-neutral-6);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .row-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-neutral-6);
+            transition: var(--transition-base);
+        }
+
+        .action-btn:hover {
+            background: var(--color-neutral-2);
+            color: var(--color-neutral-8);
+        }
+
+        .action-btn.edit:hover {
+            background: var(--color-info-light);
+            color: var(--color-info);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--color-error-light);
+            color: var(--color-error);
+        }
+
+        .action-btn .material-symbols-rounded {
+            font-size: 20px;
+        }
+
+        /* Pagination */
+        .pagination {
+            padding: 16px 20px;
+            border-top: 1px solid var(--color-neutral-3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pagination-info {
+            font-size: 13px;
+            color: var(--color-neutral-6);
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pagination-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--color-neutral-3);
+            background: var(--color-neutral-0);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-neutral-7);
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition-base);
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--color-neutral-2);
+            border-color: var(--color-neutral-4);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-btn.active {
+            background: var(--color-red);
+            border-color: var(--color-red);
+            color: white;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-base);
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: var(--color-neutral-0);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px);
+            transition: var(--transition-base);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--color-neutral-3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--color-neutral-2);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-neutral-7);
+            transition: var(--transition-base);
+        }
+
+        .modal-close:hover {
+            background: var(--color-neutral-3);
+            color: var(--color-neutral-9);
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--color-neutral-3);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-neutral-7);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--color-neutral-9);
+            background: var(--color-neutral-0);
+            transition: var(--transition-base);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-red);
+            box-shadow: 0 0 0 3px var(--color-red-light);
+        }
+
+        .form-input::placeholder {
+            color: var(--color-neutral-5);
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--color-neutral-9);
+            background: var(--color-neutral-0);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--color-red);
+            box-shadow: 0 0 0 3px var(--color-red-light);
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: var(--color-neutral-5);
+            margin-top: 6px;
+        }
+
+        .form-switch {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .switch {
+            position: relative;
+            width: 48px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .switch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--color-neutral-3);
+            border-radius: 100px;
+            transition: var(--transition-base);
+        }
+
+        .switch-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-s);
+        }
+
+        .switch input:checked + .switch-slider {
+            background: var(--color-success);
+        }
+
+        .switch input:checked + .switch-slider:before {
+            transform: translateX(22px);
+        }
+
+        .switch-label {
+            font-size: 14px;
+            color: var(--color-neutral-7);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--color-neutral-9);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-l);
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition-base);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: var(--color-success);
+        }
+
+        .toast.error {
+            background: var(--color-error);
+        }
+
+        .toast .material-symbols-rounded {
+            font-size: 20px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--color-neutral-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .empty-state-icon .material-symbols-rounded {
+            font-size: 36px;
+            color: var(--color-neutral-5);
+        }
+
+        .empty-state-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-neutral-8);
+            margin-bottom: 8px;
+        }
+
+        .empty-state-description {
+            font-size: 14px;
+            color: var(--color-neutral-6);
+            margin-bottom: 20px;
+        }
+
+        /* Sidebar Overlay (Mobile) */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .search-input {
+                min-width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 16px;
+            }
+
+            .content-card-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .content-card-actions {
+                flex-direction: column;
+            }
+
+            .search-input {
+                min-width: 100%;
+            }
+
+            .catalog-tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 8px;
+            }
+
+            .catalog-tab {
+                flex-shrink: 0;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 12px;
+            }
+
+            .pagination {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .user-info {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .data-table {
+                font-size: 13px;
+            }
+
+            .hide-mobile {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .spinning {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <span class="logo-text">ARCA</span>
+                    <span class="logo-dot"></span>
+                    <span class="logo-text">OS</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Principal</div>
+                    <a href="layout.html" class="nav-item">
+                        <span class="material-symbols-rounded">dashboard</span>
+                        Dashboard
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="material-symbols-rounded">assignment</span>
+                        Órdenes
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Administración</div>
+                    <a href="usuarios.html" class="nav-item">
+                        <span class="material-symbols-rounded">group</span>
+                        Usuarios
+                    </a>
+                    <a href="catalogos.html" class="nav-item active">
+                        <span class="material-symbols-rounded">category</span>
+                        Catálogos
+                    </a>
+                    <a href="recordatorios.html" class="nav-item">
+                        <span class="material-symbols-rounded">notifications</span>
+                        Recordatorios
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Reportes</div>
+                    <a href="#" class="nav-item">
+                        <span class="material-symbols-rounded">bar_chart</span>
+                        Métricas
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="material-symbols-rounded">download</span>
+                        Exportar
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <span class="material-symbols-rounded">menu</span>
+                    </button>
+                    <h1 class="page-title">Catálogos</h1>
+                </div>
+                <div class="header-user">
+                    <div class="user-avatar">CO</div>
+                    <div class="user-info">
+                        <span class="user-name">Carlos Operador</span>
+                        <span class="user-role">Admin TI</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Catalog Selector -->
+                <div class="catalog-selector">
+                    <div class="catalog-selector-header">
+                        <span class="catalog-selector-title">Selecciona un catálogo</span>
+                    </div>
+                    <div class="catalog-tabs">
+                        <button class="catalog-tab active" data-catalog="hallazgo">
+                            <span class="material-symbols-rounded">search</span>
+                            Hallazgo
+                            <span class="count">14</span>
+                        </button>
+                        <button class="catalog-tab" data-catalog="estatus">
+                            <span class="material-symbols-rounded">flag</span>
+                            Estatus Cliente
+                            <span class="count">8</span>
+                        </button>
+                        <button class="catalog-tab" data-catalog="centro">
+                            <span class="material-symbols-rounded">store</span>
+                            Centro
+                            <span class="count">156</span>
+                        </button>
+                        <button class="catalog-tab" data-catalog="ruta">
+                            <span class="material-symbols-rounded">route</span>
+                            Ruta
+                            <span class="count">42</span>
+                        </button>
+                        <button class="catalog-tab" data-catalog="territorio">
+                            <span class="material-symbols-rounded">map</span>
+                            Territorio
+                            <span class="count">12</span>
+                        </button>
+                        <button class="catalog-tab" data-catalog="region">
+                            <span class="material-symbols-rounded">location_city</span>
+                            Región
+                            <span class="count">6</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Content Card -->
+                <div class="content-card">
+                    <div class="content-card-header">
+                        <div class="content-card-title">
+                            <h2 id="catalogTitle">Hallazgo</h2>
+                            <span class="badge" id="catalogCount">14 registros</span>
+                        </div>
+                        <div class="content-card-actions">
+                            <div class="search-input">
+                                <span class="material-symbols-rounded">search</span>
+                                <input type="text" placeholder="Buscar en catálogo..." id="searchInput">
+                            </div>
+                            <button class="btn btn-primary" onclick="openAddModal()">
+                                <span class="material-symbols-rounded">add</span>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="data-table" id="catalogTable">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th class="hide-mobile">Creado por</th>
+                                    <th class="hide-mobile">Actualizado por</th>
+                                    <th>Estado</th>
+                                    <th style="width: 100px;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="catalogTableBody">
+                                <!-- Content will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <div class="pagination-info">
+                            <span>Mostrando <strong>1-10</strong> de <strong>14</strong> registros</span>
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="pagination-btn" disabled>
+                                <span class="material-symbols-rounded">chevron_left</span>
+                            </button>
+                            <button class="pagination-btn active">1</button>
+                            <button class="pagination-btn">2</button>
+                            <button class="pagination-btn">
+                                <span class="material-symbols-rounded">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Agregar Hallazgo</h2>
+                <button class="modal-close" onclick="closeEditModal()">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Nombre *</label>
+                    <input type="text" class="form-input" id="itemName" placeholder="Nombre del registro">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Descripción</label>
+                    <textarea class="form-input" id="itemDescription" placeholder="Descripción opcional del registro"></textarea>
+                    <p class="form-hint">Opcional. Ayuda a identificar el propósito del registro.</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Estado</label>
+                    <div class="form-switch">
+                        <label class="switch">
+                            <input type="checkbox" id="itemStatus" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                        <span class="switch-label" id="statusLabel">Activo</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" onclick="closeEditModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveItem()">
+                    <span class="material-symbols-rounded">save</span>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-container" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2 class="modal-title">Confirmar Eliminación</h2>
+                <button class="modal-close" onclick="closeDeleteModal()">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--color-neutral-7); line-height: 1.6;">
+                    ¿Estás seguro de que deseas eliminar <strong id="deleteItemName">este registro</strong>? Esta acción no se puede deshacer.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" onclick="closeDeleteModal()">Cancelar</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">
+                    <span class="material-symbols-rounded">delete</span>
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span class="material-symbols-rounded">check_circle</span>
+        <span id="toastMessage">Cambios guardados exitosamente</span>
+    </div>
+
+    <script>
+        // Catalog Data
+        const catalogs = {
+            hallazgo: [
+                { id: 1, name: 'Cliente Cerrado - Se llevaron el equipo', description: 'El cliente cerró el negocio y se llevaron el equipo', createdBy: 'Admin Sistema', createdAt: '15/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 2, name: 'Cliente Cerrado Definitivamente - Equipo está dentro', description: 'Negocio cerrado con equipo dentro del local', createdBy: 'Admin Sistema', createdAt: '15/01/2024', updatedBy: 'Carlos Operador', updatedAt: '20/01/2024', active: true },
+                { id: 3, name: 'Cliente No quiere entregar equipo', description: 'Cliente se niega a entregar el equipo', createdBy: 'Admin Sistema', createdAt: '15/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 4, name: 'Cliente dice que se lo embargaron / Robaron', description: 'El equipo fue embargado o reportado como robado', createdBy: 'Admin Sistema', createdAt: '15/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 5, name: 'Otras (describir)', description: 'Otras situaciones no contempladas', createdBy: 'Admin Sistema', createdAt: '15/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 6, name: 'Equipo se quemó', description: 'Equipo dañado por incendio', createdBy: 'Admin Sistema', createdAt: '15/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 7, name: 'Cliente que no registra venta y se niega a devolver el equipo en comodato', description: 'Cliente sin ventas que retiene equipo', createdBy: 'Admin Sistema', createdAt: '15/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 8, name: 'Cliente dice que lo entregó', description: 'Cliente afirma haber entregado el equipo', createdBy: 'Admin Sistema', createdAt: '15/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 9, name: 'Incendio en instalaciones', description: 'Siniestro por incendio en el local', createdBy: 'Admin Sistema', createdAt: '15/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 10, name: 'Cliente activo dice que no tiene equipo ni lo ha solicitado', description: 'Discrepancia en registros de equipo', createdBy: 'Admin Sistema', createdAt: '15/01/2024', updatedBy: null, updatedAt: null, active: false },
+            ],
+            estatus: [
+                { id: 1, name: 'Activo', description: 'Cliente con operaciones normales', createdBy: 'Admin Sistema', createdAt: '10/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 2, name: 'Inactivo', description: 'Cliente sin actividad reciente', createdBy: 'Admin Sistema', createdAt: '10/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 3, name: 'Suspendido', description: 'Cliente con restricciones temporales', createdBy: 'Admin Sistema', createdAt: '10/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 4, name: 'Bloqueado', description: 'Cliente con restricciones permanentes', createdBy: 'Admin Sistema', createdAt: '10/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 5, name: 'Cerrado', description: 'Negocio cerrado', createdBy: 'Admin Sistema', createdAt: '10/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 6, name: 'En proceso de baja', description: 'Cliente en trámite de cierre', createdBy: 'Admin Sistema', createdAt: '10/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 7, name: 'Nuevo', description: 'Cliente recién registrado', createdBy: 'Admin Sistema', createdAt: '10/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 8, name: 'Pendiente de activación', description: 'En espera de validación', createdBy: 'Admin Sistema', createdAt: '10/01/2024', updatedBy: null, updatedAt: null, active: true },
+            ],
+            centro: [
+                { id: 1, name: 'CEDIS Monterrey Norte', description: 'Centro de distribución zona norte', createdBy: 'Admin Sistema', createdAt: '05/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 2, name: 'CEDIS Monterrey Sur', description: 'Centro de distribución zona sur', createdBy: 'Admin Sistema', createdAt: '05/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 3, name: 'CEDIS Guadalajara', description: 'Centro de distribución Jalisco', createdBy: 'Admin Sistema', createdAt: '05/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 4, name: 'CEDIS Ciudad de México', description: 'Centro de distribución CDMX', createdBy: 'Admin Sistema', createdAt: '05/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 5, name: 'CEDIS Tijuana', description: 'Centro de distribución Baja California', createdBy: 'Admin Sistema', createdAt: '05/01/2024', updatedBy: null, updatedAt: null, active: true },
+            ],
+            ruta: [
+                { id: 1, name: 'Ruta 001 - Centro', description: 'Zona centro de la ciudad', createdBy: 'Admin Sistema', createdAt: '08/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 2, name: 'Ruta 002 - Norte', description: 'Zona norte industrial', createdBy: 'Admin Sistema', createdAt: '08/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 3, name: 'Ruta 003 - Sur', description: 'Zona sur residencial', createdBy: 'Admin Sistema', createdAt: '08/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 4, name: 'Ruta 004 - Poniente', description: 'Zona poniente comercial', createdBy: 'Admin Sistema', createdAt: '08/01/2024', updatedBy: null, updatedAt: null, active: true },
+            ],
+            territorio: [
+                { id: 1, name: 'Zona Metropolitana', description: 'Área metropolitana de Monterrey', createdBy: 'Admin Sistema', createdAt: '03/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 2, name: 'Norte de Nuevo León', description: 'Región norte del estado', createdBy: 'Admin Sistema', createdAt: '03/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 3, name: 'Sur de Nuevo León', description: 'Región sur del estado', createdBy: 'Admin Sistema', createdAt: '03/01/2024', updatedBy: null, updatedAt: null, active: true },
+            ],
+            region: [
+                { id: 1, name: 'Región Norte', description: 'Estados del norte de México', createdBy: 'Admin Sistema', createdAt: '01/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 2, name: 'Región Centro', description: 'Estados del centro de México', createdBy: 'Admin Sistema', createdAt: '01/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 3, name: 'Región Sur', description: 'Estados del sur de México', createdBy: 'Admin Sistema', createdAt: '01/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 4, name: 'Región Pacífico', description: 'Costa del Pacífico', createdBy: 'Admin Sistema', createdAt: '01/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 5, name: 'Región Golfo', description: 'Costa del Golfo de México', createdBy: 'Admin Sistema', createdAt: '01/01/2024', updatedBy: null, updatedAt: null, active: true },
+                { id: 6, name: 'Servicios Ejecutivos', description: 'Oficinas corporativas', createdBy: 'Admin Sistema', createdAt: '01/01/2024', updatedBy: null, updatedAt: null, active: true },
+            ]
+        };
+
+        const catalogNames = {
+            hallazgo: 'Hallazgo',
+            estatus: 'Estatus Cliente',
+            centro: 'Centro',
+            ruta: 'Ruta',
+            territorio: 'Territorio',
+            region: 'Región'
+        };
+
+        let currentCatalog = 'hallazgo';
+        let currentEditItem = null;
+        let itemToDelete = null;
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('active');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('active');
+        });
+
+        // Catalog Tabs
+        const catalogTabs = document.querySelectorAll('.catalog-tab');
+        catalogTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                catalogTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentCatalog = tab.dataset.catalog;
+                renderCatalog();
+            });
+        });
+
+        // Render Catalog
+        function renderCatalog() {
+            const data = catalogs[currentCatalog];
+            const tbody = document.getElementById('catalogTableBody');
+            const title = document.getElementById('catalogTitle');
+            const count = document.getElementById('catalogCount');
+
+            title.textContent = catalogNames[currentCatalog];
+            count.textContent = `${data.length} registros`;
+
+            tbody.innerHTML = data.map(item => `
+                <tr>
+                    <td>
+                        <div class="catalog-name">${item.name}</div>
+                        ${item.description ? `<div class="catalog-description">${item.description}</div>` : ''}
+                    </td>
+                    <td class="hide-mobile">
+                        <div class="meta-info">
+                            <span class="meta-user">${item.createdBy}</span>
+                            <span class="meta-date">${item.createdAt}</span>
+                        </div>
+                    </td>
+                    <td class="hide-mobile">
+                        ${item.updatedBy ? `
+                            <div class="meta-info">
+                                <span class="meta-user">${item.updatedBy}</span>
+                                <span class="meta-date">${item.updatedAt}</span>
+                            </div>
+                        ` : '<span style="color: var(--color-neutral-5);">—</span>'}
+                    </td>
+                    <td>
+                        <span class="status-badge ${item.active ? 'active' : 'inactive'}">
+                            <span class="status-dot"></span>
+                            ${item.active ? 'Activo' : 'Inactivo'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="row-actions">
+                            <button class="action-btn edit" title="Editar" onclick="editItem(${item.id})">
+                                <span class="material-symbols-rounded">edit</span>
+                            </button>
+                            <button class="action-btn delete" title="Eliminar" onclick="deleteItem(${item.id}, '${item.name.replace(/'/g, "\\'")}')">
+                                <span class="material-symbols-rounded">delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Search
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#catalogTableBody tr');
+            rows.forEach(row => {
+                const name = row.querySelector('.catalog-name').textContent.toLowerCase();
+                const description = row.querySelector('.catalog-description')?.textContent.toLowerCase() || '';
+                row.style.display = (name.includes(query) || description.includes(query)) ? '' : 'none';
+            });
+        });
+
+        // Modal Functions
+        const editModal = document.getElementById('editModal');
+        const deleteModal = document.getElementById('deleteModal');
+
+        function openAddModal() {
+            currentEditItem = null;
+            document.getElementById('modalTitle').textContent = `Agregar ${catalogNames[currentCatalog]}`;
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemDescription').value = '';
+            document.getElementById('itemStatus').checked = true;
+            updateStatusLabel();
+            editModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function editItem(id) {
+            const item = catalogs[currentCatalog].find(i => i.id === id);
+            if (!item) return;
+
+            currentEditItem = item;
+            document.getElementById('modalTitle').textContent = `Editar ${catalogNames[currentCatalog]}`;
+            document.getElementById('itemName').value = item.name;
+            document.getElementById('itemDescription').value = item.description || '';
+            document.getElementById('itemStatus').checked = item.active;
+            updateStatusLabel();
+            editModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEditModal() {
+            editModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function saveItem() {
+            const name = document.getElementById('itemName').value.trim();
+            const description = document.getElementById('itemDescription').value.trim();
+            const active = document.getElementById('itemStatus').checked;
+
+            if (!name) {
+                alert('Por favor ingresa un nombre');
+                return;
+            }
+
+            // Simulate save
+            const btn = event.target;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-rounded spinning">sync</span> Guardando...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                closeEditModal();
+
+                if (currentEditItem) {
+                    // Update existing
+                    currentEditItem.name = name;
+                    currentEditItem.description = description;
+                    currentEditItem.active = active;
+                    currentEditItem.updatedBy = 'Carlos Operador';
+                    currentEditItem.updatedAt = new Date().toLocaleDateString('es-MX');
+                    showToast('Registro actualizado exitosamente');
+                } else {
+                    // Add new
+                    const newId = Math.max(...catalogs[currentCatalog].map(i => i.id)) + 1;
+                    catalogs[currentCatalog].unshift({
+                        id: newId,
+                        name,
+                        description,
+                        createdBy: 'Carlos Operador',
+                        createdAt: new Date().toLocaleDateString('es-MX'),
+                        updatedBy: null,
+                        updatedAt: null,
+                        active
+                    });
+                    showToast('Registro agregado exitosamente');
+                }
+
+                renderCatalog();
+                updateTabCounts();
+            }, 1000);
+        }
+
+        function deleteItem(id, name) {
+            itemToDelete = id;
+            document.getElementById('deleteItemName').textContent = name;
+            deleteModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDeleteModal() {
+            deleteModal.classList.remove('active');
+            document.body.style.overflow = '';
+            itemToDelete = null;
+        }
+
+        function confirmDelete() {
+            if (!itemToDelete) return;
+
+            const btn = event.target;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-rounded spinning">sync</span> Eliminando...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                closeDeleteModal();
+
+                catalogs[currentCatalog] = catalogs[currentCatalog].filter(i => i.id !== itemToDelete);
+                renderCatalog();
+                updateTabCounts();
+                showToast('Registro eliminado exitosamente', 'success');
+            }, 1000);
+        }
+
+        // Status Toggle
+        const statusToggle = document.getElementById('itemStatus');
+        const statusLabel = document.getElementById('statusLabel');
+
+        statusToggle.addEventListener('change', updateStatusLabel);
+
+        function updateStatusLabel() {
+            statusLabel.textContent = statusToggle.checked ? 'Activo' : 'Inactivo';
+        }
+
+        // Update Tab Counts
+        function updateTabCounts() {
+            catalogTabs.forEach(tab => {
+                const catalog = tab.dataset.catalog;
+                const count = catalogs[catalog].length;
+                tab.querySelector('.count').textContent = count;
+            });
+        }
+
+        // Toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+
+            toast.className = 'toast ' + type;
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close modals on overlay click
+        editModal.addEventListener('click', (e) => {
+            if (e.target === editModal) closeEditModal();
+        });
+
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) closeDeleteModal();
+        });
+
+        // Close modals on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (editModal.classList.contains('active')) closeEditModal();
+                if (deleteModal.classList.contains('active')) closeDeleteModal();
+            }
+        });
+
+        // Initial render
+        renderCatalog();
+    </script>
+</body>
+</html>
