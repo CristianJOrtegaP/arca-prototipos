@@ -136,7 +136,27 @@
             animation-delay: 3.2s;
         }
 
-        /* Logo */
+        /* Arca Continental Logo */
+        .arca-logo {
+            margin-bottom: 32px;
+        }
+
+        .arca-logo img {
+            width: 200px;
+            height: auto;
+        }
+
+        .arca-logo-mobile {
+            display: none;
+            text-align: center;
+        }
+
+        .arca-logo-mobile img {
+            width: 160px;
+            height: auto;
+        }
+
+        /* Logo ARCA.OS */
         .logo {
             display: flex;
             align-items: center;
@@ -410,8 +430,19 @@
 
             .hero-desc,
             .os-tag,
-            .pulse-container {
+            .pulse-container,
+            .arca-logo {
                 display: none;
+            }
+
+            .arca-logo-mobile {
+                display: block !important;
+                margin-bottom: 24px;
+            }
+
+            .arca-logo-mobile img {
+                width: 160px;
+                height: auto;
             }
 
             .dpa-badge {
@@ -521,6 +552,11 @@
             </div>
 
             <div class="brand-content">
+                <!-- Arca Continental Logo -->
+                <div class="arca-logo">
+                    <img src="assets/Arca_continental_logo.png" alt="Arca Continental" />
+                </div>
+
                 <div class="logo">
                     <span class="logo-text">ARCA</span>
                     <span class="logo-dot"></span>
@@ -549,6 +585,11 @@
         <!-- Panel Derecho - Formulario -->
         <div class="login-form-panel">
             <div class="form-container" id="formContainer">
+                <!-- Logo Mobile -->
+                <div class="arca-logo-mobile">
+                    <img src="assets/Arca_continental_logo.png" alt="Arca Continental" />
+                </div>
+
                 <div class="form-header">
                     <h2 class="form-title">Acceso al Panel</h2>
                     <p class="form-subtitle">Identificación de operador requerida.</p>
