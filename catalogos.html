@@ -13,9 +13,9 @@
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            padding: 16px 20px;
+            padding: 0 0 16px 0;
             border-bottom: 1px solid var(--color-neutral-3);
-            background: var(--color-neutral-1);
+            background: transparent;
         }
 
         .catalog-tab {
@@ -198,6 +198,11 @@
             color: white;
         }
 
+        /* Spacing between tabs and filters */
+        .catalog-tabs {
+            margin-bottom: 24px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .catalog-tabs {
@@ -301,13 +306,9 @@
 
                 <div class="nav-section">
                     <div class="nav-section-title">Datos</div>
-                    <a href="#" class="nav-item">
-                        <span class="nav-item-icon"><span class="material-symbols-rounded">sync</span></span>
-                        <span>Sincronizar</span>
-                    </a>
-                    <a href="#" class="nav-item">
-                        <span class="nav-item-icon"><span class="material-symbols-rounded">send</span></span>
-                        <span>Enviar Información</span>
+                    <a href="datos.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">database</span></span>
+                        <span>Gestión de Datos</span>
                     </a>
                 </div>
 
@@ -356,30 +357,31 @@
                     <div class="header-divider"></div>
                     <div class="header-user" id="headerUser">
                         <div class="user-chip" onclick="toggleUserDropdown()">
-                            <div class="header-avatar">CO</div>
+                            <div class="header-avatar">JO</div>
                             <div class="user-chip-info">
-                                <span class="font-size-s font-semi-bold text-neutral-9">Carlos Operador</span>
-                                <span class="font-size-xxs text-neutral-5">Admin TI</span>
+                                <span class="font-size-s font-semi-bold text-neutral-9">Juan Operador</span>
+                                <span class="font-size-xxs text-neutral-5">Supervisor de Zona</span>
+                                <span class="font-size-xxs text-neutral-5">juan.operador@arcacontal.com</span>
                             </div>
                             <span class="material-symbols-rounded text-neutral-5 icon-size-20">expand_more</span>
                         </div>
                         <div class="user-dropdown">
                             <div class="dropdown-header">
                                 <div class="dropdown-user-info">
-                                    <div class="dropdown-avatar">CO</div>
+                                    <div class="dropdown-avatar">JO</div>
                                     <div class="dropdown-user-details">
-                                        <div class="dropdown-user-name">Carlos Operador</div>
-                                        <div class="dropdown-user-role">Admin TI</div>
-                                        <div class="dropdown-user-email">carlos.operador@arcacontal.com</div>
+                                        <div class="dropdown-user-name">Juan Operador</div>
+                                        <div class="dropdown-user-role">Supervisor de Zona</div>
+                                        <div class="dropdown-user-email">juan.operador@arcacontal.com</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="dropdown-menu">
-                                <button class="dropdown-item">
+                                <button class="dropdown-item" onclick="handleProfile()">
                                     <span class="material-symbols-rounded">person</span>
                                     Mi Perfil
                                 </button>
-                                <button class="dropdown-item">
+                                <button class="dropdown-item" onclick="handleSettings()">
                                     <span class="material-symbols-rounded">settings</span>
                                     Configuración
                                 </button>
@@ -572,6 +574,121 @@
         </div>
     </div>
 
+    <!-- Profile Modal -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Mi Perfil</h2>
+                <button class="modal-close" onclick="closeProfileModal()">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-header">
+                    <div class="profile-avatar-large">JO</div>
+                    <div class="profile-info">
+                        <h3 class="profile-name">Juan Operador</h3>
+                        <span class="profile-role">Supervisor de Zona</span>
+                        <span class="profile-status online">
+                            <span class="status-dot"></span>
+                            Activo
+                        </span>
+                    </div>
+                </div>
+                <div class="profile-section">
+                    <h4 class="profile-section-title">Información de Contacto</h4>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">mail</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">Email</span>
+                            <span class="profile-field-value">juan.operador@arcacontal.com</span>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">phone</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">Teléfono</span>
+                            <span class="profile-field-value">+52 81 1234 5678</span>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">location_on</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">Ubicación</span>
+                            <span class="profile-field-value">Monterrey, Nuevo León</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-section">
+                    <h4 class="profile-section-title">Información Laboral</h4>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">badge</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">ID Empleado</span>
+                            <span class="profile-field-value">EMP-2024-001</span>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">business</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">Departamento</span>
+                            <span class="profile-field-value">Operaciones de Recuperación</span>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">calendar_today</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">Fecha de Ingreso</span>
+                            <span class="profile-field-value">15 de Marzo, 2022</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-section">
+                    <h4 class="profile-section-title">Roles Asignados</h4>
+                    <div class="profile-roles">
+                        <div class="profile-role-tag primary">
+                            <span class="material-symbols-rounded">shield_person</span>
+                            Supervisor de Zona
+                        </div>
+                        <div class="profile-role-tag">
+                            <span class="material-symbols-rounded">assignment</span>
+                            Aprobador Órdenes
+                        </div>
+                        <div class="profile-role-tag">
+                            <span class="material-symbols-rounded">inventory_2</span>
+                            Gestión Comodato
+                        </div>
+                        <div class="profile-role-tag">
+                            <span class="material-symbols-rounded">bar_chart</span>
+                            Reportes Auditoría
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <span class="profile-stat-value">156</span>
+                        <span class="profile-stat-label">Órdenes Procesadas</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value">94%</span>
+                        <span class="profile-stat-label">Tasa de Éxito</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value">2.5</span>
+                        <span class="profile-stat-label">Años en Arca</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" onclick="closeProfileModal()">Cerrar</button>
+                <button class="btn btn-primary" onclick="editProfile()">
+                    <span class="material-symbols-rounded">edit</span>
+                    Editar Perfil
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast -->
     <div class="toast" id="toast">
         <span class="material-symbols-rounded" id="toastIcon">check_circle</span>
@@ -665,21 +782,59 @@
             sidebar.classList.toggle('collapsed');
         });
 
-        // User Dropdown
+        // User Dropdown Toggle
+        const headerUser = document.getElementById('headerUser');
+
         function toggleUserDropdown() {
-            const headerUser = document.getElementById('headerUser');
             headerUser.classList.toggle('active');
         }
 
+        // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
-            const headerUser = document.getElementById('headerUser');
             if (!headerUser.contains(e.target)) {
                 headerUser.classList.remove('active');
             }
         });
 
+        // Profile Modal
+        const profileModal = document.getElementById('profileModal');
+
+        function handleProfile() {
+            headerUser.classList.remove('active');
+            openProfileModal();
+        }
+
+        function openProfileModal() {
+            profileModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProfileModal() {
+            profileModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        profileModal.addEventListener('click', (e) => {
+            if (e.target === profileModal) {
+                closeProfileModal();
+            }
+        });
+
+        function editProfile() {
+            closeProfileModal();
+            alert('Función de edición de perfil en desarrollo...');
+        }
+
+        function handleSettings() {
+            headerUser.classList.remove('active');
+            alert('Configuración en desarrollo...');
+        }
+
         function handleLogout() {
-            alert('Cerrando sesión...');
+            headerUser.classList.remove('active');
+            if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+                window.location.href = 'login.html';
+            }
         }
 
         // Catalog Tabs

@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arca.OS | Gestión de Datos - Prototipo</title>
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="arca-continental-theme.css">
+    <style>
+        /* Data Status Cards */
+        .data-status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .data-status-card {
+            background: var(--color-neutral-0);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .data-status-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .data-status-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .data-status-icon.sync {
+            background: var(--color-info-light);
+        }
+
+        .data-status-icon.sync .material-symbols-rounded {
+            color: var(--color-info);
+        }
+
+        .data-status-icon.pending {
+            background: var(--color-warning-light);
+        }
+
+        .data-status-icon.pending .material-symbols-rounded {
+            color: var(--color-warning);
+        }
+
+        .data-status-icon.storage {
+            background: var(--color-neutral-2);
+        }
+
+        .data-status-icon.storage .material-symbols-rounded {
+            color: var(--color-neutral-6);
+        }
+
+        .data-status-icon .material-symbols-rounded {
+            font-size: 24px;
+        }
+
+        .data-status-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-neutral-7);
+        }
+
+        .data-status-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+            margin-bottom: 4px;
+        }
+
+        .data-status-label {
+            font-size: 13px;
+            color: var(--color-neutral-5);
+        }
+
+        /* Action Cards */
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .action-card {
+            background: var(--color-neutral-0);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .action-card:hover {
+            border-color: var(--color-neutral-4);
+            box-shadow: var(--shadow-m);
+        }
+
+        .action-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .action-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .action-card-icon.sync {
+            background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);
+        }
+
+        .action-card-icon.send {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+
+        .action-card-icon.delete {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        }
+
+        .action-card-icon .material-symbols-rounded {
+            font-size: 28px;
+            color: white;
+        }
+
+        .action-card-content {
+            flex: 1;
+        }
+
+        .action-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+            margin-bottom: 4px;
+        }
+
+        .action-card-description {
+            font-size: 14px;
+            color: var(--color-neutral-6);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .action-card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px;
+            background: var(--color-neutral-1);
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .action-card-detail {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        .action-card-detail-label {
+            color: var(--color-neutral-6);
+        }
+
+        .action-card-detail-value {
+            font-weight: 600;
+            color: var(--color-neutral-8);
+        }
+
+        .action-card-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-card-btn.sync {
+            background: var(--color-info);
+            color: white;
+            border: none;
+        }
+
+        .action-card-btn.sync:hover {
+            background: #0284C7;
+        }
+
+        .action-card-btn.send {
+            background: var(--color-success);
+            color: white;
+            border: none;
+        }
+
+        .action-card-btn.send:hover {
+            background: #059669;
+        }
+
+        .action-card-btn.delete {
+            background: transparent;
+            color: var(--color-error);
+            border: 2px solid var(--color-error);
+        }
+
+        .action-card-btn.delete:hover {
+            background: var(--color-error);
+            color: white;
+        }
+
+        /* Progress Modal Styles */
+        .progress-container {
+            margin: 24px 0;
+        }
+
+        .progress-phases {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .progress-phase {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-phase-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--color-neutral-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-neutral-5);
+            transition: all 0.3s ease;
+        }
+
+        .progress-phase-dot.active {
+            background: var(--arca-red);
+            color: white;
+        }
+
+        .progress-phase-dot.completed {
+            background: var(--color-success);
+            color: white;
+        }
+
+        .progress-phase-label {
+            font-size: 12px;
+            color: var(--color-neutral-5);
+            text-align: center;
+        }
+
+        .progress-phase-label.active {
+            color: var(--color-neutral-8);
+            font-weight: 600;
+        }
+
+        .progress-bar-container {
+            background: var(--color-neutral-2);
+            border-radius: 8px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--arca-red) 0%, var(--arca-red-dark) 100%);
+            border-radius: 8px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 14px;
+            color: var(--color-neutral-6);
+        }
+
+        .progress-text strong {
+            color: var(--color-neutral-9);
+        }
+
+        /* Result Styles */
+        .result-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .result-icon.success {
+            background: var(--color-success-light);
+        }
+
+        .result-icon.success .material-symbols-rounded {
+            font-size: 40px;
+            color: var(--color-success);
+        }
+
+        .result-icon.error {
+            background: var(--color-error-light);
+        }
+
+        .result-icon.error .material-symbols-rounded {
+            font-size: 40px;
+            color: var(--color-error);
+        }
+
+        .result-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+            margin-bottom: 8px;
+        }
+
+        .result-description {
+            text-align: center;
+            font-size: 14px;
+            color: var(--color-neutral-6);
+            margin-bottom: 24px;
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 16px;
+            background: var(--color-neutral-1);
+            border-radius: 12px;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        .result-stat-label {
+            font-size: 12px;
+            color: var(--color-neutral-5);
+        }
+
+        /* Delete Confirmation */
+        .delete-warning {
+            background: var(--color-error-light);
+            border: 1px solid var(--color-error);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .delete-warning .material-symbols-rounded {
+            color: var(--color-error);
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .delete-warning-text {
+            font-size: 14px;
+            color: var(--color-error);
+            line-height: 1.5;
+        }
+
+        .delete-data-list {
+            background: var(--color-neutral-1);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .delete-data-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--color-neutral-3);
+            font-size: 14px;
+        }
+
+        .delete-data-item:last-child {
+            border-bottom: none;
+        }
+
+        .delete-data-item-label {
+            color: var(--color-neutral-6);
+        }
+
+        .delete-data-item-value {
+            font-weight: 600;
+            color: var(--color-neutral-8);
+        }
+
+        .confirm-input-group {
+            margin-bottom: 20px;
+        }
+
+        .confirm-input-label {
+            display: block;
+            font-size: 14px;
+            color: var(--color-neutral-7);
+            margin-bottom: 8px;
+        }
+
+        .confirm-input-label strong {
+            color: var(--color-error);
+        }
+
+        .confirm-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--color-neutral-3);
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: border-color 0.2s ease;
+        }
+
+        .confirm-input:focus {
+            outline: none;
+            border-color: var(--color-error);
+        }
+
+        .confirm-input.valid {
+            border-color: var(--color-success);
+            background: var(--color-success-light);
+        }
+
+        /* Pending Records List */
+        .pending-records {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .pending-record {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--color-neutral-2);
+        }
+
+        .pending-record:last-child {
+            border-bottom: none;
+        }
+
+        .pending-record-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pending-record-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--color-warning-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pending-record-icon .material-symbols-rounded {
+            font-size: 18px;
+            color: var(--color-warning);
+        }
+
+        .pending-record-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pending-record-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-neutral-8);
+        }
+
+        .pending-record-meta {
+            font-size: 12px;
+            color: var(--color-neutral-5);
+        }
+
+        .pending-record-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: var(--color-warning-light);
+            color: var(--color-warning);
+            font-weight: 600;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: var(--color-info-light);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .info-box .material-symbols-rounded {
+            color: var(--color-info);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .info-box-text {
+            font-size: 13px;
+            color: var(--color-neutral-7);
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .data-status-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .result-stats {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Toggle Button -->
+            <button class="sidebar-toggle" id="sidebarToggle" title="Colapsar menu">
+                <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+
+            <div class="sidebar-header">
+                <img src="assets/Arca_continental_logo_simple.png" alt="Arca Continental" class="sidebar-company-logo" />
+                <div class="sidebar-brand">
+                    <div class="sidebar-logo">
+                        <span class="logo-text">ARCA</span>
+                        <span class="logo-dot"></span>
+                        <span class="logo-text">OS</span>
+                    </div>
+                    <span class="sidebar-subtitle">OR Equipo frio</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <a href="layout.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">dashboard</span></span>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Operacion</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">assignment</span></span>
+                        <span>Ordenes de Recuperacion</span>
+                        <span class="nav-item-badge">24</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">account_balance</span></span>
+                        <span>Contraloria</span>
+                        <span class="nav-item-badge">8</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">person_check</span></span>
+                        <span>Aprobacion Jefe de Ventas</span>
+                        <span class="nav-item-badge">5</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">manage_accounts</span></span>
+                        <span>Aprobacion Gerente de Ventas</span>
+                        <span class="nav-item-badge">3</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">location_city</span></span>
+                        <span>Aprobacion Gerente Regional</span>
+                        <span class="nav-item-badge">2</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">corporate_fare</span></span>
+                        <span>Aprobacion Gerente CH</span>
+                        <span class="nav-item-badge">1</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">handshake</span></span>
+                        <span>Comodato</span>
+                        <span class="nav-item-badge">12</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Auditoria</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">bar_chart</span></span>
+                        <span>Reportes</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">history</span></span>
+                        <span>Bitacora de Acciones</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Datos</div>
+                    <a href="datos.html" class="nav-item active">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">database</span></span>
+                        <span>Gestion de Datos</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Administracion</div>
+                    <a href="roles.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">admin_panel_settings</span></span>
+                        <span>Configuracion Permisos</span>
+                    </a>
+                    <a href="catalogos.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">category</span></span>
+                        <span>Catalogos</span>
+                    </a>
+                    <a href="recordatorios.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">notifications_active</span></span>
+                        <span>Recordatorios</span>
+                    </a>
+                    <a href="usuarios.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">group</span></span>
+                        <span>Usuarios</span>
+                    </a>
+                </div>
+            </nav>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><span class="material-symbols-rounded">menu</span></button>
+                    <h1 class="font-size-2xl font-bold text-neutral-9">Gestion de Datos</h1>
+                    <div class="breadcrumb font-size-xs text-neutral-5">
+                        <a href="layout.html">Inicio</a> / Datos / Gestion
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button class="header-btn" title="Buscar"><span class="material-symbols-rounded">search</span></button>
+                    <button class="header-btn" title="Notificaciones">
+                        <span class="material-symbols-rounded">notifications</span>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="header-btn" title="Ayuda"><span class="material-symbols-rounded">help</span></button>
+                    <div class="header-divider"></div>
+                    <div class="header-user" id="headerUser">
+                        <div class="user-chip" onclick="toggleUserDropdown()">
+                            <div class="header-avatar">JO</div>
+                            <div class="user-chip-info">
+                                <span class="font-size-s font-semi-bold text-neutral-9">Juan Operador</span>
+                                <span class="font-size-xxs text-neutral-5">Supervisor de Zona</span>
+                                <span class="font-size-xxs text-neutral-5">juan.operador@arcacontal.com</span>
+                            </div>
+                            <span class="material-symbols-rounded text-neutral-5 icon-size-20">expand_more</span>
+                        </div>
+                        <div class="user-dropdown">
+                            <div class="dropdown-header">
+                                <div class="dropdown-user-info">
+                                    <div class="dropdown-avatar">JO</div>
+                                    <div class="dropdown-user-details">
+                                        <div class="dropdown-user-name">Juan Operador</div>
+                                        <div class="dropdown-user-role">Supervisor de Zona</div>
+                                        <div class="dropdown-user-email">juan.operador@arcacontal.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-menu">
+                                <button class="dropdown-item" onclick="handleProfile()">
+                                    <span class="material-symbols-rounded">person</span>
+                                    Mi Perfil
+                                </button>
+                                <button class="dropdown-item" onclick="handleSettings()">
+                                    <span class="material-symbols-rounded">settings</span>
+                                    Configuracion
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item logout" onclick="handleLogout()">
+                                    <span class="material-symbols-rounded">logout</span>
+                                    Cerrar Sesion
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Fixed Header -->
+                <div class="content-header-fixed">
+                    <h2 class="font-size-2xl font-bold text-neutral-9">Estado de Datos Locales</h2>
+                </div>
+
+                <!-- Scrollable Content Card -->
+                <div class="content-scroll-card">
+                    <!-- Data Status Cards -->
+                    <div class="data-status-grid">
+                        <div class="data-status-card">
+                            <div class="data-status-header">
+                                <div class="data-status-icon sync">
+                                    <span class="material-symbols-rounded">sync</span>
+                                </div>
+                                <span class="data-status-title">Ultima Sincronizacion</span>
+                            </div>
+                            <div class="data-status-value">Hace 2 horas</div>
+                            <div class="data-status-label">15 de Enero, 2024 - 10:30 AM</div>
+                        </div>
+
+                        <div class="data-status-card">
+                            <div class="data-status-header">
+                                <div class="data-status-icon pending">
+                                    <span class="material-symbols-rounded">pending</span>
+                                </div>
+                                <span class="data-status-title">Registros Pendientes</span>
+                            </div>
+                            <div class="data-status-value">12</div>
+                            <div class="data-status-label">Esperando ser enviados al servidor</div>
+                        </div>
+
+                        <div class="data-status-card">
+                            <div class="data-status-header">
+                                <div class="data-status-icon storage">
+                                    <span class="material-symbols-rounded">storage</span>
+                                </div>
+                                <span class="data-status-title">Almacenamiento Local</span>
+                            </div>
+                            <div class="data-status-value">45.2 MB</div>
+                            <div class="data-status-label">De 100 MB disponibles</div>
+                        </div>
+                    </div>
+
+                    <!-- Action Cards -->
+                    <h3 class="font-size-l font-bold text-neutral-8 margin-bottom-m">Acciones de Datos</h3>
+
+                    <div class="action-cards">
+                        <!-- Sincronizar -->
+                        <div class="action-card">
+                            <div class="action-card-header">
+                                <div class="action-card-icon sync">
+                                    <span class="material-symbols-rounded">sync</span>
+                                </div>
+                                <div class="action-card-content">
+                                    <h4 class="action-card-title">Sincronizar Todo</h4>
+                                    <p class="action-card-description">Envia los datos pendientes al servidor y descarga las ultimas actualizaciones de la base de datos.</p>
+                                </div>
+                            </div>
+                            <div class="action-card-details">
+                                <div class="action-card-detail">
+                                    <span class="action-card-detail-label">Por enviar</span>
+                                    <span class="action-card-detail-value">12 registros</span>
+                                </div>
+                                <div class="action-card-detail">
+                                    <span class="action-card-detail-label">Por descargar</span>
+                                    <span class="action-card-detail-value">~156 registros</span>
+                                </div>
+                            </div>
+                            <button class="action-card-btn sync" onclick="openSyncModal()">
+                                <span class="material-symbols-rounded">sync</span>
+                                Iniciar Sincronizacion
+                            </button>
+                        </div>
+
+                        <!-- Enviar -->
+                        <div class="action-card">
+                            <div class="action-card-header">
+                                <div class="action-card-icon send">
+                                    <span class="material-symbols-rounded">cloud_upload</span>
+                                </div>
+                                <div class="action-card-content">
+                                    <h4 class="action-card-title">Enviar Informacion</h4>
+                                    <p class="action-card-description">Envia unicamente los datos locales pendientes al servidor sin descargar actualizaciones.</p>
+                                </div>
+                            </div>
+                            <div class="action-card-details">
+                                <div class="action-card-detail">
+                                    <span class="action-card-detail-label">Registros pendientes</span>
+                                    <span class="action-card-detail-value">12 registros</span>
+                                </div>
+                                <div class="action-card-detail">
+                                    <span class="action-card-detail-label">Tamano estimado</span>
+                                    <span class="action-card-detail-value">2.4 MB</span>
+                                </div>
+                            </div>
+                            <button class="action-card-btn send" onclick="openSendModal()">
+                                <span class="material-symbols-rounded">cloud_upload</span>
+                                Enviar Datos
+                            </button>
+                        </div>
+
+                        <!-- Borrar -->
+                        <div class="action-card">
+                            <div class="action-card-header">
+                                <div class="action-card-icon delete">
+                                    <span class="material-symbols-rounded">delete_forever</span>
+                                </div>
+                                <div class="action-card-content">
+                                    <h4 class="action-card-title">Borrar Informacion</h4>
+                                    <p class="action-card-description">Elimina todos los datos almacenados localmente en el dispositivo. Esta accion no se puede deshacer.</p>
+                                </div>
+                            </div>
+                            <div class="action-card-details">
+                                <div class="action-card-detail">
+                                    <span class="action-card-detail-label">Datos locales</span>
+                                    <span class="action-card-detail-value">45.2 MB</span>
+                                </div>
+                                <div class="action-card-detail">
+                                    <span class="action-card-detail-label">Registros totales</span>
+                                    <span class="action-card-detail-value">1,847 registros</span>
+                                </div>
+                            </div>
+                            <button class="action-card-btn delete" onclick="openDeleteModal()">
+                                <span class="material-symbols-rounded">delete_forever</span>
+                                Borrar Datos Locales
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==================== MODALES ==================== -->
+
+    <!-- Modal: Sincronizar - Confirmacion -->
+    <div class="modal-overlay" id="syncModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Sincronizar Datos</h2>
+                <button class="modal-close" onclick="closeSyncModal()">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            <div class="modal-body" id="syncModalBody">
+                <!-- Estado: Confirmacion -->
+                <div id="syncConfirm">
+                    <div class="info-box">
+                        <span class="material-symbols-rounded">info</span>
+                        <span class="info-box-text">La sincronizacion enviara tus datos pendientes al servidor y descargara las ultimas actualizaciones. Asegurate de tener una conexion estable.</span>
+                    </div>
+
+                    <h4 class="font-size-s font-semi-bold text-neutral-7 margin-bottom-s">Resumen de sincronizacion</h4>
+
+                    <div class="action-card-details" style="margin-bottom: 0;">
+                        <div class="action-card-detail">
+                            <span class="action-card-detail-label">Registros por enviar</span>
+                            <span class="action-card-detail-value">12 registros</span>
+                        </div>
+                        <div class="action-card-detail">
+                            <span class="action-card-detail-label">Actualizaciones disponibles</span>
+                            <span class="action-card-detail-value">~156 registros</span>
+                        </div>
+                        <div class="action-card-detail">
+                            <span class="action-card-detail-label">Ultima sincronizacion</span>
+                            <span class="action-card-detail-value">Hace 2 horas</span>
+                        </div>
+                        <div class="action-card-detail">
+                            <span class="action-card-detail-label">Tiempo estimado</span>
+                            <span class="action-card-detail-value">~2 minutos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado: Progreso -->
+                <div id="syncProgress" style="display: none;">
+                    <div class="progress-container">
+                        <div class="progress-phases">
+                            <div class="progress-phase">
+                                <div class="progress-phase-dot" id="syncPhase1">1</div>
+                                <span class="progress-phase-label" id="syncPhase1Label">Enviando datos</span>
+                            </div>
+                            <div class="progress-phase">
+                                <div class="progress-phase-dot" id="syncPhase2">2</div>
+                                <span class="progress-phase-label" id="syncPhase2Label">Descargando</span>
+                            </div>
+                            <div class="progress-phase">
+                                <div class="progress-phase-dot" id="syncPhase3">3</div>
+                                <span class="progress-phase-label" id="syncPhase3Label">Finalizando</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="syncProgressBar" style="width: 0%"></div>
+                        </div>
+                        <p class="progress-text" id="syncProgressText">Preparando sincronizacion...</p>
+                    </div>
+                </div>
+
+                <!-- Estado: Resultado -->
+                <div id="syncResult" style="display: none;">
+                    <div class="result-icon success">
+                        <span class="material-symbols-rounded">check_circle</span>
+                    </div>
+                    <h3 class="result-title">Sincronizacion Completada</h3>
+                    <p class="result-description">Todos los datos han sido sincronizados correctamente con el servidor.</p>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <div class="result-stat-value">12</div>
+                            <div class="result-stat-label">Enviados</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value">156</div>
+                            <div class="result-stat-label">Descargados</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value">0</div>
+                            <div class="result-stat-label">Errores</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="syncModalFooter">
+                <button class="btn btn-cancel" onclick="closeSyncModal()">Cancelar</button>
+                <button class="btn btn-primary" id="syncActionBtn" onclick="startSync()">
+                    <span class="material-symbols-rounded">sync</span>
+                    Iniciar Sincronizacion
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Enviar - Confirmacion -->
+    <div class="modal-overlay" id="sendModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Enviar Informacion</h2>
+                <button class="modal-close" onclick="closeSendModal()">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            <div class="modal-body" id="sendModalBody">
+                <!-- Estado: Confirmacion -->
+                <div id="sendConfirm">
+                    <div class="info-box">
+                        <span class="material-symbols-rounded">info</span>
+                        <span class="info-box-text">Se enviaran unicamente los registros pendientes al servidor. No se descargaran actualizaciones.</span>
+                    </div>
+
+                    <h4 class="font-size-s font-semi-bold text-neutral-7 margin-bottom-s">Registros pendientes por enviar</h4>
+
+                    <div class="pending-records">
+                        <div class="pending-record">
+                            <div class="pending-record-info">
+                                <div class="pending-record-icon">
+                                    <span class="material-symbols-rounded">assignment</span>
+                                </div>
+                                <div class="pending-record-details">
+                                    <span class="pending-record-title">OR-2024-001245</span>
+                                    <span class="pending-record-meta">Orden de Recuperacion - Hace 30 min</span>
+                                </div>
+                            </div>
+                            <span class="pending-record-status">Pendiente</span>
+                        </div>
+                        <div class="pending-record">
+                            <div class="pending-record-info">
+                                <div class="pending-record-icon">
+                                    <span class="material-symbols-rounded">assignment</span>
+                                </div>
+                                <div class="pending-record-details">
+                                    <span class="pending-record-title">OR-2024-001244</span>
+                                    <span class="pending-record-meta">Orden de Recuperacion - Hace 1 hora</span>
+                                </div>
+                            </div>
+                            <span class="pending-record-status">Pendiente</span>
+                        </div>
+                        <div class="pending-record">
+                            <div class="pending-record-info">
+                                <div class="pending-record-icon">
+                                    <span class="material-symbols-rounded">photo_camera</span>
+                                </div>
+                                <div class="pending-record-details">
+                                    <span class="pending-record-title">Evidencia fotografica (5)</span>
+                                    <span class="pending-record-meta">Imagenes - Hace 45 min</span>
+                                </div>
+                            </div>
+                            <span class="pending-record-status">Pendiente</span>
+                        </div>
+                        <div class="pending-record">
+                            <div class="pending-record-info">
+                                <div class="pending-record-icon">
+                                    <span class="material-symbols-rounded">edit_note</span>
+                                </div>
+                                <div class="pending-record-details">
+                                    <span class="pending-record-title">Firmas digitales (3)</span>
+                                    <span class="pending-record-meta">Documentos - Hace 2 horas</span>
+                                </div>
+                            </div>
+                            <span class="pending-record-status">Pendiente</span>
+                        </div>
+                    </div>
+
+                    <div class="action-card-details" style="margin-bottom: 0;">
+                        <div class="action-card-detail">
+                            <span class="action-card-detail-label">Total de registros</span>
+                            <span class="action-card-detail-value">12 registros</span>
+                        </div>
+                        <div class="action-card-detail">
+                            <span class="action-card-detail-label">Tamano total</span>
+                            <span class="action-card-detail-value">2.4 MB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado: Progreso -->
+                <div id="sendProgress" style="display: none;">
+                    <div class="progress-container">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="sendProgressBar" style="width: 0%"></div>
+                        </div>
+                        <p class="progress-text" id="sendProgressText">Enviando registro 1 de 12...</p>
+                    </div>
+                </div>
+
+                <!-- Estado: Resultado -->
+                <div id="sendResult" style="display: none;">
+                    <div class="result-icon success">
+                        <span class="material-symbols-rounded">cloud_done</span>
+                    </div>
+                    <h3 class="result-title">Envio Completado</h3>
+                    <p class="result-description">Todos los registros pendientes han sido enviados al servidor correctamente.</p>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <div class="result-stat-value">12</div>
+                            <div class="result-stat-label">Enviados</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value">2.4 MB</div>
+                            <div class="result-stat-label">Transferidos</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value">0</div>
+                            <div class="result-stat-label">Errores</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="sendModalFooter">
+                <button class="btn btn-cancel" onclick="closeSendModal()">Cancelar</button>
+                <button class="btn btn-primary" id="sendActionBtn" onclick="startSend()" style="background: var(--color-success);">
+                    <span class="material-symbols-rounded">cloud_upload</span>
+                    Enviar Ahora
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Borrar - Confirmacion -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Borrar Informacion Local</h2>
+                <button class="modal-close" onclick="closeDeleteModal()">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            <div class="modal-body" id="deleteModalBody">
+                <!-- Estado: Confirmacion -->
+                <div id="deleteConfirm">
+                    <div class="delete-warning">
+                        <span class="material-symbols-rounded">warning</span>
+                        <span class="delete-warning-text">
+                            <strong>Atencion:</strong> Esta accion eliminara permanentemente todos los datos almacenados en este dispositivo. Los datos que no hayan sido enviados al servidor se perderan.
+                        </span>
+                    </div>
+
+                    <h4 class="font-size-s font-semi-bold text-neutral-7 margin-bottom-s">Datos que se eliminaran</h4>
+
+                    <div class="delete-data-list">
+                        <div class="delete-data-item">
+                            <span class="delete-data-item-label">Ordenes de Recuperacion</span>
+                            <span class="delete-data-item-value">847 registros</span>
+                        </div>
+                        <div class="delete-data-item">
+                            <span class="delete-data-item-label">Catalogos</span>
+                            <span class="delete-data-item-value">523 registros</span>
+                        </div>
+                        <div class="delete-data-item">
+                            <span class="delete-data-item-label">Evidencias fotograficas</span>
+                            <span class="delete-data-item-value">312 archivos</span>
+                        </div>
+                        <div class="delete-data-item">
+                            <span class="delete-data-item-label">Firmas digitales</span>
+                            <span class="delete-data-item-value">165 documentos</span>
+                        </div>
+                        <div class="delete-data-item" style="border-top: 2px solid var(--color-neutral-3); padding-top: 12px; margin-top: 4px;">
+                            <span class="delete-data-item-label" style="font-weight: 600; color: var(--color-neutral-8);">Total</span>
+                            <span class="delete-data-item-value" style="color: var(--color-error);">1,847 registros (45.2 MB)</span>
+                        </div>
+                    </div>
+
+                    <div class="confirm-input-group">
+                        <label class="confirm-input-label">Para confirmar, escribe <strong>ELIMINAR</strong> en el campo:</label>
+                        <input type="text" class="confirm-input" id="deleteConfirmInput" placeholder="ELIMINAR" oninput="checkDeleteConfirm()">
+                    </div>
+                </div>
+
+                <!-- Estado: Progreso -->
+                <div id="deleteProgress" style="display: none;">
+                    <div class="progress-container">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="deleteProgressBar" style="width: 0%; background: linear-gradient(90deg, var(--color-error) 0%, #B91C1C 100%);"></div>
+                        </div>
+                        <p class="progress-text" id="deleteProgressText">Eliminando datos locales...</p>
+                    </div>
+                </div>
+
+                <!-- Estado: Resultado -->
+                <div id="deleteResult" style="display: none;">
+                    <div class="result-icon success">
+                        <span class="material-symbols-rounded">delete_sweep</span>
+                    </div>
+                    <h3 class="result-title">Datos Eliminados</h3>
+                    <p class="result-description">Todos los datos locales han sido eliminados correctamente del dispositivo.</p>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <div class="result-stat-value">1,847</div>
+                            <div class="result-stat-label">Eliminados</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value">45.2 MB</div>
+                            <div class="result-stat-label">Liberados</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value">0</div>
+                            <div class="result-stat-label">Pendientes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="deleteModalFooter">
+                <button class="btn btn-cancel" onclick="closeDeleteModal()">Cancelar</button>
+                <button class="btn btn-danger" id="deleteActionBtn" onclick="startDelete()" disabled>
+                    <span class="material-symbols-rounded">delete_forever</span>
+                    Eliminar Todo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span class="material-symbols-rounded" id="toastIcon">check_circle</span>
+        <span id="toastMessage">Operacion completada</span>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        });
+
+        // Sidebar Collapse Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+        });
+
+        // User Dropdown Toggle
+        const headerUser = document.getElementById('headerUser');
+
+        function toggleUserDropdown() {
+            headerUser.classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!headerUser.contains(e.target)) {
+                headerUser.classList.remove('active');
+            }
+        });
+
+        function handleProfile() {
+            headerUser.classList.remove('active');
+            alert('Mi Perfil - En desarrollo');
+        }
+
+        function handleSettings() {
+            headerUser.classList.remove('active');
+            alert('Configuracion - En desarrollo');
+        }
+
+        function handleLogout() {
+            headerUser.classList.remove('active');
+            if (confirm('Estas seguro que deseas cerrar sesion?')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // ==================== MODAL: SINCRONIZAR ====================
+        const syncModal = document.getElementById('syncModal');
+        let syncState = 'confirm'; // confirm, progress, result
+
+        function openSyncModal() {
+            syncState = 'confirm';
+            resetSyncModal();
+            syncModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSyncModal() {
+            syncModal.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(resetSyncModal, 300);
+        }
+
+        function resetSyncModal() {
+            document.getElementById('syncConfirm').style.display = 'block';
+            document.getElementById('syncProgress').style.display = 'none';
+            document.getElementById('syncResult').style.display = 'none';
+            document.getElementById('syncProgressBar').style.width = '0%';
+            document.getElementById('syncActionBtn').innerHTML = '<span class="material-symbols-rounded">sync</span> Iniciar Sincronizacion';
+            document.getElementById('syncActionBtn').onclick = startSync;
+            document.getElementById('syncActionBtn').disabled = false;
+            document.getElementById('syncModalFooter').querySelector('.btn-cancel').style.display = 'block';
+
+            // Reset phases
+            ['syncPhase1', 'syncPhase2', 'syncPhase3'].forEach((id, i) => {
+                document.getElementById(id).className = 'progress-phase-dot';
+                document.getElementById(id).textContent = i + 1;
+            });
+            ['syncPhase1Label', 'syncPhase2Label', 'syncPhase3Label'].forEach(id => {
+                document.getElementById(id).className = 'progress-phase-label';
+            });
+        }
+
+        function startSync() {
+            syncState = 'progress';
+            document.getElementById('syncConfirm').style.display = 'none';
+            document.getElementById('syncProgress').style.display = 'block';
+            document.getElementById('syncActionBtn').disabled = true;
+            document.getElementById('syncActionBtn').innerHTML = '<span class="material-symbols-rounded spinning">sync</span> Sincronizando...';
+            document.getElementById('syncModalFooter').querySelector('.btn-cancel').style.display = 'none';
+
+            // Fase 1: Enviando
+            document.getElementById('syncPhase1').classList.add('active');
+            document.getElementById('syncPhase1Label').classList.add('active');
+            document.getElementById('syncProgressText').innerHTML = 'Enviando datos locales al servidor...';
+
+            let progress = 0;
+            const phase1Interval = setInterval(() => {
+                progress += 2;
+                document.getElementById('syncProgressBar').style.width = progress + '%';
+
+                if (progress >= 33) {
+                    clearInterval(phase1Interval);
+                    // Fase 2: Descargando
+                    document.getElementById('syncPhase1').classList.remove('active');
+                    document.getElementById('syncPhase1').classList.add('completed');
+                    document.getElementById('syncPhase1').innerHTML = '<span class="material-symbols-rounded" style="font-size:18px;">check</span>';
+                    document.getElementById('syncPhase2').classList.add('active');
+                    document.getElementById('syncPhase2Label').classList.add('active');
+                    document.getElementById('syncProgressText').innerHTML = 'Descargando actualizaciones del servidor...';
+
+                    const phase2Interval = setInterval(() => {
+                        progress += 2;
+                        document.getElementById('syncProgressBar').style.width = progress + '%';
+
+                        if (progress >= 66) {
+                            clearInterval(phase2Interval);
+                            // Fase 3: Finalizando
+                            document.getElementById('syncPhase2').classList.remove('active');
+                            document.getElementById('syncPhase2').classList.add('completed');
+                            document.getElementById('syncPhase2').innerHTML = '<span class="material-symbols-rounded" style="font-size:18px;">check</span>';
+                            document.getElementById('syncPhase3').classList.add('active');
+                            document.getElementById('syncPhase3Label').classList.add('active');
+                            document.getElementById('syncProgressText').innerHTML = 'Finalizando sincronizacion...';
+
+                            const phase3Interval = setInterval(() => {
+                                progress += 3;
+                                document.getElementById('syncProgressBar').style.width = progress + '%';
+
+                                if (progress >= 100) {
+                                    clearInterval(phase3Interval);
+                                    document.getElementById('syncPhase3').classList.remove('active');
+                                    document.getElementById('syncPhase3').classList.add('completed');
+                                    document.getElementById('syncPhase3').innerHTML = '<span class="material-symbols-rounded" style="font-size:18px;">check</span>';
+
+                                    setTimeout(showSyncResult, 500);
+                                }
+                            }, 100);
+                        }
+                    }, 80);
+                }
+            }, 60);
+        }
+
+        function showSyncResult() {
+            syncState = 'result';
+            document.getElementById('syncProgress').style.display = 'none';
+            document.getElementById('syncResult').style.display = 'block';
+            document.getElementById('syncActionBtn').innerHTML = '<span class="material-symbols-rounded">check</span> Listo';
+            document.getElementById('syncActionBtn').onclick = closeSyncModal;
+            document.getElementById('syncActionBtn').disabled = false;
+        }
+
+        syncModal.addEventListener('click', (e) => {
+            if (e.target === syncModal && syncState !== 'progress') {
+                closeSyncModal();
+            }
+        });
+
+        // ==================== MODAL: ENVIAR ====================
+        const sendModal = document.getElementById('sendModal');
+        let sendState = 'confirm';
+
+        function openSendModal() {
+            sendState = 'confirm';
+            resetSendModal();
+            sendModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSendModal() {
+            sendModal.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(resetSendModal, 300);
+        }
+
+        function resetSendModal() {
+            document.getElementById('sendConfirm').style.display = 'block';
+            document.getElementById('sendProgress').style.display = 'none';
+            document.getElementById('sendResult').style.display = 'none';
+            document.getElementById('sendProgressBar').style.width = '0%';
+            document.getElementById('sendActionBtn').innerHTML = '<span class="material-symbols-rounded">cloud_upload</span> Enviar Ahora';
+            document.getElementById('sendActionBtn').onclick = startSend;
+            document.getElementById('sendActionBtn').disabled = false;
+            document.getElementById('sendModalFooter').querySelector('.btn-cancel').style.display = 'block';
+        }
+
+        function startSend() {
+            sendState = 'progress';
+            document.getElementById('sendConfirm').style.display = 'none';
+            document.getElementById('sendProgress').style.display = 'block';
+            document.getElementById('sendActionBtn').disabled = true;
+            document.getElementById('sendActionBtn').innerHTML = '<span class="material-symbols-rounded spinning">sync</span> Enviando...';
+            document.getElementById('sendModalFooter').querySelector('.btn-cancel').style.display = 'none';
+
+            let progress = 0;
+            let record = 1;
+            const totalRecords = 12;
+
+            const sendInterval = setInterval(() => {
+                progress += 2;
+                document.getElementById('sendProgressBar').style.width = progress + '%';
+                record = Math.min(Math.ceil(progress / 100 * totalRecords), totalRecords);
+                document.getElementById('sendProgressText').innerHTML = `Enviando registro <strong>${record}</strong> de <strong>${totalRecords}</strong>...`;
+
+                if (progress >= 100) {
+                    clearInterval(sendInterval);
+                    setTimeout(showSendResult, 500);
+                }
+            }, 80);
+        }
+
+        function showSendResult() {
+            sendState = 'result';
+            document.getElementById('sendProgress').style.display = 'none';
+            document.getElementById('sendResult').style.display = 'block';
+            document.getElementById('sendActionBtn').innerHTML = '<span class="material-symbols-rounded">check</span> Listo';
+            document.getElementById('sendActionBtn').onclick = closeSendModal;
+            document.getElementById('sendActionBtn').disabled = false;
+            document.getElementById('sendActionBtn').style.background = 'var(--color-success)';
+        }
+
+        sendModal.addEventListener('click', (e) => {
+            if (e.target === sendModal && sendState !== 'progress') {
+                closeSendModal();
+            }
+        });
+
+        // ==================== MODAL: BORRAR ====================
+        const deleteModal = document.getElementById('deleteModal');
+        let deleteState = 'confirm';
+
+        function openDeleteModal() {
+            deleteState = 'confirm';
+            resetDeleteModal();
+            deleteModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDeleteModal() {
+            deleteModal.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(resetDeleteModal, 300);
+        }
+
+        function resetDeleteModal() {
+            document.getElementById('deleteConfirm').style.display = 'block';
+            document.getElementById('deleteProgress').style.display = 'none';
+            document.getElementById('deleteResult').style.display = 'none';
+            document.getElementById('deleteProgressBar').style.width = '0%';
+            document.getElementById('deleteConfirmInput').value = '';
+            document.getElementById('deleteConfirmInput').classList.remove('valid');
+            document.getElementById('deleteActionBtn').innerHTML = '<span class="material-symbols-rounded">delete_forever</span> Eliminar Todo';
+            document.getElementById('deleteActionBtn').onclick = startDelete;
+            document.getElementById('deleteActionBtn').disabled = true;
+            document.getElementById('deleteModalFooter').querySelector('.btn-cancel').style.display = 'block';
+        }
+
+        function checkDeleteConfirm() {
+            const input = document.getElementById('deleteConfirmInput');
+            const btn = document.getElementById('deleteActionBtn');
+
+            if (input.value.toUpperCase() === 'ELIMINAR') {
+                input.classList.add('valid');
+                btn.disabled = false;
+            } else {
+                input.classList.remove('valid');
+                btn.disabled = true;
+            }
+        }
+
+        function startDelete() {
+            deleteState = 'progress';
+            document.getElementById('deleteConfirm').style.display = 'none';
+            document.getElementById('deleteProgress').style.display = 'block';
+            document.getElementById('deleteActionBtn').disabled = true;
+            document.getElementById('deleteActionBtn').innerHTML = '<span class="material-symbols-rounded spinning">sync</span> Eliminando...';
+            document.getElementById('deleteModalFooter').querySelector('.btn-cancel').style.display = 'none';
+
+            let progress = 0;
+            const deleteInterval = setInterval(() => {
+                progress += 3;
+                document.getElementById('deleteProgressBar').style.width = progress + '%';
+
+                if (progress < 30) {
+                    document.getElementById('deleteProgressText').innerHTML = 'Eliminando ordenes de recuperacion...';
+                } else if (progress < 50) {
+                    document.getElementById('deleteProgressText').innerHTML = 'Eliminando catalogos...';
+                } else if (progress < 70) {
+                    document.getElementById('deleteProgressText').innerHTML = 'Eliminando evidencias fotograficas...';
+                } else if (progress < 90) {
+                    document.getElementById('deleteProgressText').innerHTML = 'Eliminando firmas digitales...';
+                } else {
+                    document.getElementById('deleteProgressText').innerHTML = 'Finalizando limpieza...';
+                }
+
+                if (progress >= 100) {
+                    clearInterval(deleteInterval);
+                    setTimeout(showDeleteResult, 500);
+                }
+            }, 60);
+        }
+
+        function showDeleteResult() {
+            deleteState = 'result';
+            document.getElementById('deleteProgress').style.display = 'none';
+            document.getElementById('deleteResult').style.display = 'block';
+            document.getElementById('deleteActionBtn').innerHTML = '<span class="material-symbols-rounded">check</span> Listo';
+            document.getElementById('deleteActionBtn').className = 'btn btn-primary';
+            document.getElementById('deleteActionBtn').onclick = closeDeleteModal;
+            document.getElementById('deleteActionBtn').disabled = false;
+        }
+
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal && deleteState !== 'progress') {
+                closeDeleteModal();
+            }
+        });
+
+        // Close modals on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (syncModal.classList.contains('active') && syncState !== 'progress') closeSyncModal();
+                if (sendModal.classList.contains('active') && sendState !== 'progress') closeSendModal();
+                if (deleteModal.classList.contains('active') && deleteState !== 'progress') closeDeleteModal();
+            }
+        });
+
+        // Toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toast.className = 'toast ' + type;
+            toastMessage.textContent = message;
+            toastIcon.textContent = type === 'success' ? 'check_circle' : 'error';
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
