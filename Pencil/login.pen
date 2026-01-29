@@ -7,6 +7,7 @@
       "x": 0,
       "y": 0,
       "name": "Login Screen",
+      "clip": true,
       "width": 1440,
       "height": 900,
       "fill": "$neutral-0",
@@ -21,45 +22,126 @@
             "type": "gradient",
             "gradientType": "linear",
             "enabled": true,
-            "rotation": 180,
+            "rotation": 135,
             "size": {
               "height": 1
             },
             "colors": [
               {
-                "color": "#1E293B",
+                "color": "#F8FAFC",
                 "position": 0
               },
               {
-                "color": "#0F172A",
+                "color": "#F1F5F9",
                 "position": 1
               }
             ]
           },
+          "placeholder": true,
           "layout": "vertical",
-          "gap": 24,
-          "padding": 60,
+          "gap": 16,
+          "padding": 40,
           "justifyContent": "center",
+          "alignItems": "center",
           "children": [
             {
               "type": "frame",
               "id": "YmCiE",
               "name": "brandContent",
+              "width": 400,
               "layout": "vertical",
-              "gap": 16,
+              "gap": 12,
+              "alignItems": "center",
               "children": [
+                {
+                  "type": "frame",
+                  "id": "Vh0St",
+                  "name": "arcaLogoFull",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Os8mq",
+                      "name": "logoIcon",
+                      "width": 70,
+                      "height": 55,
+                      "gap": -10,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 4,
+                          "id": "n9J6C",
+                          "name": "diamond1",
+                          "rotation": 45,
+                          "fill": "$arca-red",
+                          "width": 30,
+                          "height": 30
+                        },
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 4,
+                          "id": "i7PFF",
+                          "name": "diamond2",
+                          "rotation": 45,
+                          "fill": "transparent",
+                          "width": 30,
+                          "height": 30,
+                          "stroke": {
+                            "align": "inside",
+                            "thickness": 3,
+                            "fill": "$arca-red"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZP2ni",
+                      "name": "logoTextRow",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "4bRNV",
+                          "name": "arcaText",
+                          "fill": "$arca-red",
+                          "content": "ARCA",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "700",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "text",
+                          "id": "HcKRa",
+                          "name": "continentalText",
+                          "fill": "$neutral-7",
+                          "content": "CONTINENTAL",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "700",
+                          "letterSpacing": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
                 {
                   "type": "frame",
                   "id": "GJDyD",
                   "name": "logoRow",
                   "gap": 8,
+                  "justifyContent": "center",
                   "alignItems": "center",
                   "children": [
                     {
                       "type": "text",
                       "id": "6ulli",
                       "name": "logoArca",
-                      "fill": "$neutral-0",
+                      "fill": "$neutral-9",
                       "content": "ARCA",
                       "fontFamily": "Inter",
                       "fontSize": 36,
@@ -78,7 +160,7 @@
                       "type": "text",
                       "id": "6aSL9",
                       "name": "logoOS",
-                      "fill": "$neutral-0",
+                      "fill": "$neutral-9",
                       "content": "OS",
                       "fontFamily": "Inter",
                       "fontSize": 36,
@@ -91,8 +173,13 @@
                   "type": "frame",
                   "id": "Gehr6",
                   "name": "dpaBadge",
-                  "fill": "#FFFFFF1A",
+                  "fill": "$neutral-0",
                   "cornerRadius": 100,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1.5,
+                    "fill": "$arca-red"
+                  },
                   "padding": [
                     6,
                     14
@@ -102,7 +189,7 @@
                       "type": "text",
                       "id": "lM1Lv",
                       "name": "dpaBadgeText",
-                      "fill": "$neutral-5",
+                      "fill": "$arca-red",
                       "content": "POWERED BY DPA",
                       "fontFamily": "Inter",
                       "fontSize": 11,
@@ -117,17 +204,18 @@
                   "name": "heroTitle",
                   "layout": "vertical",
                   "padding": [
-                    24,
+                    16,
                     0,
                     0,
                     0
                   ],
+                  "alignItems": "center",
                   "children": [
                     {
                       "type": "text",
                       "id": "rr0EB",
                       "name": "heroLine1",
-                      "fill": "$neutral-0",
+                      "fill": "$neutral-9",
                       "content": "Ordenes de",
                       "fontFamily": "Inter",
                       "fontSize": 48,
@@ -151,14 +239,66 @@
                   "type": "text",
                   "id": "peJCN",
                   "name": "heroDesc",
-                  "fill": "$neutral-5",
+                  "fill": "$neutral-6",
                   "textGrowth": "fixed-width",
-                  "width": 500,
+                  "width": 350,
                   "content": "Ecosistema inteligente diseñado por Digital Process Automation (DPA). Optimizamos la recuperación mediante tecnología avanzada.",
                   "lineHeight": 1.6,
+                  "textAlign": "center",
                   "fontFamily": "Inter",
-                  "fontSize": 16,
+                  "fontSize": 14,
                   "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "PgmXx",
+                  "name": "osTag",
+                  "fill": "$neutral-0",
+                  "cornerRadius": 12,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "$neutral-3"
+                  },
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#0000000D",
+                    "offset": {
+                      "x": 0,
+                      "y": 4
+                    },
+                    "blur": 12
+                  },
+                  "layout": "vertical",
+                  "padding": [
+                    18,
+                    30
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "WGA9O",
+                      "name": "osTagLabel",
+                      "fill": "$arca-red",
+                      "content": "CORE OS",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "800",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "Qykas",
+                      "name": "osTagValue",
+                      "fill": "$neutral-9",
+                      "content": "DPA v3.1 stable",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    }
+                  ]
                 }
               ]
             }
@@ -238,11 +378,11 @@
                           "id": "XXZJA",
                           "name": "emailLabel",
                           "fill": "$neutral-7",
-                          "content": "ID de Operador",
+                          "content": "ID DE OPERADOR",
                           "fontFamily": "Inter",
-                          "fontSize": 12,
+                          "fontSize": 11,
                           "fontWeight": "700",
-                          "letterSpacing": 0.5
+                          "letterSpacing": 1
                         },
                         {
                           "type": "frame",
@@ -290,11 +430,11 @@
                           "id": "y2c1Q",
                           "name": "passwordLabel",
                           "fill": "$neutral-7",
-                          "content": "Token de Seguridad",
+                          "content": "TOKEN DE SEGURIDAD",
                           "fontFamily": "Inter",
-                          "fontSize": 12,
+                          "fontSize": 11,
                           "fontWeight": "700",
-                          "letterSpacing": 0.5
+                          "letterSpacing": 1
                         },
                         {
                           "type": "frame",
@@ -373,6 +513,7 @@
               "id": "mgwKI",
               "name": "footer",
               "width": "fill_container",
+              "layout": "vertical",
               "padding": [
                 40,
                 0,
@@ -380,6 +521,7 @@
                 0
               ],
               "justifyContent": "center",
+              "alignItems": "center",
               "children": [
                 {
                   "type": "text",
@@ -567,6 +709,83 @@
             24
           ],
           "children": [
+            {
+              "type": "frame",
+              "id": "dI999",
+              "name": "mArcaLogo",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "wuZln",
+                  "name": "mLogoIcon",
+                  "width": 50,
+                  "height": 40,
+                  "gap": -8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 3,
+                      "id": "xBypF",
+                      "name": "mDiamond1",
+                      "rotation": 45,
+                      "fill": "$arca-red",
+                      "width": 26,
+                      "height": 26
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 3,
+                      "id": "YqBr7",
+                      "name": "mDiamond2",
+                      "rotation": 45,
+                      "fill": "transparent",
+                      "width": 26,
+                      "height": 26,
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 2.5,
+                        "fill": "$arca-red"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "K2be8",
+                  "name": "mLogoTextRow",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "JmeOu",
+                      "name": "mArcaText",
+                      "fill": "$arca-red",
+                      "content": "ARCA",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "fzkfe",
+                      "name": "mContinentalText",
+                      "fill": "$neutral-7",
+                      "content": "CONTINENTAL",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                }
+              ]
+            },
             {
               "type": "frame",
               "id": "9I47m",

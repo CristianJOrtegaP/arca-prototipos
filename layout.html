@@ -384,6 +384,125 @@
         </main>
     </div>
 
+    <!-- Profile Modal -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Mi Perfil</h2>
+                <button class="modal-close" onclick="closeProfileModal()">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-header">
+                    <div class="profile-avatar-large">JO</div>
+                    <div class="profile-info">
+                        <h3 class="profile-name">Juan Operador</h3>
+                        <span class="profile-role">Supervisor de Zona</span>
+                        <span class="profile-status online">
+                            <span class="status-dot"></span>
+                            Activo
+                        </span>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h4 class="profile-section-title">Información de Contacto</h4>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">mail</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">Email</span>
+                            <span class="profile-field-value">juan.operador@arcacontal.com</span>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">phone</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">Teléfono</span>
+                            <span class="profile-field-value">+52 81 1234 5678</span>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">location_on</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">Ubicación</span>
+                            <span class="profile-field-value">Monterrey, Nuevo León</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h4 class="profile-section-title">Información Laboral</h4>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">badge</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">ID Empleado</span>
+                            <span class="profile-field-value">EMP-2024-001</span>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">business</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">Departamento</span>
+                            <span class="profile-field-value">Operaciones de Recuperación</span>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="material-symbols-rounded">calendar_today</span>
+                        <div class="profile-field-content">
+                            <span class="profile-field-label">Fecha de Ingreso</span>
+                            <span class="profile-field-value">15 de Marzo, 2022</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h4 class="profile-section-title">Roles Asignados</h4>
+                    <div class="profile-roles">
+                        <div class="profile-role-tag primary">
+                            <span class="material-symbols-rounded">shield_person</span>
+                            Supervisor de Zona
+                        </div>
+                        <div class="profile-role-tag">
+                            <span class="material-symbols-rounded">assignment</span>
+                            Aprobador Órdenes
+                        </div>
+                        <div class="profile-role-tag">
+                            <span class="material-symbols-rounded">inventory_2</span>
+                            Gestión Comodato
+                        </div>
+                        <div class="profile-role-tag">
+                            <span class="material-symbols-rounded">bar_chart</span>
+                            Reportes Auditoría
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <span class="profile-stat-value">156</span>
+                        <span class="profile-stat-label">Órdenes Procesadas</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value">94%</span>
+                        <span class="profile-stat-label">Tasa de Éxito</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value">2.5</span>
+                        <span class="profile-stat-label">Años en Arca</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" onclick="closeProfileModal()">Cerrar</button>
+                <button class="btn btn-primary" onclick="editProfile()">
+                    <span class="material-symbols-rounded">edit</span>
+                    Editar Perfil
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -440,12 +559,43 @@
             }
         });
 
-        // Dropdown action handlers
+        // Profile Modal
+        const profileModal = document.getElementById('profileModal');
+
         function handleProfile() {
-            console.log('Navigating to profile...');
             headerUser.classList.remove('active');
-            // Here you would navigate to the profile page
+            openProfileModal();
         }
+
+        function openProfileModal() {
+            profileModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProfileModal() {
+            profileModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function editProfile() {
+            console.log('Editing profile...');
+            // Here you would enable edit mode or navigate to edit page
+            alert('Función de edición en desarrollo');
+        }
+
+        // Close modal on overlay click
+        profileModal.addEventListener('click', (e) => {
+            if (e.target === profileModal) {
+                closeProfileModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && profileModal.classList.contains('active')) {
+                closeProfileModal();
+            }
+        });
 
         function handleSettings() {
             console.log('Navigating to settings...');
