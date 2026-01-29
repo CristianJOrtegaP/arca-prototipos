@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arca.OS | Dashboard - Prototipo</title>
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="arca-continental-theme.css">
     <style>
         /* === BASE RESET === */
@@ -146,12 +148,21 @@
         }
 
         .nav-item-icon {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+        }
+
+        /* Material Symbols */
+        .material-symbols-rounded {
+            font-size: 22px;
+            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .nav-item.active .material-symbols-rounded {
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
         }
 
         .nav-item-badge {
@@ -705,20 +716,20 @@
                 <div class="nav-section">
                     <div class="nav-section-title">Principal</div>
                     <a href="#" class="nav-item active">
-                        <span class="nav-item-icon">📊</span>
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">dashboard</span></span>
                         <span>Dashboard</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">📋</span>
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">assignment</span></span>
                         <span>Órdenes de Recuperación</span>
                         <span class="nav-item-badge">24</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">📦</span>
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">inventory_2</span></span>
                         <span>Inventario</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">👥</span>
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">group</span></span>
                         <span>Clientes</span>
                     </a>
                 </div>
@@ -726,11 +737,11 @@
                 <div class="nav-section">
                     <div class="nav-section-title">Análisis</div>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">📈</span>
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">bar_chart</span></span>
                         <span>Reportes</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">🎯</span>
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">target</span></span>
                         <span>Metas</span>
                     </a>
                 </div>
@@ -738,11 +749,11 @@
                 <div class="nav-section">
                     <div class="nav-section-title">Sistema</div>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">⚙️</span>
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">settings</span></span>
                         <span>Configuración</span>
                     </a>
                     <a href="#" class="nav-item">
-                        <span class="nav-item-icon">❓</span>
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">help</span></span>
                         <span>Ayuda</span>
                     </a>
                 </div>
@@ -757,7 +768,7 @@
                     </div>
                 </div>
                 <button class="btn-logout" onclick="handleLogout()">
-                    <span>🚪</span>
+                    <span class="material-symbols-rounded">logout</span>
                     <span>Cerrar Sesión</span>
                 </button>
             </div>
@@ -768,7 +779,7 @@
             <!-- Top Header -->
             <header class="top-header">
                 <div class="header-left">
-                    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><span class="material-symbols-rounded">menu</span></button>
                     <h1 class="page-title">Dashboard</h1>
                     <div class="breadcrumb">
                         <a href="#">Inicio</a> / Dashboard
@@ -776,12 +787,12 @@
                 </div>
 
                 <div class="header-right">
-                    <button class="header-btn" title="Buscar">🔍</button>
+                    <button class="header-btn" title="Buscar"><span class="material-symbols-rounded">search</span></button>
                     <button class="header-btn" title="Notificaciones">
-                        🔔
+                        <span class="material-symbols-rounded">notifications</span>
                         <span class="badge">3</span>
                     </button>
-                    <button class="header-btn" title="Ayuda">❓</button>
+                    <button class="header-btn" title="Ayuda"><span class="material-symbols-rounded">help</span></button>
                     <div class="header-divider"></div>
                     <div class="header-avatar">JO</div>
                 </div>
@@ -793,15 +804,15 @@
                     <h2 class="content-title">Resumen General</h2>
                     <div class="content-actions">
                         <button class="btn-secondary">
-                            <span>🎛️</span>
+                            <span class="material-symbols-rounded">tune</span>
                             <span>Filtros</span>
                         </button>
                         <button class="btn-secondary">
-                            <span>📤</span>
+                            <span class="material-symbols-rounded">download</span>
                             <span>Exportar</span>
                         </button>
                         <button class="btn-primary">
-                            <span>➕</span>
+                            <span class="material-symbols-rounded">add</span>
                             <span>Nueva Orden</span>
                         </button>
                     </div>
@@ -812,11 +823,11 @@
                     <div class="metric-card">
                         <div class="metric-header">
                             <span class="metric-label">Órdenes Activas</span>
-                            <div class="metric-icon red">📋</div>
+                            <div class="metric-icon red"><span class="material-symbols-rounded">assignment</span></div>
                         </div>
                         <div class="metric-value">247</div>
                         <div class="metric-change positive">
-                            <span>↑</span>
+                            <span class="material-symbols-rounded" style="font-size: 16px;">trending_up</span>
                             <span>+12% vs mes anterior</span>
                         </div>
                     </div>
@@ -824,11 +835,11 @@
                     <div class="metric-card">
                         <div class="metric-header">
                             <span class="metric-label">Recuperadas</span>
-                            <div class="metric-icon green">✅</div>
+                            <div class="metric-icon green"><span class="material-symbols-rounded">check_circle</span></div>
                         </div>
                         <div class="metric-value">189</div>
                         <div class="metric-change positive">
-                            <span>↑</span>
+                            <span class="material-symbols-rounded" style="font-size: 16px;">trending_up</span>
                             <span>+8% vs mes anterior</span>
                         </div>
                     </div>
@@ -836,11 +847,11 @@
                     <div class="metric-card">
                         <div class="metric-header">
                             <span class="metric-label">Pendientes</span>
-                            <div class="metric-icon yellow">⏳</div>
+                            <div class="metric-icon yellow"><span class="material-symbols-rounded">schedule</span></div>
                         </div>
                         <div class="metric-value">58</div>
                         <div class="metric-change negative">
-                            <span>↓</span>
+                            <span class="material-symbols-rounded" style="font-size: 16px;">trending_down</span>
                             <span>-5% vs mes anterior</span>
                         </div>
                     </div>
@@ -848,11 +859,11 @@
                     <div class="metric-card">
                         <div class="metric-header">
                             <span class="metric-label">Tasa de Éxito</span>
-                            <div class="metric-icon blue">📊</div>
+                            <div class="metric-icon blue"><span class="material-symbols-rounded">insights</span></div>
                         </div>
                         <div class="metric-value">76.5%</div>
                         <div class="metric-change info">
-                            <span>↑</span>
+                            <span class="material-symbols-rounded" style="font-size: 16px;">trending_up</span>
                             <span>+3.2% vs mes anterior</span>
                         </div>
                     </div>
