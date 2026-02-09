@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    h2 {
+      color: #C32B40;
+      margin-bottom: 16px;
+    }
+    p {
+      color: #64748B;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .loader {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #C32B40;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h2>ARCA.OS Design System</h2>
+  <p>Generando componentes...</p>
+  <div class="loader"></div>
+</body>
+</html>
