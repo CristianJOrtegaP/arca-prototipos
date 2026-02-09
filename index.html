@@ -26,8 +26,11 @@
 
         /* Header */
         .header {
-            text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
+            padding: 24px;
+            background: var(--color-neutral-0);
+            border-radius: 16px;
+            border: 1px solid var(--color-neutral-3);
         }
 
         .logo {
@@ -35,39 +38,64 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            margin-bottom: 16px;
         }
 
         .logo-text {
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--color-neutral-9);
             letter-spacing: 1px;
         }
 
         .logo-dot {
-            width: 12px;
-            height: 12px;
+            width: 8px;
+            height: 8px;
             background: var(--color-red);
             border-radius: 50%;
         }
 
         .header-title {
-            font-size: 18px;
-            color: var(--color-neutral-6);
-            font-weight: 500;
+            font-size: 14px;
+            color: var(--color-neutral-7);
+            font-weight: 600;
         }
 
         .header-badge {
             display: inline-block;
-            margin-top: 16px;
-            padding: 8px 20px;
+            padding: 4px 12px;
             background: var(--color-red);
             color: white;
             border-radius: 100px;
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+        }
+
+        .readme-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            background: var(--color-neutral-2);
+            color: var(--color-neutral-7);
+            border-radius: 100px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: var(--transition-base);
+            margin-left: 8px;
+        }
+
+        .readme-link:hover {
+            background: var(--color-neutral-3);
+            color: var(--color-neutral-9);
+            transform: translateY(-1px);
+        }
+
+        .readme-link svg {
+            width: 10px;
+            height: 10px;
         }
 
         /* Prototypes Grid */
@@ -242,17 +270,34 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <div class="logo">
-                <span class="logo-text">ARCA</span>
-                <span class="logo-dot"></span>
-                <span class="logo-text">OS</span>
-            </div>
-            <p class="header-title">Prototipos Interactivos</p>
-            <span class="header-badge">DESIGN SYSTEM v1.0</span>
-            <div style="margin-top: 20px; font-size: 11px; color: var(--color-neutral-5); line-height: 1.6;">
-                <p style="font-weight: 600;">Elaborado por Cristian Ortega, Tech Lead OutSystems</p>
-                <p style="margin-top: 4px;">DPA - Digital Process Automation | Arca Continental</p>
-                <p style="margin-top: 4px;">Prototipo v1.0 | Febrero 2026</p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;">
+                <!-- Left: Logo and Title -->
+                <div style="display: flex; align-items: center; gap: 24px;">
+                    <div class="logo" style="margin-bottom: 0;">
+                        <span class="logo-text">ARCA</span>
+                        <span class="logo-dot"></span>
+                        <span class="logo-text">OS</span>
+                    </div>
+                    <div style="border-left: 2px solid var(--color-neutral-3); padding-left: 24px; padding-top: 4px; padding-bottom: 4px;">
+                        <p class="header-title" style="margin-bottom: 6px;">Prototipos Interactivos</p>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="header-badge">DESIGN SYSTEM v1.0</span>
+                            <a href="README.md" class="readme-link" target="_blank" title="Ver documentación completa" style="margin-left: 0;">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                DOCS
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Authorship -->
+                <div style="text-align: right; font-size: 10px; color: var(--color-neutral-5); line-height: 1.6; padding: 4px 0;">
+                    <p style="font-weight: 700; color: var(--color-neutral-7); margin-bottom: 2px;">Cristian Ortega</p>
+                    <p style="margin-bottom: 2px;">Tech Lead OutSystems | DPA</p>
+                    <p style="opacity: 0.7;">v1.0 | Feb 2026</p>
+                </div>
             </div>
         </header>
 
