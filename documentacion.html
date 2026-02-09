@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCA.OS | Documentación del Proyecto</title>
+    <link rel="stylesheet" href="arca-continental-theme.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--color-neutral-1);
+            min-height: 100vh;
+            padding: 60px 24px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 24px;
+            padding: 20px 24px;
+            background: var(--color-neutral-0);
+            border-radius: 16px;
+            border: 1px solid var(--color-neutral-3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--color-neutral-9);
+            letter-spacing: 1px;
+        }
+
+        .logo-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--color-red);
+            border-radius: 50%;
+        }
+
+        .header-title {
+            font-size: 13px;
+            color: var(--color-neutral-7);
+            font-weight: 600;
+        }
+
+        .header-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--color-red);
+            color: white;
+            border-radius: 100px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-info {
+            border-left: 2px solid var(--color-neutral-3);
+            padding-left: 20px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 16px;
+            color: var(--color-neutral-7);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: var(--transition-base);
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .back-link:hover {
+            color: var(--color-red);
+            background: var(--color-neutral-1);
+        }
+
+        .back-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Content Card */
+        .content-card {
+            background: var(--color-neutral-0);
+            border-radius: 20px;
+            padding: 48px;
+            border: 1px solid var(--color-neutral-3);
+            box-shadow: var(--shadow-m);
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--color-neutral-9);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--color-neutral-3);
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-neutral-8);
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-neutral-8);
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--color-neutral-7);
+            margin-bottom: 16px;
+        }
+
+        blockquote {
+            padding: 16px 20px;
+            margin: 24px 0;
+            background: var(--color-neutral-2);
+            border-left: 4px solid var(--color-red);
+            border-radius: 8px;
+        }
+
+        blockquote p {
+            margin: 0;
+            font-style: italic;
+            color: var(--color-neutral-8);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        li {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--color-neutral-7);
+            margin-bottom: 8px;
+        }
+
+        ul li::marker {
+            color: var(--color-red);
+        }
+
+        /* Code */
+        code {
+            background: var(--color-neutral-2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--color-red);
+        }
+
+        pre {
+            background: var(--color-neutral-9);
+            color: var(--color-neutral-1);
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-neutral-3);
+        }
+
+        th {
+            background: var(--color-neutral-2);
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        tr:hover {
+            background: var(--color-neutral-1);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge-success {
+            background: var(--color-success-light);
+            color: var(--color-success);
+        }
+
+        .badge-info {
+            background: var(--color-neutral-2);
+            color: var(--color-neutral-7);
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: var(--color-neutral-1);
+            border-left: 4px solid var(--color-neutral-5);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .info-box.primary {
+            border-left-color: var(--color-red);
+            background: var(--color-red-light);
+        }
+
+        .info-box.success {
+            border-left-color: var(--color-success);
+            background: var(--color-success-light);
+        }
+
+        .info-box h4 {
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        /* Meta Info */
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .meta-item {
+            background: var(--color-neutral-1);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--color-neutral-3);
+        }
+
+        .meta-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-neutral-5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-neutral-9);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--color-neutral-3);
+            margin: 40px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 40px 16px;
+            }
+
+            .content-card {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-text">ARCA</span>
+                    <span class="logo-dot"></span>
+                    <span class="logo-text">OS</span>
+                </div>
+                <div class="header-info">
+                    <p class="header-title" style="margin-bottom: 4px;">Documentación del Proyecto</p>
+                    <span class="header-badge">DESIGN SYSTEM v1.0</span>
+                </div>
+            </div>
+        </header>
+
+        <a href="index.html" class="back-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Volver al índice
+        </a>
+
+        <!-- Content -->
+        <div class="content-card">
+            <h1>ARCA.OS - Prototipos Interactivos</h1>
+
+            <blockquote>
+                <p>Design System y layout global para aplicaciones Business-to-Employee (B2E) Low-Code de Arca Continental</p>
+            </blockquote>
+
+            <div class="meta-info">
+                <div class="meta-item">
+                    <div class="meta-label">Versión</div>
+                    <div class="meta-value">1.0</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Fecha</div>
+                    <div class="meta-value">Febrero 2026</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Autor</div>
+                    <div class="meta-value">Cristian Ortega</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Rol</div>
+                    <div class="meta-value">Tech Lead OutSystems</div>
+                </div>
+            </div>
+
+            <hr>
+
+            <h2>📋 Descripción del Proyecto</h2>
+            <p>ARCA.OS es un <strong>Design System y layout global</strong> para aplicaciones <strong>Business-to-Employee (B2E)</strong> desarrolladas en plataformas <strong>Low-Code</strong> (OutSystems). Este ecosistema de prototipos interactivos está diseñado para establecer patrones de diseño reutilizables en aplicaciones internas de Arca Continental.</p>
+
+            <p>Los prototipos están construidos en HTML/CSS puro, siguiendo el Design System oficial de Arca Continental y las mejores prácticas de OutSystems UI Framework. El caso de uso principal es el sistema de <strong>Órdenes de Recuperación</strong>, pero los componentes y patrones son aplicables a cualquier aplicación B2E de la organización.</p>
+
+            <h3>Objetivos</h3>
+            <ul>
+                <li>Establecer un <strong>Design System reutilizable</strong> para todas las aplicaciones B2E de Arca Continental</li>
+                <li>Validar flujos de usuario antes de la implementación en plataformas Low-Code</li>
+                <li>Crear patrones de diseño consistentes basados en el Playbook UX/UI de Arca</li>
+                <li>Acelerar el desarrollo de aplicaciones mediante componentes pre-diseñados</li>
+                <li>Facilitar la comunicación entre equipos de diseño, desarrollo y negocio</li>
+                <li>Reducir iteraciones y costos de desarrollo mediante prototipado rápido</li>
+            </ul>
+
+            <h3>Alcance de Aplicaciones</h3>
+            <p>Este Design System está diseñado para aplicaciones <strong>Business-to-Employee (B2E)</strong> tales como:</p>
+            <ul>
+                <li>📦 Sistemas de gestión operativa (Órdenes de Recuperación, Inventarios, Logística)</li>
+                <li>👥 Portales de recursos humanos y administración de personal</li>
+                <li>📊 Dashboards y reportes gerenciales</li>
+                <li>⚙️ Herramientas de configuración y administración</li>
+                <li>🔧 Aplicaciones de soporte y mantenimiento</li>
+            </ul>
+
+            <h2>🎨 Enfoque de Diseño</h2>
+
+            <h3>Design System Approach</h3>
+            <p>El proyecto utiliza un enfoque de <strong>Design System</strong> basado en:</p>
+
+            <ol>
+                <li><strong>Design Tokens</strong>: Variables CSS centralizadas para colores, tipografía, espaciado y sombras</li>
+                <li><strong>Atomic Design</strong>: Componentes reutilizables que escalan desde átomos hasta organismos</li>
+                <li><strong>Mobile-First</strong>: Diseño responsive que prioriza la experiencia móvil</li>
+                <li><strong>Accesibilidad</strong>: Contraste WCAG AA, navegación por teclado, semántica HTML</li>
+            </ol>
+
+            <h3>Identidad Visual Arca Continental</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Valor</th>
+                        <th>Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Color Principal</td>
+                        <td><code>#C32B40</code></td>
+                        <td>Rojo Carmesí - identidad institucional</td>
+                    </tr>
+                    <tr>
+                        <td>Tipografía</td>
+                        <td>Segoe UI / San Francisco</td>
+                        <td>Moderna y legible</td>
+                    </tr>
+                    <tr>
+                        <td>Border Radius</td>
+                        <td>8-12px</td>
+                        <td>Bordes suavemente redondeados</td>
+                    </tr>
+                    <tr>
+                        <td>Sombras</td>
+                        <td>Sutiles (0.05-0.1 opacity)</td>
+                        <td>Profundidad sin estridencia</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>🛠️ Stack Tecnológico</h2>
+
+            <h3>Core Technologies</h3>
+            <ul>
+                <li><strong>HTML5</strong>: Estructura semántica y accesible</li>
+                <li><strong>CSS3</strong>: Estilos modernos con Custom Properties (variables CSS)</li>
+                <li><strong>Vanilla JavaScript</strong>: Interactividad sin dependencias externas</li>
+            </ul>
+
+            <div class="info-box primary">
+                <h4>Filosofía: Zero Dependencies</h4>
+                <p>Los prototipos están construidos <strong>sin frameworks JavaScript</strong> (React, Vue, Angular) para:</p>
+                <ul>
+                    <li>Máxima compatibilidad con OutSystems</li>
+                    <li>Carga instantánea y rendimiento óptimo</li>
+                    <li>Simplicidad en la transferencia a OutSystems Reactive</li>
+                    <li>Facilidad de mantenimiento y edición</li>
+                </ul>
+            </div>
+
+            <h2>📄 Páginas Implementadas</h2>
+
+            <h3>1. Login <span class="badge badge-success">✓ Completo</span> <span class="badge badge-info">Responsive</span></h3>
+            <p>Pantalla de autenticación con diseño dual-panel:</p>
+            <ul>
+                <li>Panel izquierdo con branding y animaciones de fondo (pulse waves)</li>
+                <li>Panel derecho con formulario de acceso</li>
+                <li>Validación de email y contraseña</li>
+                <li>Estados de error y loading</li>
+                <li>Animación de éxito post-login</li>
+            </ul>
+
+            <h3>2. Dashboard <span class="badge badge-success">✓ Completo</span> <span class="badge badge-info">Responsive</span></h3>
+            <p>Panel principal con sidebar de navegación y tabla de órdenes:</p>
+            <ul>
+                <li>Sidebar colapsable con menú de navegación</li>
+                <li>Métricas principales (cards de estadísticas)</li>
+                <li>Tabla de órdenes con filtros y acciones</li>
+                <li>Estados de prioridad visual (badges)</li>
+            </ul>
+
+            <h3>3. Usuarios <span class="badge badge-success">✓ Completo</span> <span class="badge badge-info">Responsive</span></h3>
+            <p>Administración de usuarios del sistema con sincronización AD, búsqueda y filtros por rol.</p>
+
+            <h3>4. Roles <span class="badge badge-success">✓ Completo</span> <span class="badge badge-info">Responsive</span></h3>
+            <p>Configuración de permisos y asignaciones por usuario, centro, ruta y territorio.</p>
+
+            <h3>5. Recordatorios <span class="badge badge-success">✓ Completo</span> <span class="badge badge-info">Responsive</span></h3>
+            <p>Configuración de notificaciones automáticas por días de espera según rol.</p>
+
+            <h3>6. Catálogos <span class="badge badge-success">✓ Completo</span> <span class="badge badge-info">Responsive</span></h3>
+            <p>Gestión de catálogos del sistema: Hallazgos, Estatus, Centros, Rutas, Territorios y Regiones.</p>
+
+            <h3>7. Datos Maestros <span class="badge badge-success">✓ Completo</span> <span class="badge badge-info">Responsive</span></h3>
+            <p>Gestión de información maestra del sistema con validaciones de integridad.</p>
+
+            <h2>🚀 Instalación y Uso</h2>
+
+            <h3>Requisitos</h3>
+            <ul>
+                <li>Navegador moderno (Chrome, Firefox, Safari, Edge)</li>
+                <li>No requiere servidor (funciona con file://)</li>
+            </ul>
+
+            <h3>Pasos</h3>
+            <pre><code># 1. Clonar el repositorio
+git clone https://github.com/CristianJOrtegaP/arca-prototipos.git
+cd arca-prototipos
+
+# 2. Abrir el índice
+open index.html</code></pre>
+
+            <h3>Edición</h3>
+            <p>Para personalizar los prototipos:</p>
+            <ol>
+                <li><strong>Modificar Design Tokens</strong>: Editar <code>arca-continental-theme.css</code></li>
+                <li><strong>Editar componentes</strong>: Abrir el archivo HTML del prototipo</li>
+                <li><strong>Ver cambios</strong>: Guardar y refrescar el navegador (F5 o Cmd+R)</li>
+            </ol>
+
+            <h2>🎨 Guía de Estilo Visual</h2>
+
+            <h3>Colores</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Uso</th>
+                        <th>Color</th>
+                        <th>Hex</th>
+                        <th>Cuándo usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Primario</td>
+                        <td>Rojo Arca</td>
+                        <td><code>#C32B40</code></td>
+                        <td>Acciones principales, CTAs</td>
+                    </tr>
+                    <tr>
+                        <td>Secundario</td>
+                        <td>Turquesa</td>
+                        <td><code>#0AA4B4</code></td>
+                        <td>Información, enlaces</td>
+                    </tr>
+                    <tr>
+                        <td>Éxito</td>
+                        <td>Lime</td>
+                        <td><code>#7FBC03</code></td>
+                        <td>Confirmaciones positivas</td>
+                    </tr>
+                    <tr>
+                        <td>Advertencia</td>
+                        <td>Orange</td>
+                        <td><code>#FF9016</code></td>
+                        <td>Alertas no críticas</td>
+                    </tr>
+                    <tr>
+                        <td>Error</td>
+                        <td>Rojo Intenso</td>
+                        <td><code>#FF1826</code></td>
+                        <td>Errores críticos</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Tipografía</h3>
+            <ul>
+                <li><strong>Headings</strong>: 24px-32px, font-weight: 700-800</li>
+                <li><strong>Body</strong>: 14px-16px, font-weight: 400-500</li>
+                <li><strong>Small</strong>: 12px, font-weight: 400</li>
+                <li><strong>Labels</strong>: 12px, font-weight: 600</li>
+            </ul>
+
+            <h3>Espaciado</h3>
+            <p>Sistema de escala 8px:</p>
+            <ul>
+                <li><strong>xs</strong>: 4px</li>
+                <li><strong>s</strong>: 8px</li>
+                <li><strong>base</strong>: 16px</li>
+                <li><strong>l</strong>: 24px</li>
+                <li><strong>xl</strong>: 32px</li>
+                <li><strong>2xl</strong>: 48px</li>
+            </ul>
+
+            <h2>🔄 Migración a OutSystems</h2>
+
+            <div class="info-box success">
+                <h4>Estrategia de Transferencia</h4>
+                <p>Los prototipos están diseñados para facilitar la migración a OutSystems Reactive:</p>
+                <ol>
+                    <li><strong>Design Tokens → OutSystems Theme</strong>: Copiar variables CSS al Theme Editor</li>
+                    <li><strong>HTML → OutSystems Widgets</strong>: Traducir estructura HTML a Blocks y Screens</li>
+                    <li><strong>JavaScript → Client Actions</strong>: Convertir event listeners a Client Actions</li>
+                </ol>
+            </div>
+
+            <h3>Compatibilidad</h3>
+            <ul>
+                <li>Clases CSS compatibles con OutSystems UI</li>
+                <li>Estructura semántica traducible a Widgets</li>
+                <li>Lógica de negocio separada de presentación</li>
+            </ul>
+
+            <h2>👥 Equipo y Créditos</h2>
+
+            <p><strong>Tech Lead & UX Developer</strong><br>
+            Cristian Ortega<br>
+            Tech Lead OutSystems | DPA</p>
+
+            <p><strong>Organización</strong><br>
+            Digital Process Automation (DPA)<br>
+            Arca Continental</p>
+
+            <hr>
+
+            <h2>📝 Changelog</h2>
+
+            <h3>v1.0 - Febrero 2026</h3>
+            <ul>
+                <li>Implementación de 7 prototipos completos</li>
+                <li>Design System basado en Arca Continental Playbook</li>
+                <li>Responsive design en todos los prototipos</li>
+                <li>Integración con OutSystems UI Framework</li>
+                <li>Documentación completa del proyecto</li>
+            </ul>
+
+            <hr>
+
+            <p style="text-align: center; color: var(--color-neutral-5); font-size: 12px; margin-top: 48px;">
+                <strong>© 2026 Digital Process Automation (DPA) - Arca Continental</strong><br>
+                Powered by DPA | Built with ❤️ for Arca Continental
+            </p>
+        </div>
+    </div>
+</body>
+</html>

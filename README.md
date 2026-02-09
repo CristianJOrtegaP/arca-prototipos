@@ -1,6 +1,6 @@
 # ARCA.OS - Prototipos Interactivos
 
-> Sistema de prototipos HTML para el ecosistema de Órdenes de Recuperación de Arca Continental
+> Design System y layout global para aplicaciones Business-to-Employee (B2E) Low-Code de Arca Continental
 
 **Versión:** 1.0
 **Fecha:** Febrero 2026
@@ -11,14 +11,27 @@
 
 ## 📋 Descripción del Proyecto
 
-ARCA.OS es un ecosistema de prototipos interactivos diseñados para validar la experiencia de usuario del sistema de **Órdenes de Recuperación** de Arca Continental. Los prototipos están construidos en HTML/CSS puro, siguiendo el Design System oficial de Arca Continental y las mejores prácticas de OutSystems UI Framework.
+ARCA.OS es un **Design System y layout global** para aplicaciones **Business-to-Employee (B2E)** desarrolladas en plataformas **Low-Code** (OutSystems). Este ecosistema de prototipos interactivos está diseñado para establecer patrones de diseño reutilizables en aplicaciones internas de Arca Continental. Los prototipos están construidos en HTML/CSS puro, siguiendo el Design System oficial de Arca Continental y las mejores prácticas de OutSystems UI Framework.
+
+El caso de uso principal es el sistema de **Órdenes de Recuperación**, pero los componentes y patrones son aplicables a cualquier aplicación B2E de la organización.
 
 ### Objetivos
 
-- ✅ Validar flujos de usuario antes de la implementación en OutSystems
-- ✅ Establecer patrones de diseño consistentes basados en el Playbook UX/UI de Arca
+- ✅ Establecer un **Design System reutilizable** para todas las aplicaciones B2E de Arca Continental
+- ✅ Validar flujos de usuario antes de la implementación en plataformas Low-Code
+- ✅ Crear patrones de diseño consistentes basados en el Playbook UX/UI de Arca
+- ✅ Acelerar el desarrollo de aplicaciones mediante componentes pre-diseñados
 - ✅ Facilitar la comunicación entre equipos de diseño, desarrollo y negocio
-- ✅ Reducir iteraciones durante el desarrollo mediante prototipado rápido
+- ✅ Reducir iteraciones y costos de desarrollo mediante prototipado rápido
+
+### Alcance de Aplicaciones
+
+Este Design System está diseñado para aplicaciones **Business-to-Employee (B2E)** tales como:
+- 📦 Sistemas de gestión operativa (Órdenes de Recuperación, Inventarios, Logística)
+- 👥 Portales de recursos humanos y administración de personal
+- 📊 Dashboards y reportes gerenciales
+- ⚙️ Herramientas de configuración y administración
+- 🔧 Aplicaciones de soporte y mantenimiento
 
 ---
 
