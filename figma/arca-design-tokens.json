@@ -1,0 +1,650 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format.json",
+  "$metadata": {
+    "name": "ARCA.OS Design Tokens",
+    "description": "Design System completo de ARCA Continental para aplicaciones B2E Low-Code",
+    "version": "1.0.0",
+    "author": "Cristian Ortega - Tech Lead OutSystems | DPA",
+    "organization": "Arca Continental - Digital Process Automation",
+    "figmaPlugins": [
+      "Figma Tokens",
+      "Design Tokens Studio"
+    ]
+  },
+  "color": {
+    "institutional": {
+      "arca-red": {
+        "$type": "color",
+        "$value": "#C32B40",
+        "$description": "Rojo Carmesí - Color principal de Arca Continental"
+      },
+      "arca-red-dark": {
+        "$type": "color",
+        "$value": "#9A2233",
+        "$description": "Rojo oscuro para estados hover"
+      },
+      "arca-red-active": {
+        "$type": "color",
+        "$value": "#7A1A29",
+        "$description": "Rojo muy oscuro para estados active/pressed"
+      },
+      "arca-red-light": {
+        "$type": "color",
+        "$value": "#FDE7EA",
+        "$description": "Rojo claro para fondos y badges"
+      },
+      "arca-brown": {
+        "$type": "color",
+        "$value": "#723926",
+        "$description": "Marrón institucional Arca"
+      },
+      "arca-gray-dark": {
+        "$type": "color",
+        "$value": "#616161",
+        "$description": "Gris oscuro institucional"
+      },
+      "arca-gray-light": {
+        "$type": "color",
+        "$value": "#B3B3B3",
+        "$description": "Gris claro institucional"
+      }
+    },
+    "culture": {
+      "turquoise": {
+        "$type": "color",
+        "$value": "#0AA4B4",
+        "$description": "Turquesa - Color de cultura Arca (Información)"
+      },
+      "lime": {
+        "$type": "color",
+        "$value": "#7FBC03",
+        "$description": "Lima - Color de cultura Arca (Éxito)"
+      },
+      "orange": {
+        "$type": "color",
+        "$value": "#FF9016",
+        "$description": "Naranja - Color de cultura Arca (Advertencia)"
+      },
+      "purple": {
+        "$type": "color",
+        "$value": "#843276",
+        "$description": "Morado - Color de cultura Arca"
+      },
+      "red-intense": {
+        "$type": "color",
+        "$value": "#FF1826",
+        "$description": "Rojo intenso - Color de cultura Arca (Error)"
+      }
+    },
+    "neutral": {
+      "0": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Blanco puro - Fondos principales"
+      },
+      "1": {
+        "$type": "color",
+        "$value": "#F8FAFC",
+        "$description": "Gris muy claro - Fondo de página"
+      },
+      "2": {
+        "$type": "color",
+        "$value": "#F1F5F9",
+        "$description": "Gris claro - Fondos secundarios"
+      },
+      "3": {
+        "$type": "color",
+        "$value": "#E2E8F0",
+        "$description": "Gris medio claro - Bordes"
+      },
+      "4": {
+        "$type": "color",
+        "$value": "#CBD5E1",
+        "$description": "Gris medio - Bordes hover"
+      },
+      "5": {
+        "$type": "color",
+        "$value": "#94A3B8",
+        "$description": "Gris - Texto disabled, placeholders"
+      },
+      "6": {
+        "$type": "color",
+        "$value": "#64748B",
+        "$description": "Gris oscuro - Texto secundario"
+      },
+      "7": {
+        "$type": "color",
+        "$value": "#475569",
+        "$description": "Gris muy oscuro - Texto body"
+      },
+      "8": {
+        "$type": "color",
+        "$value": "#334155",
+        "$description": "Casi negro - Headings"
+      },
+      "9": {
+        "$type": "color",
+        "$value": "#1E293B",
+        "$description": "Negro suave - Texto principal"
+      },
+      "10": {
+        "$type": "color",
+        "$value": "#0F172A",
+        "$description": "Negro intenso"
+      }
+    },
+    "semantic": {
+      "primary": {
+        "$type": "color",
+        "$value": "#C32B40",
+        "$description": "Color primario (alias de arca-red)"
+      },
+      "primary-hover": {
+        "$type": "color",
+        "$value": "#9A2233",
+        "$description": "Primary hover state"
+      },
+      "primary-light": {
+        "$type": "color",
+        "$value": "#FDE7EA",
+        "$description": "Primary light background"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "#7FBC03",
+        "$description": "Estado de éxito"
+      },
+      "success-light": {
+        "$type": "color",
+        "$value": "#D4EDDA",
+        "$description": "Fondo de éxito"
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#FF9016",
+        "$description": "Advertencias"
+      },
+      "warning-light": {
+        "$type": "color",
+        "$value": "#FFF3CD",
+        "$description": "Fondo de advertencia"
+      },
+      "error": {
+        "$type": "color",
+        "$value": "#FF1826",
+        "$description": "Errores críticos"
+      },
+      "error-light": {
+        "$type": "color",
+        "$value": "#F8D7DA",
+        "$description": "Fondo de error"
+      },
+      "info": {
+        "$type": "color",
+        "$value": "#0AA4B4",
+        "$description": "Información"
+      },
+      "info-light": {
+        "$type": "color",
+        "$value": "#E9ECEF",
+        "$description": "Fondo de información"
+      }
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "primary": {
+        "$type": "fontFamily",
+        "$value": "Segoe UI, Roboto, San Francisco, Arial, sans-serif",
+        "$description": "Fuente principal del sistema"
+      }
+    },
+    "fontSize": {
+      "2xs": {
+        "$type": "dimension",
+        "$value": "10px",
+        "$description": "Extra extra small"
+      },
+      "xxs": {
+        "$type": "dimension",
+        "$value": "11px",
+        "$description": "Extra small (badges pequeños)"
+      },
+      "xs": {
+        "$type": "dimension",
+        "$value": "12px",
+        "$description": "Small (labels, captions)"
+      },
+      "s": {
+        "$type": "dimension",
+        "$value": "14px",
+        "$description": "Body small"
+      },
+      "base": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Body text base"
+      },
+      "m": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Medium (alias de base)"
+      },
+      "l": {
+        "$type": "dimension",
+        "$value": "18px",
+        "$description": "Large text"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$description": "Extra large"
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": "22px",
+        "$description": "Heading small"
+      },
+      "3xl": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$description": "Heading medium"
+      },
+      "4xl": {
+        "$type": "dimension",
+        "$value": "40px",
+        "$description": "Heading large"
+      },
+      "5xl": {
+        "$type": "dimension",
+        "$value": "48px",
+        "$description": "Heading extra large"
+      },
+      "display": {
+        "$type": "dimension",
+        "$value": "56px",
+        "$description": "Display heading"
+      }
+    },
+    "fontWeight": {
+      "light": {
+        "$type": "fontWeight",
+        "$value": "300",
+        "$description": "Peso ligero"
+      },
+      "normal": {
+        "$type": "fontWeight",
+        "$value": "400",
+        "$description": "Peso normal"
+      },
+      "medium": {
+        "$type": "fontWeight",
+        "$value": "500",
+        "$description": "Peso medio"
+      },
+      "semibold": {
+        "$type": "fontWeight",
+        "$value": "600",
+        "$description": "Semi-negrita"
+      },
+      "bold": {
+        "$type": "fontWeight",
+        "$value": "700",
+        "$description": "Negrita"
+      },
+      "extrabold": {
+        "$type": "fontWeight",
+        "$value": "800",
+        "$description": "Extra negrita (headings importantes)"
+      }
+    },
+    "lineHeight": {
+      "xs": {
+        "$type": "number",
+        "$value": 1.1,
+        "$description": "Extra tight (headings display)"
+      },
+      "s": {
+        "$type": "number",
+        "$value": 1.2,
+        "$description": "Tight (headings)"
+      },
+      "base": {
+        "$type": "number",
+        "$value": 1.5,
+        "$description": "Normal (body text)"
+      },
+      "m": {
+        "$type": "number",
+        "$value": 1.5,
+        "$description": "Medium (alias de base)"
+      },
+      "l": {
+        "$type": "number",
+        "$value": 1.7,
+        "$description": "Loose (párrafos largos)"
+      }
+    },
+    "letterSpacing": {
+      "tight": {
+        "$type": "dimension",
+        "$value": "-0.5px",
+        "$description": "Apretado"
+      },
+      "tighter": {
+        "$type": "dimension",
+        "$value": "-1px",
+        "$description": "Más apretado"
+      },
+      "tightest": {
+        "$type": "dimension",
+        "$value": "-1.5px",
+        "$description": "Muy apretado"
+      },
+      "display": {
+        "$type": "dimension",
+        "$value": "-2px",
+        "$description": "Display headings"
+      },
+      "wide": {
+        "$type": "dimension",
+        "$value": "0.5px",
+        "$description": "Espaciado amplio (labels)"
+      },
+      "wider": {
+        "$type": "dimension",
+        "$value": "1px",
+        "$description": "Más amplio (uppercase)"
+      }
+    }
+  },
+  "spacing": {
+    "xs": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$description": "Extra small spacing"
+    },
+    "s": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$description": "Small spacing"
+    },
+    "base": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "Base spacing (1rem)"
+    },
+    "m": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "Medium (alias de base)"
+    },
+    "l": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$description": "Large spacing"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$description": "Extra large spacing"
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "48px",
+      "$description": "2x Extra large"
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": "64px",
+      "$description": "3x Extra large"
+    }
+  },
+  "borderRadius": {
+    "none": {
+      "$type": "dimension",
+      "$value": "0px",
+      "$description": "Sin border radius"
+    },
+    "soft": {
+      "$type": "dimension",
+      "$value": "6px",
+      "$description": "Bordes suaves"
+    },
+    "base": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$description": "Border radius base"
+    },
+    "m": {
+      "$type": "dimension",
+      "$value": "10px",
+      "$description": "Medium"
+    },
+    "rounded": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$description": "Redondeado (botones, cards)"
+    },
+    "input": {
+      "$type": "dimension",
+      "$value": "14px",
+      "$description": "Para inputs"
+    },
+    "l": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "Large"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$description": "Extra large (cards grandes)"
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "28px",
+      "$description": "2x Extra large"
+    },
+    "circle": {
+      "$type": "dimension",
+      "$value": "50%",
+      "$description": "Círculo perfecto"
+    },
+    "pill": {
+      "$type": "dimension",
+      "$value": "9999px",
+      "$description": "Píldora (badges, tags)"
+    }
+  },
+  "shadow": {
+    "s": {
+      "$type": "shadow",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "1px",
+        "blur": "2px",
+        "spread": "0px",
+        "color": "rgba(0, 0, 0, 0.05)"
+      },
+      "$description": "Sombra pequeña (hover sutil)"
+    },
+    "m": {
+      "$type": "shadow",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "4px",
+        "blur": "6px",
+        "spread": "0px",
+        "color": "rgba(0, 0, 0, 0.07)"
+      },
+      "$description": "Sombra media (cards, dropdowns)"
+    },
+    "l": {
+      "$type": "shadow",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "8px",
+        "blur": "16px",
+        "spread": "0px",
+        "color": "rgba(0, 0, 0, 0.08)"
+      },
+      "$description": "Sombra grande (modals, popovers)"
+    },
+    "xl": {
+      "$type": "shadow",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "12px",
+        "blur": "24px",
+        "spread": "0px",
+        "color": "rgba(0, 0, 0, 0.1)"
+      },
+      "$description": "Sombra extra grande (tooltips flotantes)"
+    },
+    "button-primary": {
+      "$type": "shadow",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "4px",
+        "blur": "12px",
+        "spread": "0px",
+        "color": "rgba(195, 43, 64, 0.25)"
+      },
+      "$description": "Sombra para botón primario"
+    },
+    "button-primary-hover": {
+      "$type": "shadow",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "6px",
+        "blur": "16px",
+        "spread": "0px",
+        "color": "rgba(195, 43, 64, 0.35)"
+      },
+      "$description": "Sombra para botón primario hover"
+    }
+  },
+  "components": {
+    "button": {
+      "padding": {
+        "y": {
+          "$type": "dimension",
+          "$value": "12px",
+          "$description": "Padding vertical de botón normal"
+        },
+        "x": {
+          "$type": "dimension",
+          "$value": "20px",
+          "$description": "Padding horizontal de botón normal"
+        },
+        "y-small": {
+          "$type": "dimension",
+          "$value": "8px",
+          "$description": "Padding vertical de botón pequeño"
+        },
+        "x-small": {
+          "$type": "dimension",
+          "$value": "16px",
+          "$description": "Padding horizontal de botón pequeño"
+        },
+        "y-large": {
+          "$type": "dimension",
+          "$value": "16px",
+          "$description": "Padding vertical de botón grande"
+        },
+        "x-large": {
+          "$type": "dimension",
+          "$value": "24px",
+          "$description": "Padding horizontal de botón grande"
+        }
+      }
+    },
+    "input": {
+      "padding": {
+        "y": {
+          "$type": "dimension",
+          "$value": "14px",
+          "$description": "Padding vertical de input"
+        },
+        "x": {
+          "$type": "dimension",
+          "$value": "16px",
+          "$description": "Padding horizontal de input"
+        }
+      }
+    },
+    "badge": {
+      "padding": {
+        "y": {
+          "$type": "dimension",
+          "$value": "6px",
+          "$description": "Padding vertical de badge"
+        },
+        "x": {
+          "$type": "dimension",
+          "$value": "12px",
+          "$description": "Padding horizontal de badge"
+        }
+      }
+    }
+  },
+  "focus": {
+    "ring-size": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$description": "Tamaño del focus ring"
+    },
+    "ring-color-primary": {
+      "$type": "color",
+      "$value": "#FDE7EA",
+      "$description": "Color del focus ring primario"
+    },
+    "ring-color-error": {
+      "$type": "color",
+      "$value": "rgba(220, 53, 69, 0.15)",
+      "$description": "Color del focus ring de error"
+    }
+  },
+  "animation": {
+    "duration": {
+      "fast": {
+        "$type": "duration",
+        "$value": "150ms",
+        "$description": "Duración rápida (micro-interacciones)"
+      },
+      "base": {
+        "$type": "duration",
+        "$value": "300ms",
+        "$description": "Duración base (transiciones comunes)"
+      },
+      "slow": {
+        "$type": "duration",
+        "$value": "500ms",
+        "$description": "Duración lenta (animaciones complejas)"
+      }
+    },
+    "easing": {
+      "linear": {
+        "$type": "cubicBezier",
+        "$value": [0, 0, 1, 1],
+        "$description": "Lineal"
+      },
+      "ease": {
+        "$type": "cubicBezier",
+        "$value": [0.25, 0.1, 0.25, 1],
+        "$description": "Ease (por defecto)"
+      },
+      "ease-in-out": {
+        "$type": "cubicBezier",
+        "$value": [0.42, 0, 0.58, 1],
+        "$description": "Ease in-out"
+      },
+      "spring": {
+        "$type": "cubicBezier",
+        "$value": [0.16, 1, 0.3, 1],
+        "$description": "Spring (bounce suave)"
+      }
+    }
+  }
+}
