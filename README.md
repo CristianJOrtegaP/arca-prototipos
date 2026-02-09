@@ -62,6 +62,7 @@ El proyecto utiliza un enfoque de **Design System** basado en:
 prototipos/
 │
 ├── index.html                      # Índice de prototipos
+├── documentacion.html              # Documentación del proyecto
 ├── arca-continental-theme.css      # Design System (Design Tokens + Componentes)
 ├── OutSystemsUI.css                # Framework base de OutSystems UI
 │
@@ -70,6 +71,17 @@ prototipos/
 │   └── Arca_continental_logo_simple.png
 │
 ├── Pencil/                         # Archivos fuente de Pencil Project
+│
+├── outsystems/                     # 🆕 Kit de Integración OutSystems
+│   ├── arca-os-theme.css           # Theme CSS optimizado
+│   ├── OUTSYSTEMS_SETUP.md         # Guía de instalación
+│   ├── COMPONENTS_GUIDE.md         # Mapeo HTML → OutSystems
+│   ├── STARTER_MODULE.md           # Guía módulo starter
+│   └── templates/                  # Templates HTML
+│       ├── sidebar-navigation.html
+│       ├── header-component.html
+│       ├── metric-card.html
+│       └── README.md
 │
 └── Prototipos Implementados:
     ├── login.html                  # Pantalla de autenticación
@@ -396,6 +408,55 @@ Sistema de escala 8px:
 
 ## 🔄 Migración a OutSystems
 
+### 🎯 ARCA.OS OutSystems Starter Kit
+
+Hemos creado un **kit completo de integración** para OutSystems ubicado en la carpeta [`outsystems/`](outsystems/):
+
+#### 📦 Contenido del Kit
+
+| Archivo/Carpeta | Descripción |
+|-----------------|-------------|
+| **[arca-os-theme.css](outsystems/arca-os-theme.css)** | Theme CSS optimizado con Design Tokens |
+| **[OUTSYSTEMS_SETUP.md](outsystems/OUTSYSTEMS_SETUP.md)** | Guía paso a paso de instalación del theme |
+| **[COMPONENTS_GUIDE.md](outsystems/COMPONENTS_GUIDE.md)** | Mapeo completo HTML → OutSystems Widgets |
+| **[STARTER_MODULE.md](outsystems/STARTER_MODULE.md)** | Crear módulo starter con bloques reusables |
+| **[templates/](outsystems/templates/)** | Templates HTML listos para Expression widgets |
+
+#### 🚀 Quick Start
+
+**Paso 1: Instalar el Theme**
+```bash
+# 1. Abre Service Studio
+# 2. Crea un nuevo Theme: "ArcaOSTheme"
+# 3. Upload outsystems/arca-os-theme.css
+# 4. Set como Default Theme
+```
+
+**Paso 2: Usar Componentes**
+```
+# En tus screens, agrega clases CSS:
+Button → Style Classes: "btn btn-primary"
+Text → Style Classes: "badge badge-success"
+Container → Style Classes: "card"
+```
+
+**Paso 3: Construir con Templates**
+```
+# Usa templates HTML para componentes complejos:
+# - outsystems/templates/sidebar-navigation.html
+# - outsystems/templates/header-component.html
+# - outsystems/templates/metric-card.html
+```
+
+#### 📚 Documentación Completa
+
+Para implementar ARCA.OS en OutSystems, consulta:
+
+1. **[OUTSYSTEMS_SETUP.md](outsystems/OUTSYSTEMS_SETUP.md)** - Empieza aquí
+2. **[COMPONENTS_GUIDE.md](outsystems/COMPONENTS_GUIDE.md)** - Cómo construir cada componente
+3. **[STARTER_MODULE.md](outsystems/STARTER_MODULE.md)** - Crear biblioteca reusable
+4. **[templates/README.md](outsystems/templates/README.md)** - Usar templates HTML
+
 ### Estrategia de Transferencia
 
 Los prototipos están diseñados para facilitar la migración a OutSystems Reactive:
@@ -415,8 +476,10 @@ Los prototipos están diseñados para facilitar la migración a OutSystems React
 ### Compatibilidad
 
 - ✅ Clases CSS compatibles con OutSystems UI
+- ✅ Variables CSS (Custom Properties) soportadas
 - ✅ Estructura semántica traducible a Widgets
 - ✅ Lógica de negocio separada de presentación
+- ✅ Templates HTML listos para Expression widgets
 
 ---
 
