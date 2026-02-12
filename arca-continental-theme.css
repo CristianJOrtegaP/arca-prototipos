@@ -1192,6 +1192,7 @@ aside.sidebar,
 }
 
 .sidebar.collapsed .sidebar-company-logo {
+    display: block;
     width: 36px;
     margin-bottom: var(--space-s);
 }
@@ -1397,13 +1398,28 @@ aside.sidebar,
 }
 
 .sidebar-company-logo {
-    width: 48px;
+    width: 36px;
     height: auto;
-    transition: width 0.3s ease;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+.sidebar-full-logo {
+    height: 32px;
+    width: auto;
+    transition: all 0.3s ease;
+}
+
+.sidebar.collapsed .sidebar-full-logo {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-company-logo {
+    display: block;
 }
 
 .sidebar-logo {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 4px;
 }
@@ -2318,12 +2334,19 @@ button.header-btn .badge {
 .phone .sidebar.open.collapsed .nav-item span:not(.nav-item-icon):not(.material-symbols-rounded),
 .phone .sidebar.open.collapsed .nav-item-badge,
 .phone .sidebar.open.collapsed .sidebar-brand,
+.phone .sidebar.open.collapsed .sidebar-full-logo,
 .tablet .sidebar.open.collapsed .sidebar-logo,
 .tablet .sidebar.open.collapsed .nav-section-title,
 .tablet .sidebar.open.collapsed .nav-item span:not(.nav-item-icon):not(.material-symbols-rounded),
 .tablet .sidebar.open.collapsed .nav-item-badge,
-.tablet .sidebar.open.collapsed .sidebar-brand {
+.tablet .sidebar.open.collapsed .sidebar-brand,
+.tablet .sidebar.open.collapsed .sidebar-full-logo {
     display: flex !important;
+}
+
+.phone .sidebar.open.collapsed .sidebar-company-logo,
+.tablet .sidebar.open.collapsed .sidebar-company-logo {
+    display: none !important;
 }
 
 .phone .sidebar.open.collapsed .nav-item span:not(.nav-item-icon):not(.material-symbols-rounded),
@@ -3801,8 +3824,13 @@ button.header-btn .badge {
     .sidebar.open.collapsed .nav-section-title,
     .sidebar.open.collapsed .nav-item span:not(.nav-item-icon):not(.material-symbols-rounded),
     .sidebar.open.collapsed .nav-item-badge,
-    .sidebar.open.collapsed .sidebar-brand {
+    .sidebar.open.collapsed .sidebar-brand,
+    .sidebar.open.collapsed .sidebar-full-logo {
         display: flex !important;
+    }
+
+    .sidebar.open.collapsed .sidebar-company-logo {
+        display: none !important;
     }
 
     .sidebar.open.collapsed .nav-item span:not(.nav-item-icon):not(.material-symbols-rounded) {
