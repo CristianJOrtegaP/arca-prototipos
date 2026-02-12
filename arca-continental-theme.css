@@ -2384,8 +2384,10 @@ button.header-btn .badge {
 .phone .mobile-menu-btn,
 .tablet .mobile-menu-btn {
     display: flex;
-    }
+}
 
+.phone,
+.tablet {
     .top-header {
         padding: var(--space-base);
         min-height: 64px;
