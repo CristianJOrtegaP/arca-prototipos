@@ -1389,6 +1389,7 @@ aside.sidebar,
 .sidebar-header {
     height: 72px;
     padding: 0 var(--space-m);
+    justify-content: center;
     border-bottom: var(--border-size-s) solid var(--color-neutral-2);
     display: flex;
     align-items: center;
@@ -1405,8 +1406,8 @@ aside.sidebar,
 }
 
 .sidebar-full-logo {
-    height: 32px;
-    width: auto;
+    height: auto;
+    width: 180px;
     transition: all 0.3s ease;
 }
 
