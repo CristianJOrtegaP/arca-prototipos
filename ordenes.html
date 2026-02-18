@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arca.OS | Ordenes de Recuperacion - Prototipo</title>
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="arca-continental-theme.css">
+    <style>
+        /* Filter Card */
+        .filter-card {
+            background: var(--color-neutral-0);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .filter-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .filter-card-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        .filter-card-title .material-symbols-rounded {
+            font-size: 20px;
+            color: var(--color-neutral-5);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-neutral-6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-input,
+        .filter-select {
+            padding: 10px 14px;
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--color-neutral-9);
+            background: var(--color-neutral-0);
+            transition: border-color 0.2s ease;
+            font-family: var(--font-primary);
+        }
+
+        .filter-input:focus,
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--color-red);
+            box-shadow: 0 0 0 3px rgba(195, 43, 64, 0.1);
+        }
+
+        .filter-input::placeholder {
+            color: var(--color-neutral-4);
+        }
+
+        .filter-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* Table Card */
+        .table-card {
+            background: var(--color-neutral-0);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .table-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .table-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .table-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-neutral-9);
+        }
+
+        .table-count {
+            padding: 4px 12px;
+            background: var(--color-red-light);
+            color: var(--color-red);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Table Responsive Wrapper */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 0 -24px;
+            padding: 0 24px;
+        }
+
+        .data-table {
+            min-width: 1200px;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-badge.pendiente {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .status-badge.inicio {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+
+        .status-badge.completada {
+            background: #D1FAE5;
+            color: #059669;
+        }
+
+        .status-badge.cancelada {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* Actions Button */
+        .actions-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 8px;
+            background: var(--color-neutral-0);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .actions-btn:hover {
+            background: var(--color-neutral-2);
+            border-color: var(--color-neutral-4);
+        }
+
+        .actions-btn .material-symbols-rounded {
+            font-size: 18px;
+            color: var(--color-neutral-6);
+        }
+
+        /* Actions Dropdown */
+        .actions-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 4px;
+            background: var(--color-neutral-0);
+            border: 1px solid var(--color-neutral-3);
+            border-radius: 12px;
+            box-shadow: var(--shadow-l);
+            min-width: 200px;
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+        }
+
+        .actions-dropdown.active {
+            display: block;
+        }
+
+        .actions-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-neutral-8);
+            cursor: pointer;
+            transition: background 0.15s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: var(--font-primary);
+        }
+
+        .actions-dropdown-item:hover {
+            background: var(--color-neutral-1);
+        }
+
+        .actions-dropdown-item .material-symbols-rounded {
+            font-size: 18px;
+        }
+
+        .actions-dropdown-item.success .material-symbols-rounded {
+            color: var(--color-success);
+        }
+
+        .actions-dropdown-item.danger .material-symbols-rounded {
+            color: var(--color-error);
+        }
+
+        .actions-dropdown-item.info .material-symbols-rounded {
+            color: var(--color-info);
+        }
+
+        .actions-dropdown-divider {
+            height: 1px;
+            background: var(--color-neutral-2);
+            margin: 4px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-actions {
+                flex-wrap: wrap;
+            }
+
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Toggle Button -->
+            <button class="sidebar-toggle" id="sidebarToggle" title="Colapsar menu">
+                <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+
+            <div class="sidebar-header">
+                <img src="assets/Arca_continental_logo_simple.png" alt="Arca Continental" class="sidebar-company-logo" />
+                <img src="assets/Arca_continental_logo.png" alt="Arca Continental" class="sidebar-full-logo" />
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <a href="layout.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">dashboard</span></span>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Operacion</div>
+                    <a href="ordenes.html" class="nav-item active">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">assignment</span></span>
+                        <span>Ordenes de Recuperacion</span>
+                        <span class="nav-item-badge">24</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">account_balance</span></span>
+                        <span>Contraloria</span>
+                        <span class="nav-item-badge">8</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">person_check</span></span>
+                        <span>Aprobacion Jefe de Ventas</span>
+                        <span class="nav-item-badge">5</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">manage_accounts</span></span>
+                        <span>Aprobacion Gerente de Ventas</span>
+                        <span class="nav-item-badge">3</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">location_city</span></span>
+                        <span>Aprobacion Gerente Regional</span>
+                        <span class="nav-item-badge">2</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">corporate_fare</span></span>
+                        <span>Aprobacion Gerente CH</span>
+                        <span class="nav-item-badge">1</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">handshake</span></span>
+                        <span>Comodato</span>
+                        <span class="nav-item-badge">12</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Auditoria</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">bar_chart</span></span>
+                        <span>Reportes</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">history</span></span>
+                        <span>Bitacora de Acciones</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Datos</div>
+                    <a href="datos.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">database</span></span>
+                        <span>Gestion de Datos</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Administracion</div>
+                    <a href="roles.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">admin_panel_settings</span></span>
+                        <span>Configuracion Permisos</span>
+                    </a>
+                    <a href="catalogos.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">category</span></span>
+                        <span>Catalogos</span>
+                    </a>
+                    <a href="recordatorios.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">notifications_active</span></span>
+                        <span>Recordatorios</span>
+                    </a>
+                    <a href="usuarios.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">group</span></span>
+                        <span>Usuarios</span>
+                    </a>
+                </div>
+            </nav>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><span class="material-symbols-rounded">menu</span></button>
+                    <h1 class="font-size-2xl font-bold text-neutral-9">Ordenes de Recuperacion</h1>
+                    <div class="breadcrumb font-size-xs text-neutral-5">
+                        <a href="layout.html">Inicio</a> / Operacion / Ordenes de Recuperacion
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button class="header-btn" title="Buscar"><span class="material-symbols-rounded">search</span></button>
+                    <button class="header-btn" title="Notificaciones">
+                        <span class="material-symbols-rounded">notifications</span>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="header-btn" title="Ayuda"><span class="material-symbols-rounded">help</span></button>
+                    <div class="header-divider"></div>
+                    <div class="header-user" id="headerUser">
+                        <div class="user-chip" onclick="toggleUserDropdown()">
+                            <div class="header-avatar">JO</div>
+                            <div class="user-chip-info">
+                                <span class="font-size-s font-semi-bold text-neutral-9">Juan Operador</span>
+                                <span class="font-size-xxs text-neutral-5">Supervisor de Zona</span>
+                                <span class="font-size-xxs text-neutral-5">juan.operador@arcacontal.com</span>
+                            </div>
+                            <span class="material-symbols-rounded text-neutral-5 icon-size-20">expand_more</span>
+                        </div>
+                        <div class="user-dropdown">
+                            <div class="dropdown-header">
+                                <div class="dropdown-user-info">
+                                    <div class="dropdown-avatar">JO</div>
+                                    <div class="dropdown-user-details">
+                                        <div class="dropdown-user-name">Juan Operador</div>
+                                        <div class="dropdown-user-role">Supervisor de Zona</div>
+                                        <div class="dropdown-user-email">juan.operador@arcacontal.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-menu">
+                                <button class="dropdown-item" onclick="handleProfile()">
+                                    <span class="material-symbols-rounded">person</span>
+                                    Mi Perfil
+                                </button>
+                                <button class="dropdown-item" onclick="handleSettings()">
+                                    <span class="material-symbols-rounded">settings</span>
+                                    Configuracion
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item logout" onclick="handleLogout()">
+                                    <span class="material-symbols-rounded">logout</span>
+                                    Cerrar Sesion
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Fixed Header -->
+                <div class="content-header-fixed">
+                    <h2 class="font-size-2xl font-bold text-neutral-9">Lista de Ordenes</h2>
+                    <div class="display-flex gap-s">
+                        <button class="btn btn-cancel" onclick="clearFilters()">
+                            <span class="material-symbols-rounded">filter_alt_off</span>
+                            <span>Limpiar</span>
+                        </button>
+                        <button class="btn btn-cancel" onclick="exportExcel()">
+                            <span class="material-symbols-rounded">download</span>
+                            <span>Descargar Excel</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scrollable Content Card -->
+                <div class="content-scroll-card">
+                    <!-- Filter Card -->
+                    <div class="filter-card">
+                        <div class="filter-card-header">
+                            <div class="filter-card-title">
+                                <span class="material-symbols-rounded">filter_list</span>
+                                Filtros de Busqueda
+                            </div>
+                            <button class="btn btn-primary btn-sm" onclick="searchOrders()">
+                                <span class="material-symbols-rounded">search</span>
+                                Buscar
+                            </button>
+                        </div>
+                        <div class="filter-grid">
+                            <div class="filter-group">
+                                <label class="filter-label">Fecha</label>
+                                <input type="date" class="filter-input" id="filterDate">
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Mes / Ano</label>
+                                <input type="month" class="filter-input" id="filterMonth">
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Estatus</label>
+                                <select class="filter-select" id="filterStatus">
+                                    <option value="">Todos</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="inicio">Inicio</option>
+                                    <option value="completada">Completada</option>
+                                    <option value="cancelada">Cancelada</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Cliente</label>
+                                <input type="text" class="filter-input" id="filterClient" placeholder="Nombre o num. cliente">
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Num. Equipo</label>
+                                <input type="text" class="filter-input" id="filterEquipment" placeholder="Num. equipo SAP">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Table Card -->
+                    <div class="table-card">
+                        <div class="table-header">
+                            <div class="table-title-group">
+                                <h3 class="table-title">Ordenes de Recuperacion</h3>
+                                <span class="table-count">7 registros</span>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Estatus</th>
+                                        <th>Fecha</th>
+                                        <th>Ruta Preventa</th>
+                                        <th>Num Equipo SAP</th>
+                                        <th>Descripcion</th>
+                                        <th>Num Cliente SAP</th>
+                                        <th>Nombre Cliente</th>
+                                        <th>Direccion Cliente</th>
+                                        <th>Telefono Cliente</th>
+                                        <th>Venta Und. 3 Meses</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="status-badge pendiente"><span class="status-dot"></span>Pendiente</span></td>
+                                        <td class="text-neutral-7">15/01/2024</td>
+                                        <td class="font-semi-bold text-neutral-9">R-1042</td>
+                                        <td class="text-neutral-8">EQ-78451</td>
+                                        <td class="text-neutral-7">Enfriador Vertical 12ft</td>
+                                        <td class="text-neutral-8">CL-90124</td>
+                                        <td class="font-semi-bold text-neutral-9">Abarrotes La Esperanza</td>
+                                        <td class="text-neutral-6">Av. Revolucion 456, Col. Centro</td>
+                                        <td class="text-neutral-7">81 1234 5678</td>
+                                        <td class="font-semi-bold text-neutral-9">1,245</td>
+                                        <td>
+                                            <div style="position: relative;">
+                                                <button class="actions-btn" onclick="toggleActions(this)">
+                                                    <span class="material-symbols-rounded">more_vert</span>
+                                                </button>
+                                                <div class="actions-dropdown">
+                                                    <button class="actions-dropdown-item success" onclick="acceptOrder(this)">
+                                                        <span class="material-symbols-rounded">check_circle</span>
+                                                        Aceptar / Verificar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item danger" onclick="cancelOrder(this)">
+                                                        <span class="material-symbols-rounded">cancel</span>
+                                                        Cancelar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item info" onclick="viewDetail(this)">
+                                                        <span class="material-symbols-rounded">visibility</span>
+                                                        Ver Detalle
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge inicio"><span class="status-dot"></span>Inicio</span></td>
+                                        <td class="text-neutral-7">14/01/2024</td>
+                                        <td class="font-semi-bold text-neutral-9">R-2087</td>
+                                        <td class="text-neutral-8">EQ-65230</td>
+                                        <td class="text-neutral-7">Cooler Horizontal 8ft</td>
+                                        <td class="text-neutral-8">CL-44218</td>
+                                        <td class="font-semi-bold text-neutral-9">Tienda Don Pepe</td>
+                                        <td class="text-neutral-6">Calle Morelos 123, Col. Obrera</td>
+                                        <td class="text-neutral-7">81 9876 5432</td>
+                                        <td class="font-semi-bold text-neutral-9">890</td>
+                                        <td>
+                                            <div style="position: relative;">
+                                                <button class="actions-btn" onclick="toggleActions(this)">
+                                                    <span class="material-symbols-rounded">more_vert</span>
+                                                </button>
+                                                <div class="actions-dropdown">
+                                                    <button class="actions-dropdown-item success" onclick="acceptOrder(this)">
+                                                        <span class="material-symbols-rounded">check_circle</span>
+                                                        Aceptar / Verificar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item danger" onclick="cancelOrder(this)">
+                                                        <span class="material-symbols-rounded">cancel</span>
+                                                        Cancelar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item info" onclick="viewDetail(this)">
+                                                        <span class="material-symbols-rounded">visibility</span>
+                                                        Ver Detalle
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge pendiente"><span class="status-dot"></span>Pendiente</span></td>
+                                        <td class="text-neutral-7">13/01/2024</td>
+                                        <td class="font-semi-bold text-neutral-9">R-3015</td>
+                                        <td class="text-neutral-8">EQ-31876</td>
+                                        <td class="text-neutral-7">Enfriador Vertical 20ft</td>
+                                        <td class="text-neutral-8">CL-78503</td>
+                                        <td class="font-semi-bold text-neutral-9">Super Mayorista Central</td>
+                                        <td class="text-neutral-6">Blvd. Constituyentes 890, Col. Industrial</td>
+                                        <td class="text-neutral-7">81 5544 3322</td>
+                                        <td class="font-semi-bold text-neutral-9">3,102</td>
+                                        <td>
+                                            <div style="position: relative;">
+                                                <button class="actions-btn" onclick="toggleActions(this)">
+                                                    <span class="material-symbols-rounded">more_vert</span>
+                                                </button>
+                                                <div class="actions-dropdown">
+                                                    <button class="actions-dropdown-item success" onclick="acceptOrder(this)">
+                                                        <span class="material-symbols-rounded">check_circle</span>
+                                                        Aceptar / Verificar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item danger" onclick="cancelOrder(this)">
+                                                        <span class="material-symbols-rounded">cancel</span>
+                                                        Cancelar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item info" onclick="viewDetail(this)">
+                                                        <span class="material-symbols-rounded">visibility</span>
+                                                        Ver Detalle
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge inicio"><span class="status-dot"></span>Inicio</span></td>
+                                        <td class="text-neutral-7">12/01/2024</td>
+                                        <td class="font-semi-bold text-neutral-9">R-1042</td>
+                                        <td class="text-neutral-8">EQ-92145</td>
+                                        <td class="text-neutral-7">Cooler Mostrador 4ft</td>
+                                        <td class="text-neutral-8">CL-55891</td>
+                                        <td class="font-semi-bold text-neutral-9">Minisuper La Economia</td>
+                                        <td class="text-neutral-6">Av. Universidad 1200, Col. Del Valle</td>
+                                        <td class="text-neutral-7">81 6677 8899</td>
+                                        <td class="font-semi-bold text-neutral-9">567</td>
+                                        <td>
+                                            <div style="position: relative;">
+                                                <button class="actions-btn" onclick="toggleActions(this)">
+                                                    <span class="material-symbols-rounded">more_vert</span>
+                                                </button>
+                                                <div class="actions-dropdown">
+                                                    <button class="actions-dropdown-item success" onclick="acceptOrder(this)">
+                                                        <span class="material-symbols-rounded">check_circle</span>
+                                                        Aceptar / Verificar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item danger" onclick="cancelOrder(this)">
+                                                        <span class="material-symbols-rounded">cancel</span>
+                                                        Cancelar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item info" onclick="viewDetail(this)">
+                                                        <span class="material-symbols-rounded">visibility</span>
+                                                        Ver Detalle
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge completada"><span class="status-dot"></span>Completada</span></td>
+                                        <td class="text-neutral-7">11/01/2024</td>
+                                        <td class="font-semi-bold text-neutral-9">R-4521</td>
+                                        <td class="text-neutral-8">EQ-10984</td>
+                                        <td class="text-neutral-7">Enfriador Vertical 12ft</td>
+                                        <td class="text-neutral-8">CL-33102</td>
+                                        <td class="font-semi-bold text-neutral-9">Comercial del Valle</td>
+                                        <td class="text-neutral-6">Calle Hidalgo 567, Col. Mitras</td>
+                                        <td class="text-neutral-7">81 2233 4455</td>
+                                        <td class="font-semi-bold text-neutral-9">2,340</td>
+                                        <td>
+                                            <div style="position: relative;">
+                                                <button class="actions-btn" onclick="toggleActions(this)">
+                                                    <span class="material-symbols-rounded">more_vert</span>
+                                                </button>
+                                                <div class="actions-dropdown">
+                                                    <button class="actions-dropdown-item success" onclick="acceptOrder(this)">
+                                                        <span class="material-symbols-rounded">check_circle</span>
+                                                        Aceptar / Verificar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item danger" onclick="cancelOrder(this)">
+                                                        <span class="material-symbols-rounded">cancel</span>
+                                                        Cancelar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item info" onclick="viewDetail(this)">
+                                                        <span class="material-symbols-rounded">visibility</span>
+                                                        Ver Detalle
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge pendiente"><span class="status-dot"></span>Pendiente</span></td>
+                                        <td class="text-neutral-7">10/01/2024</td>
+                                        <td class="font-semi-bold text-neutral-9">R-2087</td>
+                                        <td class="text-neutral-8">EQ-45670</td>
+                                        <td class="text-neutral-7">Cooler Horizontal 8ft</td>
+                                        <td class="text-neutral-8">CL-12987</td>
+                                        <td class="font-semi-bold text-neutral-9">Distribuidora Norte S.A.</td>
+                                        <td class="text-neutral-6">Av. Lincoln 2340, Col. Moderna</td>
+                                        <td class="text-neutral-7">81 3344 5566</td>
+                                        <td class="font-semi-bold text-neutral-9">4,521</td>
+                                        <td>
+                                            <div style="position: relative;">
+                                                <button class="actions-btn" onclick="toggleActions(this)">
+                                                    <span class="material-symbols-rounded">more_vert</span>
+                                                </button>
+                                                <div class="actions-dropdown">
+                                                    <button class="actions-dropdown-item success" onclick="acceptOrder(this)">
+                                                        <span class="material-symbols-rounded">check_circle</span>
+                                                        Aceptar / Verificar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item danger" onclick="cancelOrder(this)">
+                                                        <span class="material-symbols-rounded">cancel</span>
+                                                        Cancelar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item info" onclick="viewDetail(this)">
+                                                        <span class="material-symbols-rounded">visibility</span>
+                                                        Ver Detalle
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge cancelada"><span class="status-dot"></span>Cancelada</span></td>
+                                        <td class="text-neutral-7">09/01/2024</td>
+                                        <td class="font-semi-bold text-neutral-9">R-3015</td>
+                                        <td class="text-neutral-8">EQ-88321</td>
+                                        <td class="text-neutral-7">Enfriador Vertical 20ft</td>
+                                        <td class="text-neutral-8">CL-67450</td>
+                                        <td class="font-semi-bold text-neutral-9">Abarrotes San Juan</td>
+                                        <td class="text-neutral-6">Calle Juarez 789, Col. Treviño</td>
+                                        <td class="text-neutral-7">81 7788 9900</td>
+                                        <td class="font-semi-bold text-neutral-9">198</td>
+                                        <td>
+                                            <div style="position: relative;">
+                                                <button class="actions-btn" onclick="toggleActions(this)">
+                                                    <span class="material-symbols-rounded">more_vert</span>
+                                                </button>
+                                                <div class="actions-dropdown">
+                                                    <button class="actions-dropdown-item success" onclick="acceptOrder(this)">
+                                                        <span class="material-symbols-rounded">check_circle</span>
+                                                        Aceptar / Verificar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item danger" onclick="cancelOrder(this)">
+                                                        <span class="material-symbols-rounded">cancel</span>
+                                                        Cancelar
+                                                    </button>
+                                                    <div class="actions-dropdown-divider"></div>
+                                                    <button class="actions-dropdown-item info" onclick="viewDetail(this)">
+                                                        <span class="material-symbols-rounded">visibility</span>
+                                                        Ver Detalle
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="pagination">
+                            <div class="pagination-info">
+                                <span class="font-size-s text-neutral-6">Mostrando <strong>1-7</strong> de <strong>24</strong> resultados</span>
+                            </div>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn" disabled title="Primera pagina">
+                                    <span class="material-symbols-rounded">first_page</span>
+                                </button>
+                                <button class="pagination-btn" disabled title="Anterior">
+                                    <span class="material-symbols-rounded">chevron_left</span>
+                                </button>
+                                <div class="pagination-pages">
+                                    <button class="pagination-page active">1</button>
+                                    <button class="pagination-page">2</button>
+                                    <button class="pagination-page">3</button>
+                                    <span class="pagination-ellipsis">...</span>
+                                    <button class="pagination-page">4</button>
+                                </div>
+                                <button class="pagination-btn" title="Siguiente">
+                                    <span class="material-symbols-rounded">chevron_right</span>
+                                </button>
+                                <button class="pagination-btn" title="Ultima pagina">
+                                    <span class="material-symbols-rounded">last_page</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span class="material-symbols-rounded" id="toastIcon">check_circle</span>
+        <span id="toastMessage">Operacion completada</span>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        });
+
+        // Sidebar Collapse Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+        });
+
+        // Restore sidebar state
+        if (localStorage.getItem('sidebarCollapsed') === 'true') {
+            sidebar.classList.add('collapsed');
+        }
+
+        // User Dropdown Toggle
+        const headerUser = document.getElementById('headerUser');
+
+        function toggleUserDropdown() {
+            headerUser.classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!headerUser.contains(e.target)) {
+                headerUser.classList.remove('active');
+            }
+        });
+
+        function handleProfile() {
+            headerUser.classList.remove('active');
+            alert('Mi Perfil - En desarrollo');
+        }
+
+        function handleSettings() {
+            headerUser.classList.remove('active');
+            alert('Configuracion - En desarrollo');
+        }
+
+        function handleLogout() {
+            headerUser.classList.remove('active');
+            if (confirm('Estas seguro que deseas cerrar sesion?')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // ==================== ACTIONS DROPDOWN ====================
+        function toggleActions(btn) {
+            // Close all other dropdowns
+            document.querySelectorAll('.actions-dropdown.active').forEach(dd => {
+                if (dd !== btn.nextElementSibling) {
+                    dd.classList.remove('active');
+                }
+            });
+
+            const dropdown = btn.nextElementSibling;
+            dropdown.classList.toggle('active');
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.actions-btn') && !e.target.closest('.actions-dropdown')) {
+                document.querySelectorAll('.actions-dropdown.active').forEach(dd => {
+                    dd.classList.remove('active');
+                });
+            }
+        });
+
+        // Action handlers
+        function acceptOrder(btn) {
+            const row = btn.closest('tr');
+            const client = row.querySelector('td:nth-child(7)').textContent;
+            closeAllDropdowns();
+            showToast(`Orden aceptada para ${client}`, 'success');
+        }
+
+        function cancelOrder(btn) {
+            const row = btn.closest('tr');
+            const client = row.querySelector('td:nth-child(7)').textContent;
+            closeAllDropdowns();
+            if (confirm(`Estas seguro que deseas cancelar la orden de ${client}?`)) {
+                showToast(`Orden cancelada para ${client}`, 'error');
+            }
+        }
+
+        function viewDetail(btn) {
+            const row = btn.closest('tr');
+            const equipId = row.querySelector('td:nth-child(4)').textContent;
+            closeAllDropdowns();
+            showToast(`Abriendo detalle de equipo ${equipId}`, 'info');
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.actions-dropdown.active').forEach(dd => {
+                dd.classList.remove('active');
+            });
+        }
+
+        // ==================== FILTER ACTIONS ====================
+        function searchOrders() {
+            showToast('Buscando ordenes con los filtros aplicados...', 'info');
+        }
+
+        function clearFilters() {
+            document.getElementById('filterDate').value = '';
+            document.getElementById('filterMonth').value = '';
+            document.getElementById('filterStatus').value = '';
+            document.getElementById('filterClient').value = '';
+            document.getElementById('filterEquipment').value = '';
+            showToast('Filtros limpiados', 'success');
+        }
+
+        function exportExcel() {
+            showToast('Descargando archivo Excel...', 'success');
+        }
+
+        // ==================== PAGINATION ====================
+        document.querySelectorAll('.pagination-page').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.pagination-page').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update prev/next buttons
+                const pages = [...document.querySelectorAll('.pagination-page')];
+                const activeIndex = pages.indexOf(this);
+                const prevBtns = document.querySelectorAll('.pagination-btn');
+                prevBtns[0].disabled = activeIndex === 0;
+                prevBtns[1].disabled = activeIndex === 0;
+                prevBtns[2].disabled = activeIndex === pages.length - 1;
+                prevBtns[3].disabled = activeIndex === pages.length - 1;
+            });
+        });
+
+        document.querySelectorAll('.pagination-btn').forEach((btn, index) => {
+            btn.addEventListener('click', function () {
+                if (this.disabled) return;
+                const pages = [...document.querySelectorAll('.pagination-page')];
+                const activePage = document.querySelector('.pagination-page.active');
+                const activeIndex = pages.indexOf(activePage);
+
+                let newIndex;
+                if (index === 0) newIndex = 0; // first
+                else if (index === 1) newIndex = Math.max(0, activeIndex - 1); // prev
+                else if (index === 2) newIndex = Math.min(pages.length - 1, activeIndex + 1); // next
+                else newIndex = pages.length - 1; // last
+
+                pages[newIndex].click();
+            });
+        });
+
+        // ==================== TABLE ROW HOVER ====================
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            row.style.cursor = 'pointer';
+        });
+
+        // ==================== TOAST ====================
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toast.className = 'toast ' + type;
+            toastMessage.textContent = message;
+
+            switch (type) {
+                case 'success': toastIcon.textContent = 'check_circle'; break;
+                case 'error': toastIcon.textContent = 'error'; break;
+                case 'info': toastIcon.textContent = 'info'; break;
+                default: toastIcon.textContent = 'check_circle';
+            }
+
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Header buttons animation
+        document.querySelectorAll('.header-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
