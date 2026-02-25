@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arca.OS | Primera Visita - Prototipo</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="arca-continental-theme.css">
+    <style>
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-l);
+        }
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-s);
+        }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: var(--space-s);
+            cursor: pointer;
+            font-size: var(--font-size-s);
+            color: var(--color-neutral-8);
+        }
+        .radio-label input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-neutral-4);
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .radio-label input[type="radio"]:checked {
+            border-color: var(--arca-red);
+        }
+        .radio-label input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--arca-red);
+        }
+        .datetime-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            background: var(--arca-red);
+            color: var(--color-neutral-0);
+            padding: var(--space-s) var(--space-base);
+            border-radius: var(--border-radius-rounded);
+            font-size: var(--font-size-s);
+            font-weight: var(--font-semi-bold);
+            margin-top: var(--space-xs);
+        }
+        .photo-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-base);
+        }
+        .photo-actions {
+            display: flex;
+            gap: var(--space-s);
+            align-items: center;
+        }
+        .photo-preview {
+            width: 100%;
+            border: 2px dashed var(--color-neutral-3);
+            border-radius: var(--border-radius-l);
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-s);
+            color: var(--color-neutral-5);
+            min-height: 120px;
+            background: var(--color-neutral-1);
+        }
+        .photo-preview .material-symbols-rounded {
+            font-size: 40px;
+            color: var(--color-neutral-4);
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: var(--space-s);
+            cursor: pointer;
+            font-size: var(--font-size-s);
+            color: var(--color-neutral-7);
+        }
+        .checkbox-label input[type="checkbox"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color-neutral-4);
+            border-radius: var(--border-radius-s);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .checkbox-label input[type="checkbox"]:checked {
+            background: var(--arca-red);
+            border-color: var(--arca-red);
+        }
+        .checkbox-label input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: -1px;
+            left: 2px;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-l);
+            border-top: 1px solid var(--color-neutral-2);
+            margin-top: var(--space-l);
+        }
+        .order-info-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-base);
+            padding: var(--space-base) var(--space-l);
+            background: var(--color-neutral-0);
+            border-radius: var(--border-radius-l);
+            border: 1px solid var(--color-neutral-2);
+            margin-bottom: var(--space-l);
+        }
+        .order-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .order-info-item .label {
+            font-size: var(--font-size-xxs);
+            color: var(--color-neutral-5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: var(--font-bold);
+        }
+        .order-info-item .value {
+            font-size: var(--font-size-s);
+            color: var(--color-neutral-9);
+            font-weight: var(--font-semi-bold);
+        }
+        .order-info-divider {
+            width: 1px;
+            height: 36px;
+            background: var(--color-neutral-3);
+        }
+        .form-textarea {
+            width: 100%;
+            padding: var(--space-base);
+            background: var(--color-neutral-1);
+            border: var(--border-size-s) solid var(--color-neutral-3);
+            border-radius: var(--border-radius-input);
+            font-size: var(--font-size-s);
+            font-family: var(--font-family-base);
+            color: var(--color-text-primary);
+            transition: all var(--transition-base);
+            outline: none;
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.5;
+        }
+        .form-textarea:focus {
+            background: var(--color-neutral-0);
+            border-color: var(--arca-red);
+            box-shadow: 0 0 0 var(--focus-ring-size) var(--focus-ring-color-primary);
+        }
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .order-info-bar {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-toggle" id="sidebarToggle" title="Colapsar menú">
+                <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+
+            <div class="sidebar-header">
+                <img src="assets/Arca_continental_logo_simple.png" alt="Arca Continental" class="sidebar-company-logo" />
+                <img src="assets/Arca_continental_logo.png" alt="Arca Continental" class="sidebar-full-logo" />
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <a href="layout.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">dashboard</span></span>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Operación</div>
+                    <a href="#" class="nav-item active">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">assignment</span></span>
+                        <span>Órdenes de Recuperación</span>
+                        <span class="nav-item-badge">24</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">account_balance</span></span>
+                        <span>Contraloría</span>
+                        <span class="nav-item-badge">8</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">person_check</span></span>
+                        <span>Aprobación Jefe de Ventas</span>
+                        <span class="nav-item-badge">5</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">manage_accounts</span></span>
+                        <span>Aprobación Gerente de Ventas</span>
+                        <span class="nav-item-badge">3</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">location_city</span></span>
+                        <span>Aprobación Gerente Regional</span>
+                        <span class="nav-item-badge">2</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">corporate_fare</span></span>
+                        <span>Aprobación Gerente CH</span>
+                        <span class="nav-item-badge">1</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">handshake</span></span>
+                        <span>Comodato</span>
+                        <span class="nav-item-badge">12</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Auditoría</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">bar_chart</span></span>
+                        <span>Reportes</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">history</span></span>
+                        <span>Bitácora de Acciones</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Datos</div>
+                    <a href="datos.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">database</span></span>
+                        <span>Gestión de Datos</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Administración</div>
+                    <a href="roles.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">admin_panel_settings</span></span>
+                        <span>Configuración Permisos</span>
+                    </a>
+                    <a href="catalogos.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">category</span></span>
+                        <span>Catálogos</span>
+                    </a>
+                    <a href="recordatorios.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">notifications_active</span></span>
+                        <span>Recordatorios</span>
+                    </a>
+                    <a href="usuarios.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">group</span></span>
+                        <span>Usuarios</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><span class="material-symbols-rounded">menu</span></button>
+                    <h1 class="font-size-2xl font-bold text-neutral-9">Primera Visita</h1>
+                    <div class="breadcrumb font-size-xs text-neutral-5">
+                        <a href="layout.html">Inicio</a> / <a href="#">Órdenes de Recuperación</a> / <a href="#">ORD-2847</a> / Primera Visita
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button class="header-btn" title="Buscar"><span class="material-symbols-rounded">search</span></button>
+                    <button class="header-btn" title="Notificaciones">
+                        <span class="material-symbols-rounded">notifications</span>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="header-btn" title="Ayuda"><span class="material-symbols-rounded">help</span></button>
+                    <div class="header-divider"></div>
+                    <div class="header-user" id="headerUser">
+                        <div class="user-chip" onclick="toggleUserDropdown()">
+                            <div class="header-avatar">JO</div>
+                            <div class="user-chip-info">
+                                <span class="font-size-s font-semi-bold text-neutral-9">Juan Operador</span>
+                                <span class="font-size-xxs text-neutral-5">Supervisor de Zona</span>
+                            </div>
+                            <span class="material-symbols-rounded text-neutral-5 icon-size-20">expand_more</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Fixed Header -->
+                <div class="content-header-fixed">
+                    <div class="display-flex align-items-center gap-s">
+                        <a href="#" class="btn btn-cancel" style="padding: var(--space-xs) var(--space-s);">
+                            <span class="material-symbols-rounded">arrow_back</span>
+                        </a>
+                        <h2 class="font-size-2xl font-bold text-neutral-9">Detalle de Visita</h2>
+                    </div>
+                    <div class="display-flex gap-s">
+                        <button class="btn btn-cancel" onclick="cancelForm()">
+                            <span class="material-symbols-rounded">close</span>
+                            <span>Cancelar</span>
+                        </button>
+                        <button class="btn btn-primary" onclick="saveForm()">
+                            <span class="material-symbols-rounded">save</span>
+                            <span>Guardar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scrollable Content Card -->
+                <div class="content-scroll-card">
+                    <!-- Order Info Bar -->
+                    <div class="order-info-bar">
+                        <div class="order-info-item">
+                            <span class="label">Orden</span>
+                            <span class="value">ORD-2847</span>
+                        </div>
+                        <div class="order-info-divider"></div>
+                        <div class="order-info-item">
+                            <span class="label">Cliente</span>
+                            <span class="value">Distribuidora Norte S.A.</span>
+                        </div>
+                        <div class="order-info-divider"></div>
+                        <div class="order-info-item">
+                            <span class="label">Tipo</span>
+                            <span class="value">Recuperación</span>
+                        </div>
+                        <div class="order-info-divider"></div>
+                        <div class="order-info-item">
+                            <span class="label">Estado</span>
+                            <span class="badge font-size-xs background-success display-inline-flex align-items-center gap-xs"><span class="status-dot"></span>En Proceso</span>
+                        </div>
+                    </div>
+
+                    <!-- Form Section: Hallazgo -->
+                    <div class="form-section">
+                        <h4 class="form-section-title">Información de la Visita</h4>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Hallazgo en visita</label>
+                                <div class="select-wrapper">
+                                    <select class="form-select">
+                                        <option value="">- Seleccione -</option>
+                                        <option value="equipo_encontrado">Equipo encontrado</option>
+                                        <option value="equipo_no_encontrado">Equipo no encontrado</option>
+                                        <option value="cliente_ausente">Cliente ausente</option>
+                                        <option value="acceso_denegado">Acceso denegado</option>
+                                    </select>
+                                    <span class="material-symbols-rounded select-icon">expand_more</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Estatus Cliente</label>
+                                <div class="select-wrapper">
+                                    <select class="form-select">
+                                        <option value="">- Seleccione -</option>
+                                        <option value="activo">Activo</option>
+                                        <option value="inactivo">Inactivo</option>
+                                        <option value="suspendido">Suspendido</option>
+                                    </select>
+                                    <span class="material-symbols-rounded select-icon">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Existe equipo</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="existeEquipo" value="si">
+                                        Sí
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="existeEquipo" value="no" checked>
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Fecha / Hora</label>
+                                <div class="datetime-badge">
+                                    <span class="material-symbols-rounded" style="font-size: 18px;">schedule</span>
+                                    2026-02-25 15:58:12
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row full">
+                            <div class="form-group">
+                                <label class="form-label">Comentarios visita</label>
+                                <textarea class="form-textarea" placeholder="Ingrese los comentarios de la visita..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Section: Referencia -->
+                    <div class="form-section">
+                        <h4 class="form-section-title">Referencia de Contacto</h4>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Referencia Nombre</label>
+                                <input type="text" class="form-input" placeholder="Nombre de referencia">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Referencia Teléfono</label>
+                                <input type="tel" class="form-input" placeholder="Teléfono de referencia">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Section: Foto -->
+                    <div class="form-section">
+                        <h4 class="form-section-title">Evidencia Fotográfica</h4>
+
+                        <div class="photo-section">
+                            <div class="photo-preview" id="photoPreview">
+                                <span class="material-symbols-rounded">add_a_photo</span>
+                                <span class="font-size-s">No hay imagen capturada</span>
+                            </div>
+
+                            <div class="photo-actions">
+                                <button class="btn btn-primary" onclick="takePhoto()">
+                                    <span class="material-symbols-rounded">photo_camera</span>
+                                    <span>Tomar Foto</span>
+                                </button>
+                                <button class="btn btn-cancel" onclick="acceptPhoto()">
+                                    <span class="material-symbols-rounded">check</span>
+                                    <span>Aceptar</span>
+                                </button>
+                            </div>
+
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="saveImage">
+                                Guardar imagen
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        });
+
+        // Sidebar Collapse Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+        });
+
+        if (localStorage.getItem('sidebarCollapsed') === 'true') {
+            sidebar.classList.add('collapsed');
+        }
+
+        // User Dropdown
+        const headerUser = document.getElementById('headerUser');
+        function toggleUserDropdown() {
+            headerUser.classList.toggle('active');
+        }
+        document.addEventListener('click', (e) => {
+            if (!headerUser.contains(e.target)) {
+                headerUser.classList.remove('active');
+            }
+        });
+
+        // Form actions
+        function takePhoto() {
+            const preview = document.getElementById('photoPreview');
+            preview.innerHTML = '<img src="https://i.pravatar.cc/400?img=30" alt="Foto capturada" style="width:100%;max-width:300px;border-radius:var(--border-radius-l);">';
+            preview.style.borderStyle = 'solid';
+            preview.style.borderColor = 'var(--color-success)';
+            preview.style.background = 'var(--color-neutral-0)';
+        }
+
+        function acceptPhoto() {
+            alert('Foto aceptada correctamente.');
+        }
+
+        function cancelForm() {
+            if (confirm('¿Estás seguro que deseas cancelar? Los cambios no guardados se perderán.')) {
+                window.history.back();
+            }
+        }
+
+        function saveForm() {
+            const btn = event.target.closest('.btn');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-rounded spinning">sync</span> Guardando...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                alert('Visita guardada exitosamente.');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
