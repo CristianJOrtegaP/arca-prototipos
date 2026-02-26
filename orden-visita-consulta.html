@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arca.OS | Primera Visita - Consulta</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="arca-continental-theme.css">
+    <style>
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-l);
+        }
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+        .readonly-value {
+            font-size: var(--font-size-s);
+            color: var(--color-neutral-9);
+            font-weight: var(--font-semi-bold);
+            padding: var(--space-base) 0;
+            line-height: 1.5;
+        }
+        .readonly-value.muted {
+            color: var(--color-neutral-6);
+            font-weight: var(--font-regular);
+        }
+        .datetime-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            background: var(--arca-red);
+            color: var(--color-neutral-0);
+            padding: var(--space-s) var(--space-base);
+            border-radius: var(--border-radius-rounded);
+            font-size: var(--font-size-s);
+            font-weight: var(--font-semi-bold);
+            margin-top: var(--space-xs);
+        }
+        .photo-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-base);
+        }
+        .photo-preview {
+            width: 100%;
+            border: 2px solid var(--color-neutral-3);
+            border-radius: var(--border-radius-l);
+            padding: var(--space-base);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-s);
+            background: var(--color-neutral-0);
+            min-height: 120px;
+        }
+        .photo-preview img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: var(--border-radius-l);
+        }
+        .order-info-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-base);
+            padding: var(--space-base) var(--space-l);
+            background: var(--color-neutral-0);
+            border-radius: var(--border-radius-l);
+            border: 1px solid var(--color-neutral-2);
+            margin-bottom: var(--space-l);
+        }
+        .order-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .order-info-item .label {
+            font-size: var(--font-size-xxs);
+            color: var(--color-neutral-5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: var(--font-bold);
+        }
+        .order-info-item .value {
+            font-size: var(--font-size-s);
+            color: var(--color-neutral-9);
+            font-weight: var(--font-semi-bold);
+        }
+        .order-info-divider {
+            width: 1px;
+            height: 36px;
+            background: var(--color-neutral-3);
+        }
+        .readonly-comment {
+            width: 100%;
+            padding: var(--space-base);
+            background: var(--color-neutral-1);
+            border: var(--border-size-s) solid var(--color-neutral-3);
+            border-radius: var(--border-radius-input);
+            font-size: var(--font-size-s);
+            font-family: var(--font-family-base);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            min-height: 80px;
+        }
+        .radio-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: var(--font-size-s);
+            color: var(--color-neutral-9);
+            font-weight: var(--font-semi-bold);
+        }
+        .radio-dot {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--arca-red);
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .radio-dot::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--arca-red);
+        }
+        .checkbox-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-s);
+            font-size: var(--font-size-s);
+            color: var(--color-neutral-7);
+        }
+        .checkbox-checked {
+            width: 18px;
+            height: 18px;
+            background: var(--arca-red);
+            border-radius: var(--border-radius-s);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .order-info-bar {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-toggle" id="sidebarToggle" title="Colapsar menú">
+                <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+
+            <div class="sidebar-header">
+                <img src="assets/Arca_continental_logo_simple.png" alt="Arca Continental" class="sidebar-company-logo" />
+                <img src="assets/Arca_continental_logo.png" alt="Arca Continental" class="sidebar-full-logo" />
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <a href="layout.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">dashboard</span></span>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Operación</div>
+                    <a href="#" class="nav-item active">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">assignment</span></span>
+                        <span>Órdenes de Recuperación</span>
+                        <span class="nav-item-badge">24</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">account_balance</span></span>
+                        <span>Contraloría</span>
+                        <span class="nav-item-badge">8</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">person_check</span></span>
+                        <span>Aprobación Jefe de Ventas</span>
+                        <span class="nav-item-badge">5</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">manage_accounts</span></span>
+                        <span>Aprobación Gerente de Ventas</span>
+                        <span class="nav-item-badge">3</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">location_city</span></span>
+                        <span>Aprobación Gerente Regional</span>
+                        <span class="nav-item-badge">2</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">corporate_fare</span></span>
+                        <span>Aprobación Gerente CH</span>
+                        <span class="nav-item-badge">1</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">handshake</span></span>
+                        <span>Comodato</span>
+                        <span class="nav-item-badge">12</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Auditoría</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">bar_chart</span></span>
+                        <span>Reportes</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">history</span></span>
+                        <span>Bitácora de Acciones</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Datos</div>
+                    <a href="datos.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">database</span></span>
+                        <span>Gestión de Datos</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Administración</div>
+                    <a href="roles.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">admin_panel_settings</span></span>
+                        <span>Configuración Permisos</span>
+                    </a>
+                    <a href="catalogos.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">category</span></span>
+                        <span>Catálogos</span>
+                    </a>
+                    <a href="recordatorios.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">notifications_active</span></span>
+                        <span>Recordatorios</span>
+                    </a>
+                    <a href="usuarios.html" class="nav-item">
+                        <span class="nav-item-icon"><span class="material-symbols-rounded">group</span></span>
+                        <span>Usuarios</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><span class="material-symbols-rounded">menu</span></button>
+                    <h1 class="font-size-2xl font-bold text-neutral-9">Primera Visita</h1>
+                    <div class="breadcrumb font-size-xs text-neutral-5">
+                        <a href="layout.html">Inicio</a> / <a href="#">Órdenes de Recuperación</a> / <a href="#">ORD-2847</a> / Primera Visita
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button class="header-btn" title="Buscar"><span class="material-symbols-rounded">search</span></button>
+                    <button class="header-btn" title="Notificaciones">
+                        <span class="material-symbols-rounded">notifications</span>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="header-btn" title="Ayuda"><span class="material-symbols-rounded">help</span></button>
+                    <div class="header-divider"></div>
+                    <div class="header-user" id="headerUser">
+                        <div class="user-chip" onclick="toggleUserDropdown()">
+                            <div class="header-avatar">JO</div>
+                            <div class="user-chip-info">
+                                <span class="font-size-s font-semi-bold text-neutral-9">Juan Operador</span>
+                                <span class="font-size-xxs text-neutral-5">Supervisor de Zona</span>
+                            </div>
+                            <span class="material-symbols-rounded text-neutral-5 icon-size-20">expand_more</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Fixed Header -->
+                <div class="content-header-fixed">
+                    <div class="display-flex align-items-center gap-s">
+                        <a href="#" class="btn btn-cancel" style="padding: var(--space-xs) var(--space-s);">
+                            <span class="material-symbols-rounded">arrow_back</span>
+                        </a>
+                        <h2 class="font-size-2xl font-bold text-neutral-9">Detalle de Visita</h2>
+                        <span class="badge font-size-xs" style="background: var(--color-neutral-2); color: var(--color-neutral-6); padding: 4px 12px; border-radius: var(--border-radius-rounded); font-weight: var(--font-bold); letter-spacing: 0.5px;">
+                            <span class="material-symbols-rounded" style="font-size: 14px; vertical-align: middle; margin-right: 2px;">visibility</span>
+                            SOLO LECTURA
+                        </span>
+                    </div>
+                    <div class="display-flex gap-s">
+                        <button class="btn btn-cancel" onclick="window.history.back()">
+                            <span class="material-symbols-rounded">arrow_back</span>
+                            <span>Regresar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scrollable Content Card -->
+                <div class="content-scroll-card">
+                    <!-- Order Info Bar -->
+                    <div class="order-info-bar">
+                        <div class="order-info-item">
+                            <span class="label">Orden</span>
+                            <span class="value">ORD-2847</span>
+                        </div>
+                        <div class="order-info-divider"></div>
+                        <div class="order-info-item">
+                            <span class="label">Cliente</span>
+                            <span class="value">Distribuidora Norte S.A.</span>
+                        </div>
+                        <div class="order-info-divider"></div>
+                        <div class="order-info-item">
+                            <span class="label">Tipo</span>
+                            <span class="value">Recuperación</span>
+                        </div>
+                        <div class="order-info-divider"></div>
+                        <div class="order-info-item">
+                            <span class="label">Estado</span>
+                            <span class="badge font-size-xs background-success display-inline-flex align-items-center gap-xs"><span class="status-dot"></span>En Proceso</span>
+                        </div>
+                    </div>
+
+                    <!-- Form Section: Hallazgo -->
+                    <div class="form-section">
+                        <h4 class="form-section-title">Información de la Visita</h4>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Hallazgo en visita</label>
+                                <div class="readonly-value">Equipo encontrado</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Estatus Cliente</label>
+                                <div class="readonly-value">Activo</div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Existe equipo</label>
+                                <div class="radio-indicator">
+                                    <span class="radio-dot"></span>
+                                    Sí
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Fecha / Hora</label>
+                                <div class="datetime-badge">
+                                    <span class="material-symbols-rounded" style="font-size: 18px;">schedule</span>
+                                    2026-02-25 15:58:12
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row full">
+                            <div class="form-group">
+                                <label class="form-label">Comentarios visita</label>
+                                <div class="readonly-comment">Se realizó la visita al cliente, el equipo fue localizado en las instalaciones del negocio. El equipo se encuentra en condiciones regulares, con signos de uso pero funcional. Se tomó evidencia fotográfica del equipo en sitio.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Section: Referencia -->
+                    <div class="form-section">
+                        <h4 class="form-section-title">Referencia de Contacto</h4>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Referencia Nombre</label>
+                                <div class="readonly-value">María González López</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Referencia Teléfono</label>
+                                <div class="readonly-value">81 2345 6789</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Section: Foto -->
+                    <div class="form-section">
+                        <h4 class="form-section-title">Evidencia Fotográfica</h4>
+
+                        <div class="photo-section">
+                            <div class="photo-preview">
+                                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop" alt="Evidencia fotográfica del equipo" />
+                            </div>
+
+                            <div class="checkbox-indicator">
+                                <span class="checkbox-checked">✓</span>
+                                Imagen guardada
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        });
+
+        // Sidebar Collapse Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+        });
+
+        if (localStorage.getItem('sidebarCollapsed') === 'true') {
+            sidebar.classList.add('collapsed');
+        }
+
+        // User Dropdown
+        const headerUser = document.getElementById('headerUser');
+        function toggleUserDropdown() {
+            headerUser.classList.toggle('active');
+        }
+        document.addEventListener('click', (e) => {
+            if (!headerUser.contains(e.target)) {
+                headerUser.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
