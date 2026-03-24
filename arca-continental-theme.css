@@ -2063,7 +2063,10 @@ button.header-btn .badge {
     background: var(--color-neutral-0);
 }
 
-.data-table th {
+.data-table th,
+.table.data-table .table-header th,
+.table.data-table .table-header th.sortable,
+.table.data-table .table-header th.sorted {
     text-align: left;
     padding: var(--space-s) var(--space-base);
     background: var(--color-neutral-1);
@@ -2072,6 +2075,11 @@ button.header-btn .badge {
     color: var(--color-neutral-6);
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing-wide);
+    border-bottom: none;
+}
+
+.desktop .table.data-table .table-header th.sortable:hover {
+    color: var(--arca-red);
 }
 
 .data-table th:first-child {
