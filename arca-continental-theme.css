@@ -2048,6 +2048,19 @@ button.header-btn .badge {
 .data-table {
     width: 100%;
     border-collapse: collapse;
+    border: none;
+    border-radius: var(--border-radius-rounded);
+}
+
+.table.data-table {
+    border: none;
+    border-spacing: 0;
+    white-space: normal;
+}
+
+.table.data-table .table-row td {
+    border-bottom: var(--border-size-s) solid var(--color-neutral-2);
+    background: var(--color-neutral-0);
 }
 
 .data-table th {
