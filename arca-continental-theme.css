@@ -2127,6 +2127,7 @@ button.header-btn .badge {
 .table-responsive .table.data-table .table-row td,
 .table-responsive .table.data-table .table-header th {
     white-space: nowrap !important;
+    min-width: 150px;
 }
 
 /* --- Table: Title Group (título + contador) --- */
