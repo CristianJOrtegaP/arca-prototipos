@@ -2457,6 +2457,13 @@ button.header-btn .badge {
     margin: 4px 0;
 }
 
+/* Override Balloon Widget padding when used for actions menu */
+.actions-btn + .balloon-container .balloon-content,
+.actions-btn ~ .balloon-container .balloon-content,
+.balloon-actions .balloon-content {
+    padding: var(--space-xs) 0 !important;
+}
+
 /* --- Dashboard: Pagination (OSUI Style) --- */
 .pagination {
     display: flex;
