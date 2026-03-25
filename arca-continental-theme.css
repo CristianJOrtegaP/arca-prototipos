@@ -2130,6 +2130,10 @@ button.header-btn .badge {
     min-width: auto;
 }
 
+.table-responsive [data-expression] {
+    white-space: nowrap !important;
+}
+
 /* --- Table: Title Group (título + contador) --- */
 .table-title-group {
     display: flex;
