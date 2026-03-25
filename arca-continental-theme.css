@@ -2134,6 +2134,45 @@ button.header-btn .badge {
     white-space: nowrap !important;
 }
 
+/* --- Table: Sticky Columns ---
+   Usa sticky-col en Style de cada columna del Table Records en OutSystems.
+   Las columnas marcadas se quedan fijas al hacer scroll horizontal.
+   Ejemplo: si quieres fijar las primeras 3 columnas, pon sticky-col
+   en la propiedad Style de las columnas 1, 2 y 3.
+*/
+.table-responsive th.sticky-col,
+.table-responsive td.sticky-col,
+.table-responsive .table-header th.sticky-col,
+.table-responsive .table-row td.sticky-col {
+    position: sticky !important;
+    z-index: 2;
+    background: var(--color-neutral-0) !important;
+    box-shadow: 4px 0 8px -2px rgba(0, 0, 0, 0.06);
+}
+
+.table-responsive .table-header th.sticky-col {
+    background: var(--color-neutral-1) !important;
+    z-index: 3;
+}
+
+/* Posición left por columna (nth-child) - se calcula automático con CSS */
+.table-responsive th.sticky-col:nth-child(1),
+.table-responsive td.sticky-col:nth-child(1) { left: 0; }
+
+/* Para columnas 2+, OutSystems no permite nth-child fácil.
+   Usa estas clases auxiliares para definir el left manualmente:
+   sticky-col-left-100, sticky-col-left-200, sticky-col-left-300
+*/
+.sticky-col-left-100 { left: 100px !important; }
+.sticky-col-left-150 { left: 150px !important; }
+.sticky-col-left-200 { left: 200px !important; }
+.sticky-col-left-250 { left: 250px !important; }
+.sticky-col-left-300 { left: 300px !important; }
+.sticky-col-left-350 { left: 350px !important; }
+.sticky-col-left-400 { left: 400px !important; }
+.sticky-col-left-450 { left: 450px !important; }
+.sticky-col-left-500 { left: 500px !important; }
+
 /* --- Table: Title Group (título + contador) --- */
 .table-title-group {
     display: flex;
