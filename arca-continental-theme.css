@@ -2111,6 +2111,12 @@ button.header-btn .badge {
 /* --- Table: Responsive Wrapper --- */
 .table-responsive {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive .table,
+.table-responsive .data-table {
+    min-width: 1200px;
 }
 
 /* --- Table: Title Group (título + contador) --- */
