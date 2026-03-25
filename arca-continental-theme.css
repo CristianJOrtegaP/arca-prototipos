@@ -2104,6 +2104,43 @@ button.header-btn .badge {
     background: var(--color-neutral-1);
 }
 
+/* --- Table Header Color Variants ---
+   Agrega la clase al Style Classes del Table Records.
+   Por defecto: fondo gris claro (neutral-1), texto gris (neutral-6)
+*/
+.table-header-red th,
+.table-header-red .table-header th,
+.table-header-red .table-header th.sortable,
+.table-header-red .table-header th.sorted,
+.table.data-table.table-header-red .table-header th,
+.table.data-table.table-header-red .table-header th.sortable,
+.table.data-table.table-header-red .table-header th.sorted {
+    background: var(--arca-red) !important;
+    color: var(--color-neutral-0) !important;
+}
+
+.desktop .table.data-table.table-header-red .table-header th.sortable:hover {
+    color: var(--arca-red-light) !important;
+}
+
+.table-header-red .table-header th.sticky-col,
+.table.data-table.table-header-red .table-header th.sticky-col {
+    background: var(--arca-red) !important;
+}
+
+.table-header-dark th,
+.table-header-dark .table-header th,
+.table.data-table.table-header-dark .table-header th,
+.table.data-table.table-header-dark .table-header th.sortable,
+.table.data-table.table-header-dark .table-header th.sorted {
+    background: var(--color-neutral-9) !important;
+    color: var(--color-neutral-0) !important;
+}
+
+.desktop .table.data-table.table-header-dark .table-header th.sortable:hover {
+    color: var(--color-neutral-3) !important;
+}
+
 /* Nota: Los badges de estado usan clases OSUI estándar (.badge.background-success, etc.)
    definidas en la sección 10. OVERRIDE: OSUI Badges */
 /* Las celdas de la tabla usan clases atómicas: font-semi-bold, text-neutral-X, etc. */
