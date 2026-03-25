@@ -2459,10 +2459,15 @@ button.header-btn .badge {
 
 /* Override Balloon Widget padding when used for actions menu.
    Pon "balloon-actions" en ExtendedClass del Balloon Widget.
-   Si no funciona, inspecciona el DOM y pon el selector exacto aquí.
 */
-.balloon-actions .balloon-content {
-    padding: var(--space-xs) 0 !important;
+.balloon-actions .balloon-content,
+.balloon-actions.balloon-container .balloon-content,
+div.balloon-actions .balloon-content,
+.balloon-actions div.balloon-content {
+    padding: 4px 0 !important;
+    min-width: 200px;
+    border-radius: var(--border-radius-rounded);
+    box-shadow: var(--shadow-l);
 }
 
 /* --- Dashboard: Pagination (OSUI Style) --- */
