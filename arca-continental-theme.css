@@ -2457,9 +2457,10 @@ button.header-btn .badge {
     margin: 4px 0;
 }
 
-/* Override Balloon Widget padding when used for actions menu */
-.actions-btn + .balloon-container .balloon-content,
-.actions-btn ~ .balloon-container .balloon-content,
+/* Override Balloon Widget padding when used for actions menu.
+   Pon "balloon-actions" en ExtendedClass del Balloon Widget.
+   Si no funciona, inspecciona el DOM y pon el selector exacto aquí.
+*/
 .balloon-actions .balloon-content {
     padding: var(--space-xs) 0 !important;
 }
